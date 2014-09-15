@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Título</title>
 	<meta name="keywords" lang="es" content="banco de alimento, la plata">
+	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
 	<link href="micss.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -23,29 +24,29 @@
    		</div>
    	</div>
   </div>
-  <form id="formAlimentos" action="subirAliimento.php" method="post"> 
-  	<div class="description"><label for="descripcion">Descripción</label></div>
-  	<div class="form-input"><input type="text" name="descripcion" id="descripcion" required>
+  <form>
+  	<div class="description"><label for="description">Descripción</label></div>
+  	<div class="form-input"><input type="text" name="descripcion" required>
   	</div>
   	<div class="clearer"><!-- --></div>
   	<div class="date"><label for="date">Date</label></div>
-  	<div class="form-input"><input type="date" name="date" id= "date" required>
+  	<div class="form-input"><input type="date" name="date" required>
   	</div>
   	<div class="clearer"><!-- --></div>
   	<div class="content"><label for="content">Contenido</label></div>
-  	<div class="form-input"><input type="text" name="content" id="content" required>
+  	<div class="form-input"><input type="text" name="content" required>
   	</div>
   	<div class="clearer"><!-- --></div>
   	<div class="weight"><label for="weight">Peso</label></div>
-  	<div class="form-input"><input type="number" name="content" id="weight" required>
+  	<div class="form-input"><input type="number" name="content" required>
   	</div>
   	<div class="clearer"><!-- --></div>
   	<div class="stock"><label for="stock">Stock</label></div>
-  	<div class="form-input"><input type="number" name="content" id="stock" required >
+  	<div class="form-input"><input type="number" name="content" required >
   	</div>
   	<div class="clearer"><!-- --></div>
   	<div class="reserv"><label for="reserv">Reservado</label></div>
-  	<div class="form-input"><input type="number" name="content" id="reserv" required >
+  	<div class="form-input"><input type="number" name="content" required >
   	</div>
   	<div class="clearer"><!-- --></div>
 </form>

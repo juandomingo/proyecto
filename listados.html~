@@ -6,6 +6,7 @@
   <title>Título</title>
   <link href="micss.css" rel="stylesheet" type="text/css">
   <meta name="keywords" lang="es" content="banco de alimento, la plata">
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
 </head>
 
 <body>
@@ -41,9 +42,9 @@
     <td>15</td> 
     <td>10</td> 
     <td><div class="image">
-      <a href="edit.png"><img src="edit.png" width="16" height="16" alt="Edit" > </a>
-      <a href="add.png"><img src="add.png" width="16" height="16" alt="add"> </a>
-      <a href="delete.png"><img src="delete.png" width="16" height="16" alt="delete"> </a>
+      <a href="edit.png"><img src="edit.png" width="16" height="16"</a>
+      <a href="add.png"><img src="add.png" width="16" height="16"</a>
+      <a href="delete.png"><img src="delete.png" width="16" height="16"</a>
     </div></td>
   </tr>
   <tr>
@@ -54,9 +55,9 @@
     <td>20</td> 
     <td>15</td> 
     <td><div class="image">
-      <a href="edit.png"><img src="edit.png" width="16" height="16" alt="edit"> </a>
-      <a href="add.png"><img src="add.png" width="16" height="16" alt="add"> </a>
-      <a href="delete.png"><img src="delete.png" width="16" height="16" alt="delete"> </a>
+      <a href="edit.png"><img src="edit.png" width="16" height="16"</a>
+      <a href="add.png"><img src="add.png" width="16" height="16"</a>
+      <a href="delete.png"><img src="delete.png" width="16" height="16"</a>
     </div></td>
   </tr>
     <tr>
@@ -67,9 +68,9 @@
     <td>8</td> 
     <td>0</td> 
     <td><div class="image">
-      <a href="edit.png"><img src="edit.png" width="16" height="16" alt="edit"> </a>
-      <a href="add.png"><img src="add.png" width="16" height="16" alt="add"> </a>
-      <a href="delete.png"><img src="delete.png" width="16" height="16" alt="delete"> </a>
+      <a href="edit.png"><img src="edit.png" width="16" height="16"</a>
+      <a href="add.png"><img src="add.png" width="16" height="16"</a>
+      <a href="delete.png"><img src="delete.png" width="16" height="16"</a>
     </div></td>
   </tr>
 </table>
