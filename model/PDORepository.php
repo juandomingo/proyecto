@@ -13,8 +13,8 @@
  */
 abstract class PDORepository {
 
-    const USERNAME = "grupo_38";
-    const PASSWORD = "yes";
+    const USERNAME = "proyecto";
+    const PASSWORD = "wGFt9VkLmP5kmkJr";
 	const HOST ="localhost";
 	const DB = "grupo_38";
     
