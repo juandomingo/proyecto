@@ -29,12 +29,12 @@ require_once('view/SimpleAlimentoList.php');
 require_once('view/SimpleDetalleAlimentoList.php');
 require_once('view/AttemptAddEntidadReceptora.php');
 require_once('view/AttemptEditEntidadReceptora.php');
-require_once('view/attemptAddDetalleAlimento.php');
-require_once('view/attemptEditDetalleAlimento.php');
-require_once('view/attemptAddDonante.php');
-require_once('view/attemptEditDonante.php');
-require_once('view/attemptAddAlimento.php');
-require_once('view/attemptEditAlimento.php');
+require_once('view/AttemptAddDetalleAlimento.php');
+require_once('view/AttemptEditDetalleAlimento.php');
+require_once('view/AttemptAddDonante.php');
+require_once('view/AttemptEditDonante.php');
+require_once('view/AttemptAddAlimento.php');
+require_once('view/AttemptEditAlimento.php');
 require_once('view/ABMAlimentoList.php');
 require_once('view/ABMDonanteList.php');
 require_once('view/ABMDetalleAlimentoList.php');
@@ -50,11 +50,9 @@ session_start();
 
 if(isset($_POST["action"]) && $_POST["action"] == 'login'){
     UserController::getInstance()->login($_POST['name'],$_POST['password']);
-    echo "peon1";
 }
 if(isset($_GET["action"]) && $_GET["action"] == 'login'){
     UserController::getInstance()->login1();
-    echo "peon2";
 }
 else
 {
@@ -62,11 +60,11 @@ else
 if(!isset($_SESSION['sess_user_id']) || (trim($_SESSION['sess_user_id']) == '')) {
 	ResourceController::getInstance()->login();;
 	exit();
-	echo "peon3";}
+;}
 else {
 
 }
-echo "peon3";
+
 if(isset($_POST["action"]) && $_POST["action"] == 'login'){
     UserController::getInstance()->login($_POST['username'],$_POST['password']);
 
