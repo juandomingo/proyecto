@@ -9,7 +9,7 @@ class AttemptAddDetalleAlimento extends TwigView {
     
     public function show() {
         
-        echo self::getTwig()->render('AttemptAddDetalleAlimento.html.twig');
+        echo self::getTwig()->render('attemptAddDetalleAlimento.html.twig');
         
         
     }
