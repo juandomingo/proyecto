@@ -12,11 +12,11 @@
  * @author fede
  */
 abstract class PDORepository {
-    
+
     const USERNAME = "proyecto";
     const PASSWORD = "yes";
 	const HOST ="localhost";
-	const DB = "banco_alimentos";
+	const DB = "grupo_38";
     
     
     private function getConnection(){
