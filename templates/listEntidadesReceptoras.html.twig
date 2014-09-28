@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Entidades Receptoras</title>
+    </head>
+    <body>
+        <h1>Entidades Receptoras</h1>
+        <ul>
+        {% for item in entidades_receptoras %}
+            <li> {{ item.id }} {{ item.razon_social }} {{ item.telefono }} {{ item.domicilio }} {{ item.estado_entidad_id }} {{ item.necesidad_entidad_id }} {{ item.servicio_prestado_id }} </li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>

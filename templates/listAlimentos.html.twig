@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Alimentos</title>
+    </head>
+    <body>
+        <h1>Alimentos</h1>
+        <ul>
+        {% for item in alimentos %}
+            <li>{{item.descripcion }} {{ item.codigo }}</li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>

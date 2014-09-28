@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Donantes</title>
+    </head>
+    <body>
+        <h1>Donantes</h1>
+        <ul>
+        {% for item in donantes %}
+            <li> {{ item.id }} {{ item.razon_social }} {{ item.apellido_contacto }} {{ item.nombre_contacto }} {{ item.telefono_contacto }} {{ item.mail_contacto }} {{ item.domicilio_contacto }} </li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>
