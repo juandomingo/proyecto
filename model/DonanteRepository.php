@@ -43,6 +43,21 @@ class DonanteRepository extends PDORepository {
              [$id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto]);
     }
 
+    public function modDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
+        $this->touch("UPDATE `banco_alimentos`.`donante`
+         SET `razon_social` = ?, `apellido_contacto` = ?, `nombre_contacto` = ?, telefono_contacto = ?, mail_contacto = ?, domicilio_contacto = ?
+         WHERE `donante`.`id` = ?;",
+         ($razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto,$id)
+         );
+    }
+
+
+
+
+    public function delDonante($codigo){
+        $this->touch(
+            "DELETE FROM `banco_alimentos`.`donante` WHERE `donante`.`id` = ? ;",[$codigo]);
+    }
 
     
 

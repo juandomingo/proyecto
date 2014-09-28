@@ -38,8 +38,12 @@ class AlimentoRepository extends PDORepository {
     public function addAlimento($codigo, $descripcion){
         $this->touch(
             "INSERT INTO `banco_alimentos`.`alimento` (`codigo`, `descripcion`) VALUES (?, ?);",[$codigo, $descripcion]);
-
-
     }
+
+    public function delAlimento($codigo){
+        $this->touch(
+            "DELETE FROM `banco_alimentos`.`alimento` WHERE `alimento`.`codigo` = ? ;",[$codigo]);
+    }
+
 
 }
