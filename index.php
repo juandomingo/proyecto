@@ -66,7 +66,7 @@ if(!isset($_SESSION['sess_user_id']) || (trim($_SESSION['sess_user_id']) == ''))
 else {
 
 }
-
+echo "peon3";
 if(isset($_POST["action"]) && $_POST["action"] == 'login'){
     UserController::getInstance()->login($_POST['username'],$_POST['password']);
 

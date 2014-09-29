@@ -32,8 +32,8 @@ class UserController {
         }
         else{
         session_regenerate_id();
-        $_SESSION['sess_user_id'] = $id;
-        $_SESSION['sess_username'] = $user;
+        $_SESSION['sess_user_id'] = $name;
+        $_SESSION['sess_username'] = $password;
         session_write_close();
         header('Location:?action=home');
        }
