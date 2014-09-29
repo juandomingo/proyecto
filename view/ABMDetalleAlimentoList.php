@@ -6,11 +6,11 @@
  * @author fede
  */
 
-class ABMAlimentoList extends TwigView {
+class ABMDetalleAlimentoList extends TwigView {
     
     public function show($alimentoArray) {
         
-        echo self::getTwig()->render('abmAlimentos.html.twig', array('alimentos' => $alimentoArray));
+        echo self::getTwig()->render('abmDetallesAlimentos.html.twig', array('alimentos' => $alimentoArray));
         
         
     }
