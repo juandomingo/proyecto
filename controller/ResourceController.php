@@ -35,6 +35,12 @@ class ResourceController {
         $view->show($alimentos);
     }
 
+    public function listDetalleAlimentos(){
+        $alimentos = DetalleAlimentoRepository::getInstance()->listAll();
+        $view = new ABMDetalleAlimentoList();
+        $view->show($alimentos);
+    }
+
     public function listDonantes(){
         $donantes = DonanteRepository::getInstance()->listAll();
         $view = new SimpleDonanteList();
@@ -53,6 +59,9 @@ class ResourceController {
     public function addAlimento($codigo,$descripcion){
         AlimentoRepository::getInstance()->addAlimento($codigo,$descripcion);
     }
+    public function addDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
+        AlimentoRepository::getInstance()->addDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado);
+    }
     public function addDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
         DonanteRepository::getInstance()->addDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto);
     }
@@ -63,6 +72,10 @@ class ResourceController {
 
     public function modAlimento($codigo,$descripcion){
         AlimentoRepository::getInstance()->modAlimento($codigo,$descripcion);
+    }
+
+    public function modDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
+        AlimentoRepository::getInstance()->modDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado);
     }
 
     public function modDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
@@ -76,6 +89,10 @@ class ResourceController {
 
     public function delAlimento($codigo){
         AlimentoRepository::getInstance()->delAlimento($codigo);
+    }
+
+    public function delDetalleAlimento($id){
+        AlimentoRepository::getInstance()->delDetalleAlimento($id);
     }
 
     public function delDonante($id){

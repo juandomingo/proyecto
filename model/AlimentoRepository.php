@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Description of ResourceRepository
+ * Description of AlimentoRepository
  *
- * @author fede
+ * @author Florencia
  */
 class AlimentoRepository extends PDORepository {
 
