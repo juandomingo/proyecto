@@ -52,7 +52,7 @@ class EntidadReceptoraRepository extends PDORepository {
         $this->touch("UPDATE `banco_alimentos`.`donante`
          SET `razon_social` = ?, `telefono` = ?, `domicilio` = ?, estado_entidad_id = ?, necesidad_entidad_id = ?, servicio_prestado_id = ?
          WHERE `entidad_receptora`.`id` = ?;",
-         ($razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$id)
+         [$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$id]
          );
     }
 }

@@ -21,6 +21,7 @@ require_once('model/EntidadReceptoraRepository.php');
 require_once('view/TwigView.php');
 require_once('view/SimpleResourceList.php');
 require_once('view/SimpleAlimentoList.php');
+require_once('view/ABMAlimentoList.php');
 require_once('view/SimpleDonanteList.php');
 require_once('view/SimpleEntidadReceptoraList.php');
 require_once('view/Home.php');
@@ -65,4 +66,4 @@ if(isset($_GET["action"]) && $_GET["action"] == 'listResources'){
 }else{
     ResourceController::getInstance()->home();
 }
-
+//http://localhost/twig/?action=addEntidadReceptora&id=8&razon_social=Copergar&telefono=4224225&domicilio=Holis&estado_entidad_id=55&necesidad_entidad_id=55&servicio_prestado_id=117

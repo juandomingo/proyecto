@@ -1,0 +1,35 @@
+<div id="page">
+  <div id="page-header">
+    <div id="page-header-wrapper" class="wrapper clearfix">
+      <div class="headermenu">
+      	<div class="logininfo">You are logged in as <a href="profile.html" title="View profile">ADMIN</a> (<a href="login.html">Log out</a>)
+      	</div> 
+      	<a href="backend1.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','backend1.html']);">Home</a>
+   		</div>
+   	</div>
+  </div>
+  <form id="formAlimentos" action="subirAliimento.php" method="post"> 
+  	<div class="description"><label for="descripcion">Descripción</label></div>
+  	<div class="form-input"><input type="text" name="descripcion" id="descripcion" required>
+  	</div>
+  	<div class="clearer"><!-- --></div>
+  	<div class="date"><label for="date">Date</label></div>
+  	<div class="form-input"><input type="date" name="date" id= "date" required>
+  	</div>
+  	<div class="clearer"><!-- --></div>
+  	<div class="content"><label for="content">Contenido</label></div>
+  	<div class="form-input"><input type="text" name="content" id="content" required>
+  	</div>
+  	<div class="clearer"><!-- --></div>
+  	<div class="weight"><label for="weight">Peso</label></div>
+  	<div class="form-input"><input type="number" name="content" id="weight" required>
+  	</div>
+  	<div class="clearer"><!-- --></div>
+  	<div class="stock"><label for="stock">Stock</label></div>
+  	<div class="form-input"><input type="number" name="content" id="stock" required >
+  	</div>
+  	<div class="clearer"><!-- --></div>
+  	<div class="reserv"><label for="reserv">Reservado</label></div>
+  	<div class="form-input"><input type="number" name="content" id="reserv" required >
+  	</div>
+  	<div class="clearer"><!-- --></div>

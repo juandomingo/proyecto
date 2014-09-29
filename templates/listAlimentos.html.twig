@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Alimentos</title>
-    </head>
-    <body>
-        <h1>Alimentos</h1>
-        <ul>
+<table class="tables">
+  <tr>
+    <th>Codigo</th>
+    <th>Descripcion</th> 
+    <th>Contenido</th>
+    <th>Peso</th>
+    <th>Stock</th> 
+    <th>Reservado</th>
+    <th>Acciones</th>
+  </tr>
+
+        
         {% for item in alimentos %}
-            <li>{{item.descripcion }} {{ item.codigo }}</li>
+        <tr>
+            <td>{{ item.codigo }}</td><td>{{item.descripcion }}</td><td></td><td></td><td></td><td></td>
+            <td><div class="image">
+                <a href="edit.png"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
+                <a href="add.png"><img src="resources/add.png" width="16" height="16" alt="add"> </a>
+                <a href="delete.png"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
+            </div></td>
+        </tr>
         {% endfor %}
-        </ul>
-    </body>
-</html>

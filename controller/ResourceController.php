@@ -31,7 +31,7 @@ class ResourceController {
 
     public function listAlimentos(){
         $alimentos = AlimentoRepository::getInstance()->listAll();
-        $view = new SimpleAlimentoList();
+        $view = new ABMAlimentoList();
         $view->show($alimentos);
     }
 
@@ -60,26 +60,31 @@ class ResourceController {
         EntidadReceptoraRepository::getInstance()->addEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id);
     }
 
-        public function modAlimento($codigo,$descripcion){
+
+    public function modAlimento($codigo,$descripcion){
         AlimentoRepository::getInstance()->modAlimento($codigo,$descripcion);
     }
+
     public function modDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
         DonanteRepository::getInstance()->modDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto);
     }
-     public function modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
+
+    public function modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
         EntidadReceptoraRepository::getInstance()->modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id);
     }
 
-        public function delAlimento($codigo){
+
+    public function delAlimento($codigo){
         AlimentoRepository::getInstance()->delAlimento($codigo);
     }
+
     public function delDonante($id){
         DonanteRepository::getInstance()->delDonante($id);
     }
+
      public function delEntidadReceptora($id){
         EntidadReceptoraRepository::getInstance()->delEntidadReceptora($id);
     }
-
     
     public function home(){
         $view = new Home();
