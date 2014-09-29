@@ -12,6 +12,9 @@ require_once('model/Resource.php');
 require_once('model/Alimento.php');
 require_once('model/AlimentoRepository.php');
 
+require_once('model/DetalleAlimento.php');
+require_once('model/DetalleAlimentoRepository.php');
+
 require_once('model/Donante.php');
 require_once('model/DonanteRepository.php');
 
@@ -33,6 +36,8 @@ if(isset($_GET["action"]) && $_GET["action"] == 'listResources'){
 
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'listAlimentos'){
 	ResourceController::getInstance()->listAlimentos();
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'listDetalleAlimentos'){
+	ResourceController::getInstance()->listDetalleAlimentos();
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'listDonantes'){
 	ResourceController::getInstance()->listDonantes();
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'listEntidadesReceptoras'){
@@ -45,6 +50,13 @@ if(isset($_GET["action"]) && $_GET["action"] == 'listResources'){
 	ResourceController::getInstance()->modAlimento($_GET["codigo"],$_GET["descripcion"]);
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'addAlimento'){
 	ResourceController::getInstance()->addAlimento($_GET["codigo"],$_GET["descripcion"]);
+
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'delDetalleAlimento'){
+	ResourceController::getInstance()->delDetalleAlimento($_GET["id"]);
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'modDetalleAlimento'){
+	ResourceController::getInstance()->modDetalleAlimento($_GET["id"],$_GET["alimento_codigo"],$_GET["fecha_vencimiento"],$_GET["contenido"],$_GET["peso_unitario"],$_GET["stock"],$_GET["reservado"]);
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'addDetalleAlimento'){
+	ResourceController::getInstance()->addDetalleAlimento($_GET["id"],$_GET["alimento_codigo"],$_GET["fecha_vencimiento"],$_GET["contenido"],$_GET["peso_unitario"],$_GET["stock"],$_GET["reservado"]);
 
 
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'delEntidadReceptora'){

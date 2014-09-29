@@ -3,9 +3,9 @@
 
 
 /**
- * Description of Resource
+ * Description of Alimento
  *
- * @author fede
+ * @author Florencia
  */
 class Alimento {
     
