@@ -24,9 +24,22 @@ require_once('model/EntidadReceptoraRepository.php');
 require_once('view/TwigView.php');
 require_once('view/SimpleResourceList.php');
 require_once('view/SimpleAlimentoList.php');
+require_once('view/SimpleDetalleAlimentoList.php');
+require_once('view/AttemptAddEntidadReceptora.php');
+require_once('view/AttemptEditEntidadReceptora.php');
+require_once('view/attemptAddDetalleAlimento.php');
+require_once('view/attemptEditDetalleAlimento.php');
+require_once('view/attemptAddDonante.php');
+require_once('view/attemptEditDonante.php');
+require_once('view/attemptAddAlimento.php');
+require_once('view/attemptEditAlimento.php');
 require_once('view/ABMAlimentoList.php');
+require_once('view/ABMDonanteList.php');
+require_once('view/ABMDetalleAlimentoList.php');
+require_once('view/ABMEntidadReceptora.php');
 require_once('view/SimpleDonanteList.php');
 require_once('view/SimpleEntidadReceptoraList.php');
+
 require_once('view/Home.php');
 
 
@@ -36,12 +49,10 @@ if(isset($_GET["action"]) && $_GET["action"] == 'listResources'){
 
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'listAlimentos'){
 	ResourceController::getInstance()->listAlimentos();
-}elseif(isset($_GET["action"]) && $_GET["action"] == 'listDetalleAlimentos'){
-	ResourceController::getInstance()->listDetalleAlimentos();
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'listDetallesAlimentos'){
+	ResourceController::getInstance()->listDetallesAlimentos();
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'listDonantes'){
 	ResourceController::getInstance()->listDonantes();
-}elseif(isset($_GET["action"]) && $_GET["action"] == 'listEntidadesReceptoras'){
-	ResourceController::getInstance()->listEntidadesReceptoras();
 
 
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'delAlimento'){
@@ -50,29 +61,50 @@ if(isset($_GET["action"]) && $_GET["action"] == 'listResources'){
 	ResourceController::getInstance()->modAlimento($_GET["codigo"],$_GET["descripcion"]);
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'addAlimento'){
 	ResourceController::getInstance()->addAlimento($_GET["codigo"],$_GET["descripcion"]);
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptAddAlimento'){
+	ResourceController::getInstance()->attemptAddAlimento();	
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptEditAlimento'){
+	ResourceController::getInstance()->attemptEditAlimento($_GET["codigo"],$_GET["descripcion"]);	
+
 
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'delDetalleAlimento'){
 	ResourceController::getInstance()->delDetalleAlimento($_GET["id"]);
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'modDetalleAlimento'){
 	ResourceController::getInstance()->modDetalleAlimento($_GET["id"],$_GET["alimento_codigo"],$_GET["fecha_vencimiento"],$_GET["contenido"],$_GET["peso_unitario"],$_GET["stock"],$_GET["reservado"]);
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'addDetalleAlimento'){
-	ResourceController::getInstance()->addDetalleAlimento($_GET["id"],$_GET["alimento_codigo"],$_GET["fecha_vencimiento"],$_GET["contenido"],$_GET["peso_unitario"],$_GET["stock"],$_GET["reservado"]);
+	ResourceController::getInstance()->addDetalleAlimento($_GET["alimento_codigo"],$_GET["fecha_vencimiento"],$_GET["contenido"],$_GET["peso_unitario"],$_GET["stock"],$_GET["reservado"]);
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptAddDetalleAlimento'){
+	ResourceController::getInstance()->attemptAddDetalleAlimento();	
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptEditDetalleAlimento'){
+	ResourceController::getInstance()->attemptEditDetalleAlimento($_GET["id"],$_GET["alimento_codigo"],$_GET["fecha_vencimiento"],$_GET["contenido"],$_GET["peso_unitario"],$_GET["stock"],$_GET["reservado"]);	
 
 
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'listEntidadesReceptoras'){
+	ResourceController::getInstance()->listEntidadesReceptoras();
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'delEntidadReceptora'){
 	ResourceController::getInstance()->delEntidadReceptora($_GET["id"]);	
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'modEntidadReceptora'){
 	ResourceController::getInstance()->modEntidadReceptora($_GET["id"],$_GET["razon_social"],$_GET["telefono"],$_GET["domicilio"],$_GET["estado_entidad_id"],$_GET["necesidad_entidad_id"],$_GET["servicio_prestado_id"]);	
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'addEntidadReceptora'){
-	ResourceController::getInstance()->addEntidadReceptora($_GET["id"],$_GET["razon_social"],$_GET["telefono"],$_GET["domicilio"],$_GET["estado_entidad_id"],$_GET["necesidad_entidad_id"],$_GET["servicio_prestado_id"]);	
+	ResourceController::getInstance()->addEntidadReceptora($_GET["razon_social"],$_GET["telefono"],$_GET["domicilio"],$_GET["estado_entidad_id"],$_GET["necesidad_entidad_id"],$_GET["servicio_prestado_id"]);	
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptAddEntidadReceptora'){
+	ResourceController::getInstance()->attemptAddEntidadReceptora();	
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptEditEntidadReceptora'){
+	ResourceController::getInstance()->attemptEditEntidadReceptora($_GET["id"],$_GET["razon_social"],$_GET["telefono"],$_GET["domicilio"],$_GET["estado_entidad_id"],$_GET["necesidad_entidad_id"],$_GET["servicio_prestado_id"]);	
 
 
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'listDonantes'){
+	ResourceController::getInstance()->listDonantes();
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'delDonante'){
 	ResourceController::getInstance()->delDonante($_GET["id"]);
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'modDonante'){
 	ResourceController::getInstance()->modDonante($_GET["id"],$_GET["razon_social"],$_GET["apellido_contacto"],$_GET["nombre_contacto"],$_GET["telefono_contacto"],$_GET["mail_contacto"],$_GET["domicilio_contacto"]);
 }elseif(isset($_GET["action"]) && $_GET["action"] == 'addDonante'){
-	ResourceController::getInstance()->addDonante($_GET["id"],$_GET["razon_social"],$_GET["apellido_contacto"],$_GET["nombre_contacto"],$_GET["telefono_contacto"],$_GET["mail_contacto"],$_GET["domicilio_contacto"]);
+	ResourceController::getInstance()->addDonante($_GET["razon_social"],$_GET["apellido_contacto"],$_GET["nombre_contacto"],$_GET["telefono_contacto"],$_GET["mail_contacto"],$_GET["domicilio_contacto"]);
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptAddDonante'){
+	ResourceController::getInstance()->attemptAddDonante();
+}elseif(isset($_GET["action"]) && $_GET["action"] == 'attemptEditDonante'){
+	ResourceController::getInstance()->attemptEditDonante($_GET["id"],$_GET["razon_social"],$_GET["apellido_contacto"],$_GET["nombre_contacto"],$_GET["telefono_contacto"],$_GET["mail_contacto"],$_GET["domicilio_contacto"]);
 
 
 }else{

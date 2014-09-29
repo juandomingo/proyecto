@@ -1,22 +1,35 @@
+
+
+
 <table class="tables">
+<td>
+<a href="?action=attemptAddDetalleAlimento"><img src="resources/add.png" width="16" height="16" alt="add"> </a>
+</td>  
   <tr>
-    <th>Codigo</th>
-    <th>Descripcion</th> 
+    <th>Id</th>
+    <th>Alimento</th> 
+    <th>Fecha de vencimiento</th>
     <th>Contenido</th>
-    <th>Peso</th>
+    <th>Peso por unidad</th>
     <th>Stock</th> 
     <th>Reservado</th>
     <th>Acciones</th>
   </tr>
 
         
-        {% for item in alimentos %}
+        {% for item in detalles_alimentos %}
         <tr>
-            <td>{{ item.codigo }}</td><td>{{item.descripcion }}</td><td></td><td></td><td></td><td></td>
+            <td>{{item.id}}</td>
+            <td>{{item.alimento_codigo }}</td>
+            <td>{{item.fecha_vencimiento }}</td>
+            <td>{{item.contenido }} </td>
+            <td>{{item.peso_unitario }}</td>
+            <td>{{item.stock }} </td>
+            <td>{{item.reservado }}</td>
             <td><div class="image">
-                <a href="edit.png"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
-                <a href="add.png"><img src="resources/add.png" width="16" height="16" alt="add"> </a>
-                <a href="delete.png"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
+                <a href="?action=attemptEditDetalleAlimento&id={{ item.id }}&alimento_codigo={{ item.alimento_codigo }}&fecha_vencimiento={{ item.fecha_vencimiento }}&contenido={{ item.contenido }}&peso_unitario={{ item.peso_unitario }}&stock={{ item.stock }}&reservado={{ item.reservado }}"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
+
+                <a href="?action=delDetalleAlimento&id={{item.id}}"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
             </div></td>
         </tr>
         {% endfor %}

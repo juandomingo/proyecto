@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Description of SimpleResourceList
+ * Description of ABMDetalleAlimentoList
  *
- * @author fede
+ * @author Tino
  */
 
 class ABMDetalleAlimentoList extends TwigView {
     
-    public function show($alimentoArray) {
+    public function show($detalleAlimentoArray) {
         
-        echo self::getTwig()->render('abmDetallesAlimentos.html.twig', array('alimentos' => $alimentoArray));
+        echo self::getTwig()->render('abmDetallesAlimentos.html.twig', array('detalles_alimentos' => $detalleAlimentoArray));
         
         
     }

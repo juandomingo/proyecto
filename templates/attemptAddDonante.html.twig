@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block head %}Agregar Donante{% endblock %}
+{% block content %}
+<div class="agregar">
+    <form action="" method="get" id="addDonante"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="addDonante"/>
+            <div class="form-label"><label for="razon_social">Razon Social</label></div>
+            <div class="form-input">
+              <input type="text" name="razon_social" id="razon_social" size="11" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+
+            <div class="form-label"><label for="apellido_contacto">Apellido de Contacto</label></div>
+            <div class="form-input">
+              <input type="text" name="apellido_contacto" id="apellido_contacto" size="100" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="nombre_contacto">Nombre de Contacto</label></div>
+            <div class="form-input">
+              <input type="text" name="nombre_contacto" id="nombre_contacto" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="telefono_contacto">Teléfono de Contacto</label></div>
+            <div class="form-input">
+              <input type="text" name="telefono_contacto" id="telefono_contacto" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="mail_contacto">Mail de Contacto</label></div>
+            <div class="form-input">
+              <input type="text" name="mail_contacto" id="mail_contacto" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="domicilio_contacto">Domicilio de Contacto</label></div>
+            <div class="form-input">
+              <input type="text" name="domicilio_contacto" id="domicilio_contacto" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <input type="submit" id="addbtn" value="Agregar" />
+          </div>
+       </form>
+</div>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

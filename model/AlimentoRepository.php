@@ -44,6 +44,12 @@ class AlimentoRepository extends PDORepository {
         $this->touch(
             "DELETE FROM `banco_alimentos`.`alimento` WHERE `alimento`.`codigo` = ? ;",[$codigo]);
     }
+    public function modAlimento($codigo,$descripcion){
+        $this->touch(
+            "UPDATE `banco_alimentos`.`alimento` SET `descripcion` = ? WHERE `alimento`.`codigo` = ?;",[$descripcion,$codigo]);
+
+
+    }
 
 
 }

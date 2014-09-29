@@ -1,14 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Donantes</title>
-    </head>
-    <body>
-        <h1>Donantes</h1>
-        <ul>
-        {% for item in donantes %}
-            <li> {{ item.id }} {{ item.razon_social }} {{ item.apellido_contacto }} {{ item.nombre_contacto }} {{ item.telefono_contacto }} {{ item.mail_contacto }} {{ item.domicilio_contacto }} </li>
-        {% endfor %}
-        </ul>
-    </body>
-</html>
+<table class="tables">
+    <td><a href="?action=attemptAddDonante"><img src="resources/add.png" width="16" height="16" alt="add">Agregar Donante </a></td>
+    <tr>
+        <th>Id</th>
+        <th>Razon social</th> 
+        <th>Apellido de Contacto</th>
+        <th>Nombre de Contacto</th>
+        <th>Telefono de Contacto</th> 
+        <th>Mail de Contacto</th>
+        <th>Domicilio de Contacto</th>
+        <th>Acciones</th>
+    </tr>
+    {% for item in donantes %}
+        <tr>
+        <td> {{ item.id }} </td>
+        <td> {{ item.razon_social }} </td>
+        <td> {{ item.apellido_contacto }} </td>
+        <td> {{ item.nombre_contacto }} </td>
+        <td> {{ item.telefono_contacto }} </td>
+        <td> {{ item.mail_contacto }} </td>
+        <td> {{ item.domicilio_contacto }} </td>
+        <td> <div class="image">
+            <a href="?action=attemptEditDonante&id={{ item.id }}&razon_social={{ item.razon_social }}&apellido_contacto={{ item.apellido_contacto }}&nombre_contacto={{ item.nombre_contacto }}&telefono_contacto={{ item.telefono_contacto }}&mail_contacto={{ item.mail_contacto }}&domicilio_contacto={{ item.domicilio_contacto }}"><img src="resources/edit.png" width="16" height="16" alt="Edit"> </a>
+            <a href="?action=delDonante&id={{item.id}}"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
+        </div></td>
+        </tr>
+    {% endfor %}
+        

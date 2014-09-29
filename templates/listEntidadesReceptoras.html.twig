@@ -1,14 +1,33 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Entidades Receptoras</title>
-    </head>
-    <body>
-        <h1>Entidades Receptoras</h1>
-        <ul>
-        {% for item in entidades_receptoras %}
-            <li> {{ item.id }} {{ item.razon_social }} {{ item.telefono }} {{ item.domicilio }} {{ item.estado_entidad_id }} {{ item.necesidad_entidad_id }} {{ item.servicio_prestado_id }} </li>
-        {% endfor %}
-        </ul>
-    </body>
-</html>
+
+
+<table class="tables">
+    <tr>
+    <td>
+    <a href="?action=attemptAddEntidadReceptora"><img src="resources/add.png" width="16" height="16" alt="add"> Agregar Entidad Receptora</a>
+    </td>
+    </tr>
+    <tr>
+        <th>Id</th>
+        <th>Razon social</th> 
+        <th>Telefono</th>
+        <th>Domicilio</th>
+        <th>Estado Entidad</th>
+        <th>Necesidad de la Entidad</th>
+        <th>Servicios Prestados</th>
+        <th>Acciones</th>
+    </tr>
+    {% for item in entidades_receptoras %}
+        <tr>
+        <td> {{ item.id }} </td>
+        <td> {{ item.razon_social }} </td>
+        <td> {{ item.telefono }} </td>
+        <td> {{ item.domicilio }} </td>
+        <td> {{ item.estado_entidad_id }} </td>
+        <td> {{ item.necesidad_entidad_id }} </td>
+        <td> {{ item.servicio_prestado_id }} </td>
+        <td> <div class="image">
+            <a href="?action=attemptEditEntidadReceptora&id={{ item.id }}&razon_social={{ item.razon_social }}&telefono={{ item.telefono }}&domicilio={{ item.domicilio }}&estado_entidad_id={{ item.estado_entidad_id }}&necesidad_entidad_id={{ item.necesidad_entidad_id }}&servicio_prestado_id={{ item.servicio_prestado_id }}"><img src="resources/edit.png" width="16" height="16" alt="Edit"> </a>
+            <a href="?action=delEntidadReceptora&id={{item.id}}"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
+        </div></td>
+        </tr>
+    {% endfor %}

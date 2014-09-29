@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block head %}Agregar Entidad Receptora{% endblock %}
+{% block content %}
+<div class="agregar">
+    <form action="" method="get" id="addEntidadReceptora"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="addEntidadReceptora"/>
+            <div class="form-label"><label for="razon_social">Razon Social</label></div>
+            <div class="form-input">
+              <input type="text" name="razon_social" id="razon_social" size="11" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+
+            <div class="form-label"><label for="telefono">Telefono</label></div>
+            <div class="form-input">
+              <input type="text" name="telefono" id="telefono" size="100" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="domicilio">Domicilio</label></div>
+            <div class="form-input">
+              <input type="text" name="domicilio" id="domicilio" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="estado_entidad_id">Estado Entidad Id</label></div>
+            <div class="form-input">
+            <select id = "estado_entidad_id" name="estado_entidad_id">
+                <option value = "1">alta</option>
+                <option value = "2">en tramite</option>
+                <option value = "3">suspendida</option>.
+                <option value = "4">baja</option>
+            </select> 
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="necesidad_entidad_id">Necesidad Entidad Id</label></div>
+            <div class="form-input">
+            <select id = "necesidad_entidad_id" name="necesidad_entidad_id">
+                <option value = "1">máxima</option>
+                <option value = "2">mediana</option>
+                <option value = "3">minima</option>
+            </select> 
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="servicio_prestado_id">Servicio Prestado Id</label></div>
+            <div class="form-input">
+            <select id = "servicio_prestado_id" name="servicio_prestado_id">
+                <option value = "1">hogar de día</option>
+                <option value = "2">comedor infantil</option>
+                <option value = "3">hogar de adolescentes</option>
+                <option value = "4">jardín maternal</option>
+            </select>
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <input type="submit" id="addbtn" value="Agregar" />
+          </div>
+       </form>
+</div>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

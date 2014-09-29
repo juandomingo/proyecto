@@ -1,18 +1,19 @@
 <table class="tables">
+
+ <td>
+    <a href="?action=attemptAddAlimento"><img src="resources/add.png" width="16" height="16" alt="add"> Agregar Alimento</a>
+   </td>
   <tr>
     <th>Codigo</th>
     <th>Descripcion</th> 
     <th>Acciones</th>
   </tr>
-
-        
         {% for item in alimentos %}
         <tr>
             <td>{{ item.codigo }}</td><td>{{item.descripcion }}</td>
             <td><div class="image">
-                <a href="edit.png"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
-                <a href="add.png"><img src="resources/add.png" width="16" height="16" alt="add"> </a>
-                <a href="delete.png"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
+                <a href="?action=attemptEditAlimento&codigo={{ item.codigo }}&descripcion={{ item.descripcion }}"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
+                <a href="?action=delAlimento&codigo={{item.codigo}}"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
             </div></td>
         </tr>
         {% endfor %}

@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block head %}Agregar Detalle de Alimento{% endblock %}
+{% block content %}
+<div class="agregar">
+    <form action="" method="get" id="addDonante"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="addDetalleAlimento"/>
+            <div class="form-label"><label for="alimento_codigo">Código de Alimento</label></div>
+            <div class="form-input">
+              <input type="text" name="alimento_codigo" id="alimento_codigo" size="11" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+
+            <div class="form-label"><label for="fecha_vencimiento">Fecha de Vencimiento</label></div>
+            <div class="form-input">
+              <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="contenido">Contenido</label></div>
+            <div class="form-input">
+              <input type="text" name="contenido" id="contenido" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="peso_unitario">Peso por Unidad</label></div>
+            <div class="form-input">
+              <input type="text" name="peso_unitario" id="peso_unitario" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="stock">Stock</label></div>
+            <div class="form-input">
+              <input type="text" name="stock" id="stock" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="reservado">Reservado</label></div>
+            <div class="form-input">
+              <input type="text" name="reservado" id="reservado" size="300" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <input type="submit" id="addbtn" value="Agregar" />
+          </div>
+       </form>
+</div>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

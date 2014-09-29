@@ -35,12 +35,12 @@ class EntidadReceptoraRepository extends PDORepository {
         return $answer;
     }
 
-    public function addEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
+    public function addEntidadReceptora($razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
         $this->touch(
             "INSERT INTO `banco_alimentos`.`entidad_receptora` 
             (`id`, `razon_social`, `telefono`, `domicilio`, `estado_entidad_id`, `necesidad_entidad_id`, `servicio_prestado_id`) 
             VALUES (?, ?, ?, ?, ?, ?, ?);",
-             [$id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id]);
+             [null,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id]);
     }
 
     public function delEntidadReceptora($codigo){
@@ -49,11 +49,10 @@ class EntidadReceptoraRepository extends PDORepository {
     }
 
     public function modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
-        $this->touch("UPDATE `banco_alimentos`.`donante`
+        $this->touch("UPDATE `banco_alimentos`.`entidad_receptora`
          SET `razon_social` = ?, `telefono` = ?, `domicilio` = ?, estado_entidad_id = ?, necesidad_entidad_id = ?, servicio_prestado_id = ?
          WHERE `entidad_receptora`.`id` = ?;",
          [$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$id]
          );
     }
 }
-

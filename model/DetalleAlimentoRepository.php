@@ -30,30 +30,30 @@ class DetalleAlimentoRepository extends PDORepository {
         };
 
         $answer = $this->queryList(
-                "select id, alimento_codigo, fecha_vencimiento, contenido, peso_unitario, stock, reservado from alimento;", ['BASE TABLE'], $mapper);
+                "select id, alimento_codigo, fecha_vencimiento, contenido, peso_unitario, stock, reservado from detalle_alimento;", ['BASE TABLE'], $mapper);
 
         return $answer;
     }
 
-    public function addDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
+    public function addDetalleAlimento($alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
         $this->touch(
             "INSERT INTO `banco_alimentos`.`detalle_alimento` (`id`, `alimento_codigo`, `fecha_vencimiento`, `contenido`, `peso_unitario`, `stock`, `reservado`) 
             VALUES (?, ?, ?, ?, ?, ?, ?);",
-            [$id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado]);
+            [null, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado]);
     }
 
     public function delDetalleAlimento($id){
         $this->touch(
-            "DELETE FROM `banco_alimentos`.`detalle_alimento` WHERE `alimento`.`id` = ? ;",[$id]);
+            "DELETE FROM `banco_alimentos`.`detalle_alimento` WHERE `detalle_alimento`.`id` = ? ;",[$id]);
     }
 
     public function modDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
         $this->touch("UPDATE `banco_alimentos`.`detalle_alimento`
          SET `alimento_codigo` = ?, `fecha_vencimiento` = ?, contenido = ?, peso_unitario = ?, stock = ?, `reservado` = ?
-         WHERE `entidad_receptora`.`id` = ?;",
+         WHERE `detalle_alimento`.`id` = ?;",
          [$alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado, $id]
-         )
-    }   
+         );
+    }
 
 
 }

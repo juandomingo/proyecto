@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block head %}Modificar Detalle de Alimento{% endblock %}
+{% block content %}
+<div class="agregar">
+    <form action="" method="get" id="addEntidadReceptora"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="modDetalleAlimento"/>
+         <input type="hidden" name="id" id="id" size="20" value="{{ selected_array[0] }}"/>
+            <div class="form-label"><label for="alimento_codigo">Código de Alimento</label></div>
+            <div class="form-input">
+              <input type="text" name="alimento_codigo" id="alimento_codigo" size="11" value="{{ selected_array[1] }}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+
+            <div class="form-label"><label for="fecha_vencimiento">Fecha de Vencimiento</label></div>
+            <div class="form-input">
+              <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" value="{{ selected_array[2] }}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="contenido">Contenido</label></div>
+            <div class="form-input">
+              <input type="text" name="contenido" id="contenido" size="300" value="{{ selected_array[3] }}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="peso_unitario">Peso por Unidad</label></div>
+            <div class="form-input">
+              <input type="text" name="peso_unitario" id="peso_unitario" size="100" value="{{ selected_array[4]}}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="stock">Stock</label></div>
+            <div class="form-input">
+              <input type="text" name="stock" id="stock" size="100" value="{{ selected_array[5] }}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="reservado">Reservado</label></div>
+            <div class="form-input">
+              <input type="text" name="reservado" id="reservado" size="100" value="{{ selected_array[6] }}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <input type="submit" id="addbtn" value="Agregar" />
+          </div>
+       </form>
+</div>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block head %}Agregar Alimento{% endblock %}
+{% block content %}
+<div class="agregar">
+    <form action="" method="get" id="addAlimento"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="addAlimento"/>
+            <div class="form-label"><label for="codigo">Codigo</label></div>
+            <div class="form-input">
+              <input type="text" name="codigo" id="codigo" size="11" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+            
+            <div class="form-label"><label for="descripcion">Descripción de Alimento</label></div>
+            <div class="form-input">
+              <input type="text" name="descripcion" id="descripcion" size="11" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+            <input type="submit" id="addbtn" value="Agregar" />
+          </div>
+       </form>
+</div>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
