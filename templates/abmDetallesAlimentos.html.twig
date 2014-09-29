@@ -3,21 +3,8 @@
 {% block head %}{% endblock %}
 {% block content %}
 
-<div id="page">
-  <div id="page-header">
-    <div id="page-header-wrapper" class="wrapper clearfix">
-      <div class="headermenu">
-      	<div class="logininfo">You are logged in as <a href="profile.html" title="View profile">ADMIN</a> (<a href="login.html">Log out</a>)
-      	</div> 
-      	<a href="backend1.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','backend1.html']);">Home</a>
-   		</div>
-   	</div>
-  </div>
+
     {% include 'listDetallesAlimentos.html.twig' %}
-</form>
-
-
-</div>
-                               
+                       
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}

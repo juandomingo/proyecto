@@ -126,7 +126,10 @@ class ResourceController {
         $view->show([$id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id]);
     }
 
-
+    public function login(){
+        $view = new Login();
+        $view->show();
+    }
     public function home(){
         $view = new Home();
         $view->show();

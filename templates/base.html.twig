@@ -11,6 +11,17 @@
         {% block head %}{% endblock %}
     </head>
     <body>
+        <div id="page">
+            <div id="page-header">
+                <div id="page-header-wrapper" class="wrapper clearfix">
+                <div class="headermenu">
+                <div class="logininfo">You are logged in<a href="profile.html" title="View profile"></a>
+                 <a href="?action=logout">Log out</a>
+                </div> 
+                <a href="?action=home">Inicio</a>
+                </div>
+            </div>
+        </div>
         <div id="content">{% block content %}{% endblock %}</div>
         <div id="footer">
             {% block footer %}
