@@ -37,18 +37,18 @@ class DetalleAlimentoRepository extends PDORepository {
 
     public function addDetalleAlimento($alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
         $this->touch(
-            "INSERT INTO `banco_alimentos`.`detalle_alimento` (`id`, `alimento_codigo`, `fecha_vencimiento`, `contenido`, `peso_unitario`, `stock`, `reservado`) 
+            "INSERT INTO `detalle_alimento` (`id`, `alimento_codigo`, `fecha_vencimiento`, `contenido`, `peso_unitario`, `stock`, `reservado`) 
             VALUES (?, ?, ?, ?, ?, ?, ?);",
             [null, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado]);
     }
 
     public function delDetalleAlimento($id){
         $this->touch(
-            "DELETE FROM `banco_alimentos`.`detalle_alimento` WHERE `detalle_alimento`.`id` = ? ;",[$id]);
+            "DELETE FROM `detalle_alimento` WHERE `detalle_alimento`.`id` = ? ;",[$id]);
     }
 
     public function modDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
-        $this->touch("UPDATE `banco_alimentos`.`detalle_alimento`
+        $this->touch("UPDATE `detalle_alimento`
          SET `alimento_codigo` = ?, `fecha_vencimiento` = ?, contenido = ?, peso_unitario = ?, stock = ?, `reservado` = ?
          WHERE `detalle_alimento`.`id` = ?;",
          [$alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado, $id]

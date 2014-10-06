@@ -30,7 +30,8 @@ class UserRepository extends PDORepository {
         };
 
         $answer = $this->queryList(
-                "select id, name, password from banco_alimentos.`user` where name=? AND password = ?;", [$name,$password], $mapper);
+                "select id, name, password from user where name=? AND password = ?;", [$name,$password], $mapper);
+        
         return $answer;
     }
 }

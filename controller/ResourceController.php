@@ -21,10 +21,14 @@ class ResourceController {
     private function __construct() {
         
     }
-    
+    private function give_my_name()
+    {
+        return $_SESSION['sess_username'];
+    }
     public function listAlimentos(){
         $alimentos = AlimentoRepository::getInstance()->listAll();
         $view = new ABMAlimentoList();
+        
         $view->show($alimentos);
     }
     public function addAlimento($codigo,$descripcion){
@@ -132,7 +136,7 @@ class ResourceController {
     }
     public function home(){
         $view = new Home();
-        $view->show();
+        $view->show([$_SESSION['user']-> getName()]);
     }
     
 }

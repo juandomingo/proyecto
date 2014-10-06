@@ -28,12 +28,14 @@ class UserController {
         $user = UserRepository::getInstance()->getOne($name,$password);
         if(count($user) == 0) // User not found. So, redirect to login_form again.
         {
-            header('Location:');
+            header('Location:?action=login');
+            echo "falla";
         }
         else{
         session_regenerate_id();
-        $_SESSION['sess_user_id'] = $name;
-        $_SESSION['sess_username'] = $password;
+        $_SESSION['user'] = $user[0];
+        $_SESSION['sess_user_id'] =(string)$user[0]->getId();
+        $_SESSION['sess_username'] = $user[0]->getName();
         session_write_close();
         header('Location:?action=home');
        }
@@ -48,7 +50,7 @@ class UserController {
         session_start();
         session_unset();
         session_destroy();
-        header("location:?action=home");
+        header("location:?action=login");
         exit();
     }
 

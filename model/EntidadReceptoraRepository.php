@@ -37,7 +37,7 @@ class EntidadReceptoraRepository extends PDORepository {
 
     public function addEntidadReceptora($razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
         $this->touch(
-            "INSERT INTO `banco_alimentos`.`entidad_receptora` 
+            "INSERT INTO `entidad_receptora` 
             (`id`, `razon_social`, `telefono`, `domicilio`, `estado_entidad_id`, `necesidad_entidad_id`, `servicio_prestado_id`) 
             VALUES (?, ?, ?, ?, ?, ?, ?);",
              [null,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id]);
@@ -45,11 +45,11 @@ class EntidadReceptoraRepository extends PDORepository {
 
     public function delEntidadReceptora($codigo){
         $this->touch(
-            "DELETE FROM `banco_alimentos`.`entidad_receptora` WHERE `entidad_receptora`.`id` = ? ;",[$codigo]);
+            "DELETE FROM `entidad_receptora` WHERE `entidad_receptora`.`id` = ? ;",[$codigo]);
     }
 
     public function modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
-        $this->touch("UPDATE `banco_alimentos`.`entidad_receptora`
+        $this->touch("UPDATE `entidad_receptora`
          SET `razon_social` = ?, `telefono` = ?, `domicilio` = ?, estado_entidad_id = ?, necesidad_entidad_id = ?, servicio_prestado_id = ?
          WHERE `entidad_receptora`.`id` = ?;",
          [$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$id]

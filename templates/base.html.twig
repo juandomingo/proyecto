@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="keywords" lang="es" content="banco de alimento, la plata">
-        <link href="view/micss.css" rel="stylesheet" type="text/css">
+        <link href="view/main.css" rel="stylesheet" type="text/css">
         <link rel="icon" 
             type="image/png" 
             href="resources/favicom.png">
@@ -15,8 +15,10 @@
             <div id="page-header">
                 <div id="page-header-wrapper" class="wrapper clearfix">
                 <div class="headermenu">
-                <div class="logininfo">You are logged in<a href="profile.html" title="View profile"></a>
-                 <a href="?action=logout">Log out</a>
+                <div class="logininfo">You are logged in as 
+                    <p class= 'username'>{% block username %}{% endblock %}</p>
+                    <a href="profile.html" title="View profile"></a>
+                    <a href="?action=logout">Log out</a>
                 </div> 
                 <a href="?action=home">Inicio</a>
                 </div>

@@ -9,9 +9,9 @@
 
 class Home extends TwigView {
     
-    public function show() {
+    public function show($user_name) {
         
-        echo self::getTwig()->render('home.html.twig');
+        echo self::getTwig()->render('home.html.twig',array('user_name' => $user_name));
         
         
     }

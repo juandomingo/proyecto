@@ -37,7 +37,7 @@ class DonanteRepository extends PDORepository {
 
     public function addDonante($razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
         $this->touch(
-            "INSERT INTO `banco_alimentos`.`donante`
+            "INSERT INTO `donante`
              (`id`,`razon_social`, `apellido_contacto`, `nombre_contacto`, `telefono_contacto`, `mail_contacto`, `domicilio_contacto`) 
              VALUES (?, ?, ?, ?, ?, ?, ?);",
              [null,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto]);
@@ -45,7 +45,7 @@ class DonanteRepository extends PDORepository {
     }
 
     public function modDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
-        $this->touch("UPDATE `banco_alimentos`.`donante`
+        $this->touch("UPDATE `donante`
          SET `razon_social` = ?, `apellido_contacto` = ?, `nombre_contacto` = ?, telefono_contacto = ?, mail_contacto = ?, domicilio_contacto = ?
          WHERE `donante`.`id` = ?;",
          [$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto,$id]
@@ -54,7 +54,7 @@ class DonanteRepository extends PDORepository {
 
     public function delDonante($codigo){
         $this->touch(
-            "DELETE FROM `banco_alimentos`.`donante` WHERE `donante`.`id` = ? ;",[$codigo]);
+            "DELETE FROM `donante` WHERE `donante`.`id` = ? ;",[$codigo]);
     }
 
     

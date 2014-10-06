@@ -1,0 +1,250 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;
+}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{
+	display:block;
+}
+
+body{
+	line-height:1;
+}
+
+ol,ul{
+	list-style:none;
+}
+
+blockquote,q{
+	quotes:none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after{
+	content:'';
+	content:none;
+}
+
+table{
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+body,html{
+	height:100%;
+}
+
+body{
+	color:#fff;
+	margin:0 auto;
+	font:1em/1.3em Montserrat,Helvetica,sans-serif;
+}
+
+.clearfix{
+	clear:both;
+}
+
+.container{
+	height:100%;
+	margin-left:200px;
+	text-align:center;
+	background-color:#abea67;
+}
+
+h1{
+	margin:40px 0;
+	font-size:40px;
+	line-height:40px;
+	font-weight:bold;
+	text-shadow:0px 1px 1px #888;
+}
+
+a{
+	text-decoration:none;
+	color:#fff;
+	margin:0 10px;
+}
+
+.btn{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	position:relative;
+	display:inline-block;
+	padding:10px 20px;
+	height:50px;
+	background-color:#70cc00;
+	border-radius:30px;
+	-moz-border-radius:30px;
+	-webkit-border-radius:30px;
+	-webkit-box-shadow:0 3px 0 0 #64b700;
+	box-shadow:0 3px 0 0 #64b700;
+	line-height:30px;
+	font-size:16px;
+	font-weight:bold;
+	text-shadow:0px 1px 1px #888;
+}
+
+.btn:active,.btn.active{
+	top:1px;
+	-webkit-box-shadow:0 1px 0 0 #64b700;
+	box-shadow:0 1px 0 0 #64b700;
+}
+
+.btn.submit{
+	font-size:12px;
+	height:30px;
+	line-height:30px;
+	padding:0 10px;
+	margin:0;
+	border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+}
+
+.btn-small{
+	height:30px;
+	font-size:12px;
+	line-height:10px;
+}
+
+a.btn-small span.btn{
+	height:30px;
+}
+
+.navbar{
+	position:fixed;
+	left:0;
+	width:200px;
+	height:100%;
+	-webkit-box-shadow:1px 0 1px 0 rgba(0,0,0,.1);
+	box-shadow:1px 0 1px 0 rgba(0,0,0,.1);
+	background-color:#666;
+}
+
+.navbar i{
+	margin-right:10px;
+}
+
+.navbar a.menu{
+	display:block;
+	margin:0;
+	width:100%;
+	height:50px;
+	color:#444;
+	background-color:#fff;
+	font-size:23px;
+	line-height:50px;
+}
+
+.navbar .link{
+	position:relative;
+	display:block;
+	margin:0;
+	width:100%;
+	height:50px;
+	z-index:1;
+	perspective:100px;
+	-webkit-perspective:100px;
+	transition:.23s;
+	-webkit-transition:.23s;
+}
+
+.navbar .link:hover{
+	height:150px;
+}
+
+.navbar .link.large:hover{
+	height:230px;
+}
+
+.navbar .link a{
+	display:block;
+	color:#999;
+	text-align:left;
+	padding-left:20px;
+	transition:.3s;
+	-webkit-transition:.3s;
+}
+
+.navbar .link a:hover{
+	color:#666;
+	padding-left:30px;
+}
+
+.navbar .link span.active,.navbar .link .hover-top,.navbar .link .hover-bot{
+	display:block;
+	position:absolute;
+	width:100%;
+	height:50px;
+	line-height:50px;
+	left:0;
+	top:0;
+	color:#777;
+	font-size:12px;
+	transition:.23s;
+	-webkit-transition:.23s;
+}
+
+.navbar .link.large .hover-top,.navbar .link.large .hover-bot{
+	line-height:45px;
+	height:90px;
+}
+
+.navbar .link.large:hover .hover-bot{
+	transform:translateY(140px) rotateX(0deg);
+	-webkit-transform:translateY(140px) rotateX(0deg);
+	background-color:#f0f0f0;
+}
+
+.navbar .link span.active{
+	top:0;
+	left:0;
+	background-color:#fff;
+	color:#aaa;
+	font-size:13px;
+	border-top:1px solid rgba(0,0,0,.1);
+}
+
+.navbar .link .hover-top{
+	top:50px;
+	transform-origin:0% 0% 0px;
+	-webkit-transform-origin:0% 0% 0px;
+	transform:rotateX(-90deg);
+	-webkit-transform:rotateX(-90deg);
+	z-index:-1;
+	background-color:#fff;
+}
+
+.navbar .link:hover .hover-top{
+	transform:rotateX(0deg);
+	-webkit-transform:rotateX(0deg);
+	background-color:#f0f0f0;
+}
+
+.navbar .link .hover-bot{
+	transform-origin:0% 100% 0px;
+	-webkit-transform-origin:0% 100% 0px;
+	transform:rotateX(130deg);
+	-webkit-transform:rotateX(130deg);
+	z-index:-1;
+	background-color:#888;
+}
+
+.navbar .link:hover .hover-bot{
+	transform:translateY(100px) rotateX(0deg);
+	-webkit-transform:translateY(100px) rotateX(0deg);
+	background-color:#f0f0f0;
+}
+
+.navbar .end{
+	position:relative;
+	z-index:1;
+	width:100%;
+	height:100%;
+	background-color:#fff;
+	border-top:1px solid rgba(0,0,0,.1);
+}

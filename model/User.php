@@ -20,14 +20,14 @@ class User {
     }
 
     public function getId() {
-        echo $this->id;
+        return $this->id;
     }
 
     public function getName() {
-        echo $this->name;
+        return $this->name;
     }
     
     public function getPassword() {
-        echo $this->password;
+        return $this->password;
     }
 }
