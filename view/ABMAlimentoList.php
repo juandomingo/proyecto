@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Description of SimpleResourceList
+ * Description of ABMAlimentoList
  *
- * @author fede
+ * @author Florencia
  */
 
 class ABMAlimentoList extends TwigView {

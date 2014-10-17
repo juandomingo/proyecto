@@ -52,12 +52,10 @@ if(!isset($_SESSION['sess_user_id']) || (trim($_SESSION['sess_user_id']) == ''))
 	{
     	UserController::getInstance()->login($_POST['name'],$_POST['password']);
     }
-
 	elseif(isset($_GET["action"]) && $_GET["action"] == 'login')
 	{
     	UserController::getInstance()->login1();
     }
-  
     else{
     	ResourceController::getInstance()->login();
     }

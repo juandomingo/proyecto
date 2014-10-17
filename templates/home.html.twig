@@ -2,6 +2,7 @@
 {% block title %}Inicio{% endblock %}
 {% block head %}{% endblock %}
 {% block username %}{{user_name[0]}}{% endblock %}
+{% block loginfo %}{{ parent() }}{% endblock %}
 {% block content %}
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script> 

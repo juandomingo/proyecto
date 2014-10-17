@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,6 +12,7 @@
         {% block head %}{% endblock %}
     </head>
     <body>
+        {% block loginfo %}
         <div id="page">
             <div id="page-header">
                 <div id="page-header-wrapper" class="wrapper clearfix">
@@ -24,6 +26,7 @@
                 </div>
             </div>
         </div>
+        {% endblock %}
         <div id="content">{% block content %}{% endblock %}</div>
         <div id="footer">
             {% block footer %}

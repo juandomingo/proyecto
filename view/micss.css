@@ -1,29 +1,4 @@
 
-table.tables,table.tecspec{
-	border-collapse:collapse;width:100%;
-}
-table.tables tr:nth-child(odd)	{background-color:#f1f1f1;}
-table.tables tr:nth-child(even)	{background-color:#ffffff;}
-
-table.tables tr.fixzebra			{background-color:#f1f1f1;}
-
-table.tables th{
-	color:#ffffff;background-color:#555555;border:1px solid #555555;padding:3px;vertical-align:top;text-align:left;
-}
-
-table.tables th a:link,table.tables th a:visited{
-	color:#ffffff;
-}
-table.tables th a:hover,table.tables th a:active{
-	color:#EE872A;
-}
-table.tables td{
-	border:1px solid #d4d4d4;padding:5px;padding-top:7px;padding-bottom:7px;vertical-align:top;
-}
-table.tables td.example_code
-{
-vertical-align:bottom;
-}
 
 *{margin:0;padding:0}
 body{font-family:"Myriad Pro", Verdana, Arial, Helvetica, sans-serif;font-size:100%;color:#333333;text-align:center;line-height:145%;background-color:#666;}
