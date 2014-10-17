@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Description of ResourceRepository
+ * Description of UserRepository
  *
- * @author fede
+ * @author Tino
  */
 class UserRepository extends PDORepository {
 
