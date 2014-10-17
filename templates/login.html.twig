@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %}Pagina principal{% endblock %}
 {% block head %}{% endblock %}
+{% block loginfo %} <h1><a href="?action=login">LOGIN</a></h1> {% endblock %}
 {% block content %}
 
 <h2 class="headermain inside">Lo que hacemos en el banco de alimento</h2>
@@ -85,7 +86,7 @@
 	</article> <!-- #slider -->
 		
 	
-<h1><a href="?action=login">LOGIN</a></h1>
+
 
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}
