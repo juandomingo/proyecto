@@ -54,4 +54,53 @@ class EntidadReceptora {
     public function getServicio_prestado_id() {
         echo $this->servicio_prestado_id;
     }
+
+    public function getMapped_Estado_entidad_id() {
+        switch ($this->estado_entidad_id) {
+            case "1":
+                echo "alta";
+                break;
+            case "2":
+                echo "en trámite";
+                break;
+            case "3":
+                echo "suspendida";
+                break;
+            case "4":
+                echo "baja";
+                break;
+        }
+    }
+
+    public function getMappedNecesidad_entidad_id() {
+        switch ($this->servicio_prestado_id) {
+            case "1":
+                echo "máxima";
+                break;
+            case "2":
+                echo "mediana";
+                break;
+            case "3":
+                echo "mínima";
+                break;
+        }
+    }
+
+    public function getMappedServicio_prestado_id() {
+        switch ($this->servicio_prestado_id) {
+            case "1":
+                echo "hogar de día";
+                break;
+            case "2":
+                echo "comedor infantil";
+                break;
+            case "3":
+                echo "hogar de adolescentes";
+                break;
+            case "4":
+                echo "jardín maternal";
+                break;
+        }
+
+    }
 }

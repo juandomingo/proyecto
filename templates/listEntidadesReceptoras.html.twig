@@ -22,9 +22,9 @@
         <td> {{ item.razon_social }} </td>
         <td> {{ item.telefono }} </td>
         <td> {{ item.domicilio }} </td>
-        <td> {{ item.estado_entidad_id }} </td>
-        <td> {{ item.necesidad_entidad_id }} </td>
-        <td> {{ item.servicio_prestado_id }} </td>
+        <td> {{ item.getMapped_Estado_entidad_id }} </td>
+        <td> {{ item.getMappedNecesidad_entidad_id }} </td>
+        <td> {{ item.getMappedServicio_prestado_id }} </td>
         <td> <div class="image">
             <a href="?action=attemptEditEntidadReceptora&id={{ item.id }}&razon_social={{ item.razon_social }}&telefono={{ item.telefono }}&domicilio={{ item.domicilio }}&estado_entidad_id={{ item.estado_entidad_id }}&necesidad_entidad_id={{ item.necesidad_entidad_id }}&servicio_prestado_id={{ item.servicio_prestado_id }}"><img src="resources/edit.png" width="16" height="16" alt="Edit"> </a>
             <a href="?action=delEntidadReceptora&id={{item.id}}"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>

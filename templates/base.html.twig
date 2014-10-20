@@ -14,24 +14,25 @@
     <body>
         {% block loginfo %}
         <div id="page">
-            <div id="page-header">
-                <div id="page-header-wrapper" class="wrapper clearfix">
-                <div class="headermenu">
-                <div class="logininfo">You are logged in as 
+            <div class="page-header">
+                <div id="logininfo">You are logged in as 
                     <p class= 'username'>{% block username %}{% endblock %}</p>
                     <a href="profile.html" title="View profile"></a>
                     <a href="?action=logout">Log out</a>
                 </div> 
-                <a href="?action=home">Inicio</a>
+
+                <div class="home-link">   
+                    <a href="?action=home">Inicio</a>
                 </div>
             </div>
         </div>
         {% endblock %}
-        <div id="content">{% block content %}{% endblock %}</div>
-        <div id="footer">
+        <div class="content">{% block content %}{% endblock %}</div>
+            <div class="footer">
             {% block footer %}
                 &copy; Copyright 2014 by <a href="www.google.com">PIOS</a>.
             {% endblock %}
+            </div>
         </div>
     </body>
 </html>

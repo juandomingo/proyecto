@@ -488,3 +488,18 @@ table.tables th a:hover,table.tables th a:active{
 table.tables td{
 	border:1px solid #d4d4d4;padding:5px;padding-top:7px;padding-bottom:7px;vertical-align:top;
 }
+
+
+.footer {
+   position: absolute;
+    left: 0;
+    bottom: 0;
+
+    height: 40px;
+    background: #555555 ;
+    width: 100%;
+
+    font: 14px/22px Arial, Helvetica, sans-serif;
+  	color: #FFF;
+}
+

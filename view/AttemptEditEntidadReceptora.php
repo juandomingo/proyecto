@@ -12,7 +12,6 @@ class AttemptEditEntidadReceptora extends TwigView {
         
         echo self::getTwig()->render('attemptEditEntidadReceptora.html.twig',array('selected_array' => $selectedArray));
         
-        
     }
     
 }

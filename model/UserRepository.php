@@ -25,12 +25,12 @@ class UserRepository extends PDORepository {
     public function getOne($name,$password) {
 
         $mapper = function($row) {
-            $user = new User($row['id'], $row['name'],  $row['password']);
+            $user = new User($row['id'], $row['name'],  $row['password'], $row['type']);
             return $user;
         };
 
         $answer = $this->queryList(
-                "select id, name, password from user where name=? AND password = ?;", [$name,$password], $mapper);
+                "select id, name, password, type from user where name=? AND password = ?;", [$name,$password], $mapper);
         
         return $answer;
     }

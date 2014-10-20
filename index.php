@@ -42,6 +42,7 @@ require_once('view/SimpleEntidadReceptoraList.php');
 require_once('view/Login.php');
 require_once('view/Login1.php');
 require_once('view/Home.php');
+require_once('view/AuthFail.php');
 
 
 if (session_status() !== PHP_SESSION_ACTIVE)
@@ -60,8 +61,13 @@ if(!isset($_SESSION['sess_user_id']) || (trim($_SESSION['sess_user_id']) == ''))
     	ResourceController::getInstance()->login();
     }
 }
-elseif(isset($_GET["action"]))
+
+elseif(!isset($_GET["action"]))
 {
+	ResourceController::getInstance()->home();
+}
+
+else{
 	if( $_GET["action"] == 'logout'){
 		UserController::getInstance()->logout();
 
@@ -124,7 +130,7 @@ elseif(isset($_GET["action"]))
 		ResourceController::getInstance()->home();
 	}
 
-	}else{
+	else{
 	    ResourceController::getInstance()->home();
-}//http://localhost/twig/?action=addEntidadReceptora&id=8&razon_social=Copergar&telefono=4224225&domicilio=Holis&estado_entidad_id=55&necesidad_entidad_id=55&servicio_prestado_id=117
-
+	}
+}
