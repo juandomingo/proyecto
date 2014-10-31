@@ -8,18 +8,26 @@
         <link rel="icon" 
             type="image/png" 
             href="resources/favicom.png">
+
+    <link rel="stylesheet" href="view/menu.css">
+    <script src="scripts/script.js"></script> 
+
         <title>{% block title %}{% endblock %} - Banco de Alimentos</title>    
         {% block head %}{% endblock %}
     </head>
     <body>
+
         {% block loginfo %}
         <div id="page">
             <div class="page-header">
-                <div id="logininfo">You are logged in as 
-                    <p class= 'username'>{% block username %}{% endblock %}</p>
-                    <a href="profile.html" title="View profile"></a>
-                    <a href="?action=logout">Log out</a>
-                </div> 
+
+                {% block header %}
+                    {% include 'menu.html.twig' %}
+                {% endblock %}
+                {% block loginer %}
+                    {% include 'logininfo.html.twig' %}
+                {% endblock %}
+
 
                 <div class="home-link">   
                     <a href="?action=home">Inicio</a>
