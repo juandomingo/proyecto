@@ -43,6 +43,14 @@ class ResourceController {
         }
     }
 
+    public function listPedidos(){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+            $pedidos = PedidoRepository::getInstance()->listAll();
+            $view = new ABMPedidoList();
+            $view->show($pedidos);
+        }
+    }
+
     public function listAlimentos(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1, 2, 3))){
             $alimentos = AlimentoRepository::getInstance()->listAll();

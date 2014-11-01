@@ -16,8 +16,10 @@ class EntidadReceptora {
     private $estado_entidad_id;
     private $necesidad_entidad_id;
     private $servicio_prestado_id;
+    private $latitud;
+    private $longitud;
     
-    public function __construct($id, $razon_social, $telefono, $domicilio, $estado_entidad_id, $necesidad_entidad_id, $servicio_prestado_id) {
+    public function __construct($id, $razon_social, $telefono, $domicilio, $estado_entidad_id, $necesidad_entidad_id, $servicio_prestado_id, $latitud, $longitud){
         $this->id = $id;
         $this->razon_social = $razon_social;
         $this->telefono = $telefono;
@@ -25,6 +27,8 @@ class EntidadReceptora {
         $this->estado_entidad_id = $estado_entidad_id;
         $this->necesidad_entidad_id = $necesidad_entidad_id;
         $this->servicio_prestado_id = $servicio_prestado_id;
+        $this->latitud = $latitud;
+        $this->longitud = $longitud;
     }
 
     public function getId() {
@@ -53,6 +57,14 @@ class EntidadReceptora {
 
     public function getServicio_prestado_id() {
         echo $this->servicio_prestado_id;
+    }
+
+    public function getLatitud() {
+        echo $this->latitud;
+    }
+
+    public function getLongitud() {
+        echo $this->longitud;
     }
 
     public function getMapped_Estado_entidad_id() {

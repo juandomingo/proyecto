@@ -6,7 +6,6 @@
 <a href="?action=attemptAddDetalleAlimento"><img src="resources/add.png" width="16" height="16" alt="add"> </a>
 </td>  
   <tr>
-    <th>Id</th>
     <th>Alimento</th> 
     <th>Fecha de vencimiento</th>
     <th>Contenido</th>
@@ -19,7 +18,6 @@
         
         {% for item in detalles_alimentos %}
         <tr>
-            <td>{{item.id}}</td>
             <td>{{item.alimento_codigo }}</td>
             <td>{{item.fecha_vencimiento }}</td>
             <td>{{item.contenido }} </td>

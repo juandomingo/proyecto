@@ -7,9 +7,8 @@
     </td>
     </tr>
     <tr>
-        <th>Id</th>
         <th>Razon social</th> 
-        <th>Telefono</th>
+        <th>Teléfono</th>
         <th>Domicilio</th>
         <th>Estado Entidad</th>
         <th>Necesidad de la Entidad</th>
@@ -18,7 +17,6 @@
     </tr>
     {% for item in entidades_receptoras %}
         <tr>
-        <td> {{ item.id }} </td>
         <td> {{ item.razon_social }} </td>
         <td> {{ item.telefono }} </td>
         <td> {{ item.domicilio }} </td>

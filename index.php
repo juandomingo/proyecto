@@ -19,6 +19,8 @@ require_once('model/Donante.php');
 require_once('model/DonanteRepository.php');
 require_once('model/EntidadReceptora.php');
 require_once('model/EntidadReceptoraRepository.php');
+require_once('model/Pedido.php');
+require_once('model/PedidoRepository.php');
 
 //We will require  every view class
 require_once('view/TwigView.php');
@@ -37,6 +39,7 @@ require_once('view/ABMAlimentoList.php');
 require_once('view/ABMDonanteList.php');
 require_once('view/ABMDetalleAlimentoList.php');
 require_once('view/ABMEntidadReceptora.php');
+require_once('view/ABMPedidoList.php');
 require_once('view/SimpleDonanteList.php');
 require_once('view/SimpleEntidadReceptoraList.php');
 require_once('view/Login.php');
@@ -72,8 +75,11 @@ else{
 		UserController::getInstance()->logout();
 
 
+	}elseif($_GET["action"] == 'listPedidos'){
+		ResourceController::getInstance()->listPedidos();
+
 	}elseif($_GET["action"] == 'listAlimentos'){
-		ResourceController::getInstance()->listAlimentos();
+		ResourceController::getInstance()->listAlimentos();	
 	}elseif( $_GET["action"] == 'delAlimento'){
 		ResourceController::getInstance()->delAlimento($_GET["codigo"]);
 	}elseif( $_GET["action"] == 'modAlimento'){

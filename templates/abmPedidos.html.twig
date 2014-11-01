@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+{% block title %}ABM pedidos{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+
+
+    {% include 'listPedidos.html.twig' %}
+                     
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

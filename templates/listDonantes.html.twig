@@ -1,7 +1,6 @@
 <table class="tables">
     <td><a href="?action=attemptAddDonante"><img src="resources/add.png" width="16" height="16" alt="add">Agregar Donante </a></td>
     <tr>
-        <th>Id</th>
         <th>Razon social</th> 
         <th>Apellido de Contacto</th>
         <th>Nombre de Contacto</th>
@@ -12,7 +11,6 @@
     </tr>
     {% for item in donantes %}
         <tr>
-        <td> {{ item.id }} </td>
         <td> {{ item.razon_social }} </td>
         <td> {{ item.apellido_contacto }} </td>
         <td> {{ item.nombre_contacto }} </td>
