@@ -4,12 +4,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="keywords" lang="es" content="banco de alimento, la plata">
+
         <link href="view/main.css" rel="stylesheet" type="text/css">
         <link rel="icon" 
             type="image/png" 
             href="resources/favicom.png">
 
     <link rel="stylesheet" href="view/menu.css">
+    <script src="scripts/cosas.js" language="javascript"  type="text/javascript"></script>
     <script src="scripts/script.js"></script> 
 
         <title>{% block title %}{% endblock %} - Banco de Alimentos</title>    
@@ -25,6 +27,7 @@
                     {% include 'menu.html.twig' %}
                 {% endblock %}
                 {% block loginer %}
+
                     {% include 'logininfo.html.twig' %}
                 {% endblock %}
 

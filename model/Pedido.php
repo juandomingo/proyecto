@@ -44,4 +44,25 @@ class Pedido {
     public function getCon_envio() {
         echo $this->con_envio;
     }
+    public function getTurnoEntrega(){
+        $turno = TurnoEntregaRepository::getInstance()->listPorId($this->turno_entrega_id);
+        return $turno[0];
+    }
+    public function getEntidadReceptora(){
+        $entidad_recetora = EntidadReceptoraRepository::getInstance()->listPorId($this->entidad_receptora_id);
+        return $entidad_recetora[0];
+    }
+    public function getEstado(){
+        if ($this->estado_pedido_id == 0)
+            {echo "no entregado";}
+        else
+            {echo "entregado";}
+    }
+
+    public function getEnvio(){
+        if ($this->con_envio == 1)
+            {echo "Si";}
+        else
+            {echo "No";}
+    }
 }

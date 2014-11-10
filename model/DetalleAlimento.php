@@ -54,4 +54,14 @@ class DetalleAlimento {
     public function getReservado() {
         echo $this->reservado;
     }
+
+    public function getStockDisponible(){
+        echo $this->stock - $this->reservado;
+    }
+
+    public function getAlimento()
+    {
+        $alimento = AlimentoRepository::getInstance()->listAlimentoPorCodigo($this->alimento_codigo);
+        return $alimento[0];
+    }
 }

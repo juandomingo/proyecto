@@ -1,7 +1,6 @@
 {% extends "base.html.twig" %}
 {% block title %}Inicio{% endblock %}
 {% block head %}{% endblock %}
-{% block username %}{{user_name[0]}}{% endblock %}
 {% block loginfo %}{{ parent() }}{% endblock %}
 {% block content %}
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -10,8 +9,8 @@
             $("#demo-bar").load("../demo-bar.html"); 
             });
         </script> 
-        <h1>Inicio</h1>
+        {% include "listDetallesAlimentosSinLinks.html.twig" %}
         
-
+        {% include "listTurnosEntregaHoy.html.twig" %}
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}

@@ -21,6 +21,8 @@ require_once('model/EntidadReceptora.php');
 require_once('model/EntidadReceptoraRepository.php');
 require_once('model/Pedido.php');
 require_once('model/PedidoRepository.php');
+require_once('model/TurnoEntrega.php');
+require_once('model/TurnoEntregaRepository.php');
 
 //We will require  every view class
 require_once('view/TwigView.php');
@@ -46,6 +48,7 @@ require_once('view/Login.php');
 require_once('view/Login1.php');
 require_once('view/Home.php');
 require_once('view/AuthFail.php');
+require_once('view/AttemptAddPedido.php');
 
 
 if (session_status() !== PHP_SESSION_ACTIVE)
@@ -73,6 +76,10 @@ elseif(!isset($_GET["action"]))
 else{
 	if( $_GET["action"] == 'logout'){
 		UserController::getInstance()->logout();
+
+	}elseif($_GET["action"] == 'attemptAddPedido'){
+		ResourceController::getInstance()->attemptAddPedido();
+
 
 
 	}elseif($_GET["action"] == 'listPedidos'){

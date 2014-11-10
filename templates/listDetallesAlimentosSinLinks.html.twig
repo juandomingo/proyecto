@@ -1,0 +1,23 @@
+<p class="importante"> Alimentos por vencer </p>
+<table class="tables"> 
+  <tr>
+    <th>Alimento</th> 
+    <th>Fecha de vencimiento</th>
+    <th>Contenido</th>
+    <th>Peso por unidad</th>
+    <th>Stock</th> 
+    <th>Reservado</th>
+  </tr>
+
+        
+        {% for item in detalles_alimentos %}
+        <tr>
+
+            <td><img src="resources/cruz.png" width="16" height="16" alt="delete">{{item.alimento_codigo }}</td>
+            <td>{{item.fecha_vencimiento }}</td>
+            <td>{{item.contenido }} </td>
+            <td>{{item.peso_unitario }}</td>
+            <td>{{item.stock }} </td>
+            <td>{{item.reservado }}</td>
+        </tr>
+        {% endfor %}

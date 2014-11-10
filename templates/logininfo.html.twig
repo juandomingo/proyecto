@@ -1,5 +1,5 @@
                 <div id="logininfo">You are logged in as 
-                    <p class= 'username'>{% block username %}{% endblock %}</p>
+                    <p class= 'username'>{{ user[0].name}}</p>
                     <a href="profile.html" title="View profile"></a>
                     <a href="?action=logout">Log out</a>
                 </div> 

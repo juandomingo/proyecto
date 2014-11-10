@@ -46,6 +46,7 @@ abstract class PDORepository {
     $stmt = $connection->prepare($sql);
     $stmt->execute($args);
     $connection = null;
+    return $id = $db->lastInsertId();
 }
 
 }

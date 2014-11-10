@@ -6,20 +6,23 @@
  * @author Florencia
  */
 class ResourceController {
-    
+ 
     private static $instance;
     private static $arr = array(1);
     private static $type = 0;
+    public $configuraciones = array('dias_vencimiento' => 100 ); 
 
 
     public static function getInstance() {
 
         if (!isset(self::$instance)) {
             self::$instance = new self();
+            
         }
 
         return self::$instance;
     }
+
     
     private function __construct() {
         
@@ -52,7 +55,7 @@ class ResourceController {
     }
 
     public function listAlimentos(){
-        if ($this->check_auth($_SESSION['user']->getType(), array(1, 2, 3))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $alimentos = AlimentoRepository::getInstance()->listAll();
             $view = new ABMAlimentoList();
             $view->show($alimentos);
@@ -218,7 +221,31 @@ class ResourceController {
     }
 
     public function home(){
+            $turnos_entrega_hoy = TurnoEntregaRepository::getInstance()->listAllParaHoy();
+            $alimentos = DetalleAlimentoRepository::getInstance()->listAlimentoPorVencerEn($this->configuraciones['dias_vencimiento']);
             $view = new Home();
-            $view->show([$_SESSION['user']-> getName()]);
+            $view->show($alimentos,$turnos_entrega_hoy);
+    }
+
+    public function generarPedido($id_entidad_receptora,$alimentos,$fecha,$hora,$envio){
+    #validame       
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
+            $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
+            $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
+            foreach ($alimentos as $alimento) {
+                AlimentoPedido::getInstance()->crearPedido($pedido_numero,$alimento['id'],$alimento['cantidad']);
+            }
+            $pedido = PedidoRepository::getInstance()->listPedidoByNumero($pedido_numero);
+            $view = new ShowPedido();
+            $view->show($pedido[0]);
+        }
+    }
+    public function attemptAddPedido(){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+            $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
+            $detalles_alimentos = DetalleAlimentoRepository::getInstance()->listAll();
+            $view = new AttemptAddPedido();
+            $view->show($entidades_receptoras,$detalles_alimentos);
+       }
     }
 }

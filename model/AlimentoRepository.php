@@ -47,9 +47,21 @@ class AlimentoRepository extends PDORepository {
     public function modAlimento($codigo,$descripcion){
         $this->touch(
             "UPDATE `alimento` SET `descripcion` = ? WHERE `alimento`.`codigo` = ?;",[$descripcion,$codigo]);
+    }
+    
+    public function listAlimentoPorCodigo($codigo) {
 
+        $mapper = function($row) {
+            $alimento = new Alimento($row['codigo'], $row['descripcion']);
+            return $alimento;
+        };
 
+        $answer = $this->queryList(
+                "select codigo, descripcion from alimento where codigo = ?;", [$codigo], $mapper);
+
+        return $answer;
     }
 
 
 }
+
