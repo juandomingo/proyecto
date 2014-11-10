@@ -22,7 +22,22 @@
       <td>{{ item.getEnvio }}</td>
       <td><div class="image">
         <a href="?action=attemptEditPedido&numero={{ item.numero }}&entidad_receptora_id={{ item.entidad_receptora_id }}&fecha_ingreso={{ item.fecha_ingreso }}&estado_pedido_id={{ item.estado_pedido_id }}&turno_entrega_id={{ item.turno_entrega_id }}&con_envio={{ item.con_envio }}"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
-        <a href="?action=delPedido&numero={{item.numero}}"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
+        
+        <a  onclick="myFunction('?action=delPedido&numero={{item.numero}}')" id = "confirmar" ><img  src="resources/delete.png" width="16" height="16" alt="delete"
+          ></a>
+         
       </div></td>
     </tr>
   {% endfor %}
+
+<script>
+function myFunction(x) {
+    var txt;
+    var r = confirm("Está seguro que desea eliminar el elemento?");
+    if (r == true) {
+        window.location = x;
+    } else {
+    }
+
+}
+</script>

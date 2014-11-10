@@ -36,8 +36,8 @@ class PedidoRepository extends PDORepository {
     }
 
     public function addPedido($entidad_receptora_id, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio){
-        return $this->touch(
-            "INSERT INTO `pedido` (`numero`, `entidad_receptora_id`, `fecha_ingreso`, `estado_pedido_id`, `turno_entrega_id`, `con_envio) VALUES (?, ?, ?, ?, ?, ?);",[null, $entidad_receptora_id, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio]);
+        $this->touch(
+            "INSERT INTO `pedido` (`numero`, `entidad_receptora_id`, `fecha_ingreso`, `estado_pedido_id`, `turno_entrega_id`, `con_envio) VALUES (?, ?, ?, ?, ?, ?)",[null, $entidad_receptora_id, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio]);
     }
 
     public function delPedido($numero){
@@ -93,9 +93,8 @@ class PedidoRepository extends PDORepository {
     {
         $estado_pedido_id = 0;
         $fecha_ingreso = date("Y-m-d");
-        echo $this->addPedido($id_entidad_receptora, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio);
-        $result = listPedidoByElse($id_entidad_receptora, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio);
-        return $result[0];
+        $this->addPedido($id_entidad_receptora, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio);
+
     }
 
 

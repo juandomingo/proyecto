@@ -70,5 +70,17 @@ class DetalleAlimentoRepository extends PDORepository {
 
         return $answer;
     }
+    public function listAllporID($id) {
+
+        $mapper = function($row) {
+            $detalle_alimento = new DetalleAlimento($row['id'], $row['alimento_codigo'], $row['fecha_vencimiento'], $row['contenido'], $row['peso_unitario'], $row['stock'], $row['reservado']);
+            return $detalle_alimento;
+        };
+
+        $answer = $this->queryList(
+                "select id, alimento_codigo, fecha_vencimiento, contenido, peso_unitario, stock, reservado from detalle_alimento where id = ?;", [$id], $mapper);
+
+        return $answer[0];
+    }
 
 }

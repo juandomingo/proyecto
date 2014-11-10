@@ -23,6 +23,8 @@ require_once('model/Pedido.php');
 require_once('model/PedidoRepository.php');
 require_once('model/TurnoEntrega.php');
 require_once('model/TurnoEntregaRepository.php');
+require_once('model/AlimentoPedido.php');
+require_once('model/AlimentoPedidoRepository.php');
 
 //We will require  every view class
 require_once('view/TwigView.php');
@@ -49,6 +51,8 @@ require_once('view/Login1.php');
 require_once('view/Home.php');
 require_once('view/AuthFail.php');
 require_once('view/AttemptAddPedido.php');
+require_once('view/ListPedido.php');
+
 
 
 if (session_status() !== PHP_SESSION_ACTIVE)
@@ -77,9 +81,17 @@ else{
 	if( $_GET["action"] == 'logout'){
 		UserController::getInstance()->logout();
 
+
+
+	}elseif($_GET["action"] == 'addPedido'){
+		$detalles_alimentos= [];
+		foreach(array_slice($_GET, 5) as $name => $value) {
+			$detalles_alimentos[] = $value;
+		}
+		ResourceController::getInstance()->addPedido($_GET["entidad"],$_GET["hora"],$_GET["dia"],$_GET["envio"],$detalles_alimentos);
+
 	}elseif($_GET["action"] == 'attemptAddPedido'){
 		ResourceController::getInstance()->attemptAddPedido();
-
 
 
 	}elseif($_GET["action"] == 'listPedidos'){

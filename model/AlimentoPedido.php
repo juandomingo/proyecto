@@ -12,7 +12,7 @@ class AlimentoPedido {
     private $cantidad;
     
     public function __construct($pedido_numero, $detalle_alimento_id, $cantidad) {
-        $this->pedido_numero = $pedido_numero
+        $this->pedido_numero = $pedido_numero;
         $this->detalle_alimento_id = $detalle_alimento_id;
         $this->cantidad = $cantidad;
     }

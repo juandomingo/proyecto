@@ -10,9 +10,9 @@
             
             <div class="form-label"><label for="entidad_receptora">Entidad Receptora</label></div>
             <div class="form-input">
-            <select>
+            <select name="entidad" id="entidad">
             {% for item in entidades_receptoras %}
-              <option value="{{ item.id }}">{{ item.razon_social }}</option>
+              <option name="entidad" id="entidad" value="{{ item.id }}">{{ item.razon_social }}</option>
             {% endfor %}
             </select>
             </div>
@@ -29,12 +29,11 @@
             </div>
             <div class="clearer"><!-- --></div>
 
-            <div class="form-label"><label for="descripcion">Fecha de entrega</label></div>
+            <div class="form-label"><label for="descripcion">Envio?</label></div>
             <div class="form-input">
-              <select>
-
-              <option value='0'>Sí</option>
-              <option value='1'>No</option>
+            <select id="envio" name="envio">
+              <option id="envio" name="envio" value='0'>Sí</option>
+              <option id="envio" name="envio" value='1'>No</option>
             </select>
             </div>
             <div class="clearer"><!-- --></div>
@@ -44,9 +43,9 @@
             <div class="form-input">
 
             {% for item in detalles_alimentos %}
-              {% if (item.getStockDisponible != 0) %}
-                <input type="checkbox"
-                 name="detalle_alimento_{{ item.id }}"
+              {% if item.hayStock %}
+                <input type="checkbox" id="{{ item.id }}"
+                 name="{{ item.id }}"
                  value="{{ item.id }}">
                  {{ item.getAlimento.descripcion }} por {{ item.getStockDisponible }} unidades
                  <br>

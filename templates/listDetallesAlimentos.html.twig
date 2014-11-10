@@ -27,7 +27,20 @@
             <td><div class="image">
                 <a href="?action=attemptEditDetalleAlimento&id={{ item.id }}&alimento_codigo={{ item.alimento_codigo }}&fecha_vencimiento={{ item.fecha_vencimiento }}&contenido={{ item.contenido }}&peso_unitario={{ item.peso_unitario }}&stock={{ item.stock }}&reservado={{ item.reservado }}"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
 
-                <a href="?action=delDetalleAlimento&id={{item.id}}"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
+                <a onclick="myFunction('?action=delDetalleAlimento&id={{item.id}}')"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
             </div></td>
         </tr>
         {% endfor %}
+
+
+<script>
+function myFunction(x) {
+    var txt;
+    var r = confirm("Está seguro que desea eliminar el elemento?");
+    if (r == true) {
+        window.location = x;
+    } else {
+    }
+
+}
+</script>

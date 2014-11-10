@@ -227,17 +227,17 @@ class ResourceController {
             $view->show($alimentos,$turnos_entrega_hoy);
     }
 
-    public function generarPedido($id_entidad_receptora,$alimentos,$fecha,$hora,$envio){
+    public function addPedido($id_entidad_receptora,$hora,$fecha,$envio,$alimentos){
     #validame       
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
             $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
             $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
-            foreach ($alimentos as $alimento) {
-                AlimentoPedido::getInstance()->crearPedido($pedido_numero,$alimento['id'],$alimento['cantidad']);
+            foreach ($alimentos as $alimento ) {
+                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($pedido_numero,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getID(),DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getStock());
             }
             $pedido = PedidoRepository::getInstance()->listPedidoByNumero($pedido_numero);
-            $view = new ShowPedido();
-            $view->show($pedido[0]);
+            $view = new listPedido();
+            $view->show($pedido);
         }
     }
     public function attemptAddPedido(){
