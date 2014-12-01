@@ -27,22 +27,22 @@ class Pedido {
     }
 
     public function getNumero() {
-        echo $this->numero;
+        return $this->numero;
     }
     public function getEntidad_receptora_id() {
-        echo $this->entidad_receptora_id;
+        return $this->entidad_receptora_id;
     }
     public function getFecha_ingreso() {
-        echo $this->fecha_ingreso;
+        return $this->fecha_ingreso;
     }
     public function getEstado_pedido_id() {
-        echo $this->estado_pedido_id;
+        return $this->estado_pedido_id;
     }
     public function getTurno_entrega_id() {
-        echo $this->turno_entrega_id;
+        return $this->turno_entrega_id;
     }
     public function getCon_envio() {
-        echo $this->con_envio;
+        return $this->con_envio;
     }
     public function getTurnoEntrega(){
         $turno = TurnoEntregaRepository::getInstance()->listPorId($this->turno_entrega_id);
@@ -54,15 +54,15 @@ class Pedido {
     }
     public function getEstado(){
         if ($this->estado_pedido_id == 0)
-            {echo "no entregado";}
+            {return "no entregado";}
         else
-            {echo "entregado";}
+            {return "entregado";}
     }
 
     public function getEnvio(){
         if ($this->con_envio == 1)
-            {echo "Si";}
+            {return "Si";}
         else
-            {echo "No";}
+            {return "No";}
     }
 }

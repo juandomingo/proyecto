@@ -118,8 +118,9 @@ class ResourceController {
     }
     public function attemptAddDetalleAlimento(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+            $alimentos = AlimentoRepository::getInstance()->listAll();
             $view = new AttemptAddDetalleAlimento();
-            $view->show();
+            $view->show($alimentos);
         }
     }
     public function modDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
@@ -248,4 +249,15 @@ class ResourceController {
             $view->show($entidades_receptoras,$detalles_alimentos);
        }
     }
+
+    public function attemptEditPedido($numero){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1)))
+        {
+            $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
+            $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero);
+            $view = new AttemptEditPedido();
+            $view->show($pedido[0],$entidades_receptoras );
+        }
+    }
 }
+

@@ -1,0 +1,122 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block head %}Modificar Entidad Receptora{% endblock %}
+{% block loginfo %}{% endblock %}
+{% block content %}
+<div class="agregar">
+    <form action="" method="get" id="editPedido"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="modPedido"/>
+         <input type="hidden" name="numero" id="numero" size="20" value="{{ pedido.numero }}"/>
+
+             <div class="form-label"><label for="entidad_receptora_id">Entidad Receptora</label></div>
+            <div class="form-input">
+            <select name="entidad_receptora_id" id="entidad_receptora_id">
+            {% for item in entidades_receptoras %}
+              <option name="entidad_receptora_id" id="entidad_receptora_id" value="{{ item.id }}" 
+              {% if (item.id == pedido.entidad_receptora_id) %}
+                selected
+              {%endif%}
+
+              >{{ item.razon_social }}</option>
+
+            {% endfor %}
+            </select>
+            </div>
+
+
+            <div class="form-label"><label for="telefono">Telefono</label></div>
+            <div class="form-input">
+              <input type="text" name="telefono" id="telefono" size="100" value="{{ selected_array[2] }}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="domicilio">Domicilio</label></div>
+            <div class="form-input">
+              <input type="text" name="domicilio" id="domicilio" size="300" value="{{ selected_array[3] }}" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="estado_entidad_id">Estado Entidad Id</label></div>
+            <div class="form-input">
+            <select id = "estado_entidad_id" name="estado_entidad_id">
+                {% if selected_array[4] == 1 %}
+                    <option value = "1" selected>alta</option>
+                    <option value = "2">en tramite</option>
+                    <option value = "3">suspendida</option>
+                    <option value = "4">baja</option>
+                {% elseif selected_array[4] == 2 %}
+                    <option value = "1" >alta</option>
+                    <option value = "2" selected>en tramite</option>
+                    <option value = "3">suspendida</option>
+                    <option value = "4">baja</option>
+                {% elseif selected_array[4] == 3 %}
+                    <option value = "1" >alta</option>
+                    <option value = "2">en tramite</option>
+                    <option value = "3"selected>suspendida</option>
+                    <option value = "4">baja</option>
+                {% elseif selected_array[4] == 4%}   
+                    <option value = "1" >alta</option>
+                    <option value = "2">en tramite</option>
+                    <option value = "3">suspendida</option>
+                    <option value = "4"selected>baja</option>
+                {% endif %}
+            </select> 
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="necesidad_entidad_id">Necesidad Entidad Id</label></div>
+            <div class="form-input">
+            <select id = "necesidad_entidad_id" name="necesidad_entidad_id">
+                {% if selected_array[5] == 1 %}
+                    <option value = "1"selected>máxima</option>
+                    <option value = "2">mediana</option>
+                    <option value = "3">minima</option>
+                {% elseif selected_array[5] == 2 %}
+                    <option value = "1">máxima</option>
+                    <option value = "2"selected>mediana</option>
+                    <option value = "3">minima</option>
+                {% elseif selected_array[5] == 3 %}   
+                    <option value = "1">máxima</option>
+                    <option value = "2">mediana</option>
+                    <option value = "3"selected>minima</option>
+                {% endif %}
+            </select> 
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <div class="form-label"><label for="servicio_prestado_id">Servicio Prestado Id</label></div>
+            <div class="form-input">
+            <select id = "servicio_prestado_id" name="servicio_prestado_id">
+                {% if selected_array[6] == 1 %}
+                    <option value = "1" selected>hogar de día</option>
+                    <option value = "2">comedor infantil</option>
+                    <option value = "3">hogar de adolescentes</option>
+                    <option value = "4">jardín maternal</option>
+                {% elseif selected_array[6] == 2 %}
+                    <option value = "1" >hogar de día</option>
+                    <option value = "2"selected>comedor infantil</option>
+                    <option value = "3">hogar de adolescentes</option>
+                    <option value = "4">jardín maternal</option>
+                {% elseif  selected_array[6]  == 3 %}
+                    <option value = "1" >hogar de día</option>
+                    <option value = "2">comedor infantil</option>
+                    <option value = "3"selected>hogar de adolescentes</option>
+                    <option value = "4">jardín maternal</option>
+                {% elseif selected_array[6]  == 4 %}   
+                    <option value = "1" >hogar de día</option>
+                    <option value = "2">comedor infantil</option>
+                    <option value = "3">hogar de adolescentes</option>
+                    <option value = "4"selected>jardín maternal</option>
+                {% endif %}
+            </select>
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <input type="submit" id="addbtn" value="Agregar" />
+          </div>
+       </form>
+</div>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

@@ -10,7 +10,8 @@
   </tr>
   {% for item in alimentos %}
     <tr>
-      <td>{{ item.codigo }}</td><td>{{item.descripcion }}</td>
+      <td>{{ item.codigo }}</td>
+      <td>{{item.descripcion }}</td>
       <td><div class="image">
         <a href="?action=attemptEditAlimento&codigo={{ item.codigo }}&descripcion={{ item.descripcion }}"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
         <a onclick="myFunction('?action=delAlimento&codigo={{item.codigo}}')"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>

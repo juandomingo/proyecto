@@ -8,9 +8,14 @@
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="addDetalleAlimento"/>
             <div class="form-label"><label for="alimento_codigo">Código de Alimento</label></div>
-            <div class="form-input">
-              <input type="text" name="alimento_codigo" id="alimento_codigo" size="11" value="" required />
-            </div>
+
+            <select name="alimento_codigo" id="alimento_codigo">
+            {% for item in alimentos %}
+              <option name="alimento_codigo" id="alimento_codigo" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+            {% endfor %}
+            </select>
+
+
             <div class="clearer"><!-- --></div>
 
 

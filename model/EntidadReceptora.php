@@ -32,54 +32,54 @@ class EntidadReceptora {
     }
 
     public function getId() {
-        echo $this->id;
+        return $this->id;
     }
 
     public function getRazon_social() {
-        echo $this->razon_social;
+        return $this->razon_social;
     }
 
     public function getTelefono() {
-        echo $this->telefono;
+        return $this->telefono;
     }
 
     public function getDomicilio() {
-        echo $this->domicilio;
+        return $this->domicilio;
     }
 
     public function getEstado_entidad_id() {
-        echo $this->estado_entidad_id;
+        return $this->estado_entidad_id;
     }
 
     public function getNecesidad_entidad_id() {
-        echo $this->necesidad_entidad_id;
+        return $this->necesidad_entidad_id;
     }
 
     public function getServicio_prestado_id() {
-        echo $this->servicio_prestado_id;
+        return $this->servicio_prestado_id;
     }
 
     public function getLatitud() {
-        echo $this->latitud;
+        return $this->latitud;
     }
 
     public function getLongitud() {
-        echo $this->longitud;
+        return $this->longitud;
     }
 
     public function getMapped_Estado_entidad_id() {
         switch ($this->estado_entidad_id) {
             case "1":
-                echo "alta";
+                return "alta";
                 break;
             case "2":
-                echo "en trámite";
+                return "en trámite";
                 break;
             case "3":
-                echo "suspendida";
+                return "suspendida";
                 break;
             case "4":
-                echo "baja";
+                return "baja";
                 break;
         }
     }
@@ -87,13 +87,13 @@ class EntidadReceptora {
     public function getMappedNecesidad_entidad_id() {
         switch ($this->servicio_prestado_id) {
             case "1":
-                echo "máxima";
+                return "máxima";
                 break;
             case "2":
-                echo "mediana";
+                return "mediana";
                 break;
             case "3":
-                echo "mínima";
+                return "mínima";
                 break;
         }
     }
@@ -101,16 +101,16 @@ class EntidadReceptora {
     public function getMappedServicio_prestado_id() {
         switch ($this->servicio_prestado_id) {
             case "1":
-                echo "hogar de día";
+                return "hogar de día";
                 break;
             case "2":
-                echo "comedor infantil";
+                return "comedor infantil";
                 break;
             case "3":
-                echo "hogar de adolescentes";
+                return "hogar de adolescentes";
                 break;
             case "4":
-                echo "jardín maternal";
+                return "jardín maternal";
                 break;
         }
 
