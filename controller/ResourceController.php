@@ -234,13 +234,23 @@ class ResourceController {
             $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
             $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
             foreach ($alimentos as $alimento ) {
-                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($pedido_numero,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getID(),DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getStock());
+                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($pedido_numero,$alimento,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getStock());
             }
-            $pedido = PedidoRepository::getInstance()->listPedidoByNumero($pedido_numero);
-            $view = new listPedido();
-            $view->show($pedido);
+            $this->listPedidos();
         }
     }
+
+    public function delPedido($numero)
+    {
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+            AlimentoPedidoRepository::getInstance()->delAlimentosPedidosPor($numero);
+            PedidoRepository::getInstance()->delPedido($numero);
+            
+            $this->listPedidos();
+
+        }   
+    }
+
     public function attemptAddPedido(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
@@ -257,6 +267,29 @@ class ResourceController {
             $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero);
             $view = new AttemptEditPedido();
             $view->show($pedido[0],$entidades_receptoras );
+        }
+    }
+    public function modPedido($numero_pedido,$id_entidad_receptora,$fecha_ingreso_pedido,$fecha_entrega,$hora_entrega,$estado,$envio,$alimentos){
+    #validame       
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
+            $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero_pedido);
+            TurnoEntregaRepository::getInstance()->modTurnoEntrega($pedido[0]->getTurno_entrega_id(), $fecha_entrega, $hora_entrega);
+            PedidoRepository::getInstance()->modPedido($numero_pedido,$id_entidad_receptora,$estado,$envio);
+            AlimentoPedidoRepository::getInstance()->delAlimentosPedidosPor($numero_pedido);
+            foreach ($alimentos as $alimento ) {
+                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($numero_pedido,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getID(),DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getStock());
+            }
+            $this->listPedidos();
+        }
+    }
+
+    public function entregasHoy()
+    {
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
+            $pedidos = PedidoRepository::getInstance()->getPedidoDia(date('Y-m-d'));
+            $view = new EntregaHoy();
+
+            $view->show($pedidos);
         }
     }
 }

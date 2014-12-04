@@ -73,9 +73,18 @@ class TurnoEntregaRepository extends PDORepository {
                 "select id, fecha, hora from turno_entrega where id = ?;", [$turno_entrega_id], $mapper);
 
         return $answer;
+    }
 
+    public function listPorDia($date)
+    {
+        $mapper = function($row) {
+            $turnoEntrega = new TurnoEntrega($row['id'], $row['fecha'], $row['hora']);
+            return $turnoEntrega;
+        };
+        $answer = $this->queryList(
+                "select id, fecha, hora from turno_entrega where fecha = ?;", [$date], $mapper);
 
-
+        return $answer;
     }
 
 

@@ -49,5 +49,23 @@ class AlimentoPedidoRepository extends PDORepository {
             "UPDATE `alimento` SET `descripcion` = ? WHERE `alimento`.`codigo` = ?;",[$descripcion,$codigo]);
     }
     
+    public function getAlimentosPedido($numero){
+        $mapper = function($row) {
+            $alimentoPedido = new AlimentoPedido($row['pedido_numero'], $row['detalle_alimento_id'],$row['cantidad']);
+            return $alimentoPedido;
+        };
+
+        $answer = $this->queryList(
+                "select pedido_numero, detalle_alimento_id, cantidad from alimento_pedido where pedido_numero = ?;", [$numero], $mapper);
+
+        return $answer;
+    }
+
+    public function delAlimentosPedidosPor($numero){
+        $this->touch(
+            "DELETE FROM alimento_pedido WHERE pedido_numero = ?;", [$numero]);
+
+    }
+
 }
 

@@ -30,23 +30,24 @@ class PedidoRepository extends PDORepository {
         };
 
         $answer = $this->queryList(
-                "select numero, entidad_receptora_id, fecha_ingreso, estado_pedido_id, turno_entrega_id, con_envio from pedido;", ['BASE TABLE'], $mapper);
+                "select numero, entidad_receptora_id, fecha_ingreso, estado_pedido_id, turno_entrega_id, con_envio from pedido where del <> 1;", ['BASE TABLE'], $mapper);
 
         return $answer;
     }
 
     public function addPedido($entidad_receptora_id, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio){
-        $this->touch(
-            "INSERT INTO `pedido` (`numero`, `entidad_receptora_id`, `fecha_ingreso`, `estado_pedido_id`, `turno_entrega_id`, `con_envio) VALUES (?, ?, ?, ?, ?, ?)",[null, $entidad_receptora_id, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio]);
+        $id = $this->touch(
+            "INSERT INTO `pedido` (`numero`, `entidad_receptora_id`, `fecha_ingreso`, `estado_pedido_id`, `turno_entrega_id`, `con_envio`) VALUES (?, ?, ?, ?, ?, ?)",[null, $entidad_receptora_id, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio]);
+        return $id;
     }
 
     public function delPedido($numero){
         $this->touch(
-            "DELETE FROM `pedido` WHERE `pedido`.`numero` = ? ;",[$numero]);
+            "UPDATE `pedido` SET `del` = 1 WHERE `pedido`.`numero` = ?;",[$numero]);
     }
-    public function modPedido($numero,$entidad_receptora_id,$fecha_ingreso, $estado_pedido_id, $con_envio){
+    public function modPedido($numero_pedido,$id_entidad_receptora,$estado,$envio){
         $this->touch(
-            "UPDATE `pedido` SET `entidad_receptora_id` = ?, `fecha_ingreso` = ?, `estado_pedido_id` = ?, `turno_entrega_id` = ?, `con_envio` = ? WHERE `pedido`.`numero` = ?;",[$entidad_receptora_id, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio, $numero]);
+            "UPDATE `pedido` SET `entidad_receptora_id` = ?,  `estado_pedido_id` = ?, `con_envio` = ? WHERE `pedido`.`numero` = ?;",[$id_entidad_receptora, $estado, $envio, $numero_pedido]);
     }
     public function listPorTurnoEntrega($id){
 
@@ -88,15 +89,35 @@ class PedidoRepository extends PDORepository {
         return $answer;
     }
 
-
     public function createPedido($id_entidad_receptora,$turno_entrega_id,$con_envio)
     {
         $estado_pedido_id = 0;
         $fecha_ingreso = date("Y-m-d");
-        $this->addPedido($id_entidad_receptora, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio);
-
+        $id = $this->addPedido($id_entidad_receptora, $fecha_ingreso, $estado_pedido_id, $turno_entrega_id, $con_envio);
+        return $id;
     }
 
+    public function listPorTurnoEntregaId($id_pedido)
+    {
+        $mapper = function($row) {
+        $pedido = new Pedido($row['numero'], $row['entidad_receptora_id'], $row['fecha_ingreso'], $row['estado_pedido_id'], $row['turno_entrega_id'], $row['con_envio']);
+            return $pedido;
+        };
+
+        $answer = $this->queryList(
+                "select numero, entidad_receptora_id, fecha_ingreso, estado_pedido_id, turno_entrega_id, con_envio from pedido where turno_entrega_id = ? and del <> 1;", [$id_pedido], $mapper);
+        return $answer;
+    }
+
+    public function getPedidoDia($date)
+    {
+        $turnosPedidos = TurnoEntregaRepository::getInstance()->listPorDia($date);
+        $pedidos_hoy = [];
+        foreach ($turnosPedidos as $turnoPedido) {
+            $pedidos_hoy = PedidoRepository::getInstance()->listPorTurnoEntregaId($turnoPedido->getID());
+        }
+        return $pedidos_hoy;
+    }
 
 
 }

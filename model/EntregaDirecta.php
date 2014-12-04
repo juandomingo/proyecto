@@ -18,14 +18,14 @@ class EntregaDirecta {
     }
 
     public function getID() {
-        echo $this->id;
+        return $this->id;
     }
 
     public function getEntidad_receptora_id() {
-        echo $this->entidad_receptora_id;
+        return $this->entidad_receptora_id;
     }
 
     public function getFecha() {
-        echo $this->fecha;
+        return $this->fecha;
     }
 }

@@ -18,10 +18,10 @@ class Alimento {
     }
 
     public function getCodigo() {
-        echo $this->codigo;
+        return $this->codigo;
     }
 
     public function getDescripcion() {
-        echo $this->descripcion;
+        return $this->descripcion;
     }
 }

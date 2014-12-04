@@ -18,14 +18,14 @@ class AlimentoEntregaDirecta {
     }
 
     public function getEntrega_directa_id() {
-        echo $this->entrega_directa_id;
+        return $this->entrega_directa_id;
     }
 
     public function getDetalle_alimento_id() {
-        echo $this->detalle_alimento_id;
+        return $this->detalle_alimento_id;
     }
 
     public function getCantidad() {
-        echo $this->cantidad;
+        return $this->cantidad;
     }
 }

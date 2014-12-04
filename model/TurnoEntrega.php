@@ -18,22 +18,22 @@ class TurnoEntrega {
     }
 
     public function getID() {
-        echo $this->id;
+        return $this->id;
     }
 
     public function getFecha() {
-        echo $this->fecha;
+        return $this->fecha;
     }
 
     public function getHora() {
-        echo $this->hora;
+        return $this->hora;
     }
 
     public function atrasado() {
         if (($this->hora) > (date("H:i:s")))
-            {echo "atrasado";}
+            {return "atrasado";}
         else
-            {echo "hay tiempo";}
+            {return "hay tiempo";}
     }
 
     public function getPedido()

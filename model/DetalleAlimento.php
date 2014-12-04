@@ -28,35 +28,35 @@ class DetalleAlimento {
     }
 
     public function getId() {
-        echo $this->id;
+        return $this->id;
     }
 
     public function getAlimento_codigo() {
-        echo $this->alimento_codigo;
+        return $this->alimento_codigo;
     }
 
     public function getFecha_vencimiento() {
-        echo $this->fecha_vencimiento;
+        return $this->fecha_vencimiento;
     }
 
     public function getContenido() {
-        echo $this->contenido;
+        return $this->contenido;
     }
 
     public function getPeso_unitario() {
-        echo $this->peso_unitario;
+        return $this->peso_unitario;
     }
 
     public function getStock() {
-        echo $this->stock;
+        return $this->stock;
     }
 
     public function getReservado() {
-        echo $this->reservado;
+        return $this->reservado;
     }
 
     public function getStockDisponible(){
-        echo $this->stock - $this->reservado;
+        return $this->stock - $this->reservado;
     }
 
     public function hayStock()

@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% block title %}ABM Donantes{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+
+<table class="tables">
+
+  <tr>
+    <th>Número</th>
+    <th>Entidad Receptora</th> 
+    <th>Fecha de Ingreso</th>
+    <th>Estado de Pedido</th> 
+    <th>Dia y hora</th> 
+    <th>Envío</th>
+    <th>Acciones</th>
+  </tr>
+  {% for item in pedido %}
+    <tr>
+      <td>{{ item.numero }}</td>
+      <td>{{ item.getEntidadReceptora.razon_social }}</td>
+      <td>{{ item.fecha_ingreso }}</td>
+      <td>{{ item.getEstado }}</td>
+      <td>{{ item.getTurnoEntrega.fecha }} {{ item.getTurnoEntrega.hora }}</td>
+      <td>{{ item.getEnvio }}</td>
+    </tr>
+  {% endfor %}
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

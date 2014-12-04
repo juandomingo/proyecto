@@ -18,14 +18,14 @@ class AlimentoDonante {
     }
 
     public function getDetalle_alimento_id() {
-        echo $this->detalle_alimento_id;
+        return $this->detalle_alimento_id;
     }
 
     public function getDonante_id() {
-        echo $this->donante_id;
+        return $this->donante_id;
     }
 
     public function getCantidad() {
-        echo $this->cantidad;
+        return $this->cantidad;
     }
 }

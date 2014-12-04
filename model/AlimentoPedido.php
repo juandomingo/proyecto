@@ -18,14 +18,20 @@ class AlimentoPedido {
     }
 
     public function getPedido_numero() {
-        echo $this->pedido_numero;
+        return $this->pedido_numero;
     }
 
     public function getDetalle_alimento_id() {
-        echo $this->detalle_alimento_id;
+        return $this->detalle_alimento_id;
     }
 
     public function getCantidad() {
-        echo $this->cantidad;
+        return $this->cantidad;
+    }
+
+    public function getDetalleAlimento()
+    {
+        $detalle = DetalleAlimentoRepository::getInstance()->listAllporID($this->detalle_alimento_id);
+        return $detalle;
     }
 }

@@ -28,30 +28,30 @@ class Donante {
     }
 
     public function getId() {
-        echo $this->id;
+        return $this->id;
     }
 
     public function getRazon_social() {
-        echo $this->razon_social;
+        return $this->razon_social;
     }
 
     public function getApellido_contacto() {
-        echo $this->apellido_contacto;
+        return $this->apellido_contacto;
     }
 
     public function getNombre_contacto() {
-        echo $this->nombre_contacto;
+        return $this->nombre_contacto;
     }
 
     public function getTelefono_contacto() {
-        echo $this->telefono_contacto;
+        return $this->telefono_contacto;
     }
 
     public function getMail_contacto() {
-        echo $this->mail_contacto;
+        return $this->mail_contacto;
     }
 
     public function getDomicilio_contacto() {
-        echo $this->domicilio_contacto;
+        return $this->domicilio_contacto;
     }
 }

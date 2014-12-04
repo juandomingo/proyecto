@@ -18,14 +18,14 @@ class Configuracion {
     }
 
     public function getID() {
-        echo $this->id;
+        return $this->id;
     }
 
     public function getClave() {
-        echo $this->clave;
+        return $this->clave;
     }
 
     public function getValor() {
-        echo $this->valor;
+        return $this->valor;
     }
 }

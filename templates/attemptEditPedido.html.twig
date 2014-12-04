@@ -4,16 +4,17 @@
 {% block loginfo %}{% endblock %}
 {% block content %}
 <div class="agregar">
-    <form action="" method="get" id="editPedido"  >
+    <form action="" method="get" id="modPedido"  >
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="modPedido"/>
-         <input type="hidden" name="numero" id="numero" size="20" value="{{ pedido.numero }}"/>
 
-             <div class="form-label"><label for="entidad_receptora_id">Entidad Receptora</label></div>
+        <input type="hidden" name="numero" id="numero" size="20" value="{{ pedido.numero }}"/>
+
+             <div class="form-label"><label for="entidad">Entidad Receptora</label></div>
             <div class="form-input">
-            <select name="entidad_receptora_id" id="entidad_receptora_id">
+            <select name="entidad" id="entidad">
             {% for item in entidades_receptoras %}
-              <option name="entidad_receptora_id" id="entidad_receptora_id" value="{{ item.id }}" 
+              <option name="entidad" id="entidad" value="{{ item.id }}" 
               {% if (item.id == pedido.entidad_receptora_id) %}
                 selected
               {%endif%}
@@ -25,95 +26,75 @@
             </div>
 
 
-            <div class="form-label"><label for="telefono">Telefono</label></div>
+            <div class="form-label"><label for="ingreso">Fecha Pedido</label></div>
             <div class="form-input">
-              <input type="text" name="telefono" id="telefono" size="100" value="{{ selected_array[2] }}" required />
+              <input type="date" name="ingreso" id="ingreso" size="30" value="{{ pedido.fecha_ingreso }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
-            <div class="form-label"><label for="domicilio">Domicilio</label></div>
+           <div class="form-label"><label for="descripcion">Fecha de entrega</label></div>
             <div class="form-input">
-              <input type="text" name="domicilio" id="domicilio" size="300" value="{{ selected_array[3] }}" required />
+              <input type="date" name="entrega" id="entrega" value ="{{ pedido.getTurnoEntrega.fecha }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
-            <div class="form-label"><label for="estado_entidad_id">Estado Entidad Id</label></div>
+
+            <div class="form-label"><label for="descripcion">Hora de entrega</label></div>
             <div class="form-input">
-            <select id = "estado_entidad_id" name="estado_entidad_id">
-                {% if selected_array[4] == 1 %}
-                    <option value = "1" selected>alta</option>
-                    <option value = "2">en tramite</option>
-                    <option value = "3">suspendida</option>
-                    <option value = "4">baja</option>
-                {% elseif selected_array[4] == 2 %}
-                    <option value = "1" >alta</option>
-                    <option value = "2" selected>en tramite</option>
-                    <option value = "3">suspendida</option>
-                    <option value = "4">baja</option>
-                {% elseif selected_array[4] == 3 %}
-                    <option value = "1" >alta</option>
-                    <option value = "2">en tramite</option>
-                    <option value = "3"selected>suspendida</option>
-                    <option value = "4">baja</option>
-                {% elseif selected_array[4] == 4%}   
-                    <option value = "1" >alta</option>
-                    <option value = "2">en tramite</option>
-                    <option value = "3">suspendida</option>
-                    <option value = "4"selected>baja</option>
-                {% endif %}
-            </select> 
+              <input type="time" name="hora" id="hora" value= "{{ pedido.getTurnoEntrega.hora }}"required />
             </div>
             <div class="clearer"><!-- --></div>
 
-            <div class="form-label"><label for="necesidad_entidad_id">Necesidad Entidad Id</label></div>
+            <div class="form-label"><label for="descripcion">Estado Pedido</label></div>
             <div class="form-input">
-            <select id = "necesidad_entidad_id" name="necesidad_entidad_id">
-                {% if selected_array[5] == 1 %}
-                    <option value = "1"selected>máxima</option>
-                    <option value = "2">mediana</option>
-                    <option value = "3">minima</option>
-                {% elseif selected_array[5] == 2 %}
-                    <option value = "1">máxima</option>
-                    <option value = "2"selected>mediana</option>
-                    <option value = "3">minima</option>
-                {% elseif selected_array[5] == 3 %}   
-                    <option value = "1">máxima</option>
-                    <option value = "2">mediana</option>
-                    <option value = "3"selected>minima</option>
-                {% endif %}
-            </select> 
-            </div>
-            <div class="clearer"><!-- --></div>
-
-            <div class="form-label"><label for="servicio_prestado_id">Servicio Prestado Id</label></div>
-            <div class="form-input">
-            <select id = "servicio_prestado_id" name="servicio_prestado_id">
-                {% if selected_array[6] == 1 %}
-                    <option value = "1" selected>hogar de día</option>
-                    <option value = "2">comedor infantil</option>
-                    <option value = "3">hogar de adolescentes</option>
-                    <option value = "4">jardín maternal</option>
-                {% elseif selected_array[6] == 2 %}
-                    <option value = "1" >hogar de día</option>
-                    <option value = "2"selected>comedor infantil</option>
-                    <option value = "3">hogar de adolescentes</option>
-                    <option value = "4">jardín maternal</option>
-                {% elseif  selected_array[6]  == 3 %}
-                    <option value = "1" >hogar de día</option>
-                    <option value = "2">comedor infantil</option>
-                    <option value = "3"selected>hogar de adolescentes</option>
-                    <option value = "4">jardín maternal</option>
-                {% elseif selected_array[6]  == 4 %}   
-                    <option value = "1" >hogar de día</option>
-                    <option value = "2">comedor infantil</option>
-                    <option value = "3">hogar de adolescentes</option>
-                    <option value = "4"selected>jardín maternal</option>
-                {% endif %}
+            <select id="estado" name="estado">
+              <option id="estado" name="estado" value='1'
+              {% if (pedido.estado_pedido_id == 1)  %}
+                selected
+              {% endif %} 
+              >entregado</option>
+              <option id="estado" name="estado" value='0'
+              {% if (pedido.estado_pedido_id == 0)  %}
+                selected
+              {% endif %}
+                >no entregado</option>
             </select>
             </div>
             <div class="clearer"><!-- --></div>
 
-            <input type="submit" id="addbtn" value="Agregar" />
+            <div class="form-label"><label for="descripcion">Envio?</label></div>
+            <div class="form-input">
+            <select id="envio" name="envio">
+              <option id="envio" name="envio" value='1'
+              {% if (pedido.con_envio == 1)  %}
+                selected
+              {% endif %} 
+              >Sí</option>
+              <option id="envio" name="envio" value='0'
+              {% if (pedido.con_envio == 0)  %}
+                selected
+              {% endif %}
+                >No</option>
+            </select>
+            </div>
+            <div class="clearer"><!-- --></div>
+
+             <div class="form-label"><label for="detalles alimentos">Alimentos en pedido</label></div>
+            <div class="form-input">
+
+            {% for item in pedido.getAlimentosPedidos %}
+              <input type="checkbox" id="{{ item.id }}"
+                 name="{{ item.getDetalle_alimento_id }}"
+                 value="{{ item.getDetalle_alimento_id }}"
+                 checked>
+                 {{ item.getDetalleAlimento.getAlimento.descripcion }} por {{ item.getCantidad }} unidades
+                 <br>
+
+            {% endfor %}
+
+            </div>
+
+            <input type="submit" id="addbtn" value="Modificar" />
           </div>
        </form>
 </div>

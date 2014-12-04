@@ -26,7 +26,6 @@ require_once('model/TurnoEntregaRepository.php');
 require_once('model/AlimentoPedido.php');
 require_once('model/AlimentoPedidoRepository.php');
 
-
 //We will require  every view class
 require_once('view/TwigView.php');
 require_once('view/SimpleResourceList.php');
@@ -54,6 +53,7 @@ require_once('view/AuthFail.php');
 require_once('view/AttemptAddPedido.php');
 require_once('view/ListPedido.php');
 require_once('view/AttemptEditPedido.php');
+require_once('view/EntregaHoy.php');
 
 
 
@@ -95,6 +95,18 @@ switch ($_GET["action"]) {
 				ResourceController::getInstance()->addPedido($_GET["entidad"],$_GET["hora"],$_GET["dia"],$_GET["envio"],$detalles_alimentos);
     break;
 
+    case 'delPedido':
+        ResourceController::getInstance()->delPedido($_GET["numero"]);
+    break;
+
+    case 'modPedido':
+        $detalles_alimentos= [];
+                foreach(array_slice($_GET, 8) as $name => $value) {
+                    $detalles_alimentos[] = $value;
+                }
+                ResourceController::getInstance()->modPedido($_GET["numero"],$_GET["entidad"],$_GET["ingreso"],$_GET["entrega"],$_GET["hora"],$_GET["estado"],$_GET["envio"],$detalles_alimentos);
+    break;
+
     case "attemptAddPedido":
         ResourceController::getInstance()->attemptAddPedido();
     break;
@@ -129,10 +141,6 @@ switch ($_GET["action"]) {
 
     case "attemptEditPedido":
         ResourceController::getInstance()->attemptEditPedido($_GET["numero"]);
-    break;
-
-    case "modPedido":
-        ResourceController::getInstance()->modPedido();
     break;
 
     case "listDetallesAlimentos":
@@ -211,9 +219,11 @@ switch ($_GET["action"]) {
     		ResourceController::getInstance()->attemptEditDonante($_GET["id"],$_GET["razon_social"],$_GET["apellido_contacto"],$_GET["nombre_contacto"],$_GET["telefono_contacto"],$_GET["mail_contacto"],$_GET["domicilio_contacto"]);
     break;
 
+    case "entregaHoy":
+            ResourceController::getInstance()->entregasHoy();
+    break;
 
     default:
     		ResourceController::getInstance()->home();
-    		echo "dfgdsghs";
 	}
 }
