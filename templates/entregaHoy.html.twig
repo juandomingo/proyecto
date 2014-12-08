@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %}ABM Donantes{% endblock %}
 {% block head %}
-<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 <script>
 
 Array.prototype.inArray = function(element) { 
@@ -115,7 +115,7 @@ window.onload = function() {
 <div id="googleMap" style="width:500px; height:380px;"></div>
 <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
 
-
+{% if pedido|length > 0 %}
 <table class="tables">
 
   <tr>
@@ -139,6 +139,11 @@ window.onload = function() {
   {% endfor %}
 </table>
 
+{% else %}
+ <p class='importante'> No hay pedido para este día </p>
+{% endif %}
+
+{% if directas|length > 0 %}
 <table class="tables">
   <tr>
     <th>Entidad Receptora</th> 
@@ -152,7 +157,9 @@ window.onload = function() {
   {% endfor %}
 
 
-
+{% else %}
+ <p class='importante'> No hay envios directos para este día </p>
+{% endif %}
 
 
 
