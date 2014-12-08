@@ -55,6 +55,7 @@ class EntidadReceptoraRepository extends PDORepository {
          [$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$latitud,$longitud,$id]
          );
     }
+
     public function listPorId($entidad_receptora_id){
         $mapper = function($row) {
             $entidad_receptora = new EntidadReceptora($row['id'], $row['razon_social'], $row['telefono'], $row['domicilio'], $row['estado_entidad_id'], $row['necesidad_entidad_id'], $row['servicio_prestado_id'], $row['latitud'], $row['longitud']);

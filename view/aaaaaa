@@ -4,38 +4,20 @@
 <script src="http://maps.googleapis.com/maps/api/js"></script>
 <script>
 
-Array.prototype.inArray = function(element) { 
-    for(var i=0; i < this.length; i++) { 
-        if(element.location.B == this[i].location.B) return true; 
-    }
-    return false; 
-}; 
-
-// adds an element to the array if it does not already exist using a comparer 
-// function
-Array.prototype.pushIfNotExist = function(element) { 
-    if (!this.inArray(element)) {
-        this.push(element);
-    }
-}; 
-
-
 var waypts = [];
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
-var Centro;
 
 function initialize() {
   directionsDisplay = new google.maps.DirectionsRenderer();
-  Centro=new google.maps.LatLng(-34.9211, -57.9544);
+  var Centro=new google.maps.LatLng(-34.9211, -57.9544);
   var mapProp = {
     center:Centro, zoom:13,
     mapTypeId:google.maps.MapTypeId.ROADMAP
   };
   map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-  directionsDisplay.setMap(map);
-
+  
   var CentroMarker=new google.maps.Marker({
     position:Centro,
   });
@@ -47,11 +29,10 @@ function initialize() {
       position:{{item.getEntidadReceptora.razon_social}}Center,
       });
     {{item.getEntidadReceptora.razon_social}}marker.setMap(map);
-    if (waypts.filter(function(e) { return e.location == {{item.getEntidadReceptora.razon_social}}Center; }).length == 0) {
-      waypts.pushIfNotExist({
+    waypts.push({
       location:{{item.getEntidadReceptora.razon_social}}Center,
       stopover:true
-    }); 
+    });
   {% endfor %}
 
   {% for item in directas %}
@@ -60,24 +41,22 @@ function initialize() {
       position:{{item.getEntidadReceptora.razon_social}}Center,
     });
     {{item.getEntidadReceptora.razon_social}}marker.setMap(map);
-    
-    if (waypts.filter(function(e) { return e.location == {{item.getEntidadReceptora.razon_social}}Center; }).length == 0) {
-      waypts.pushIfNotExist({
+    waypts.push({
       location:{{item.getEntidadReceptora.razon_social}}Center,
       stopover:true
     });
-}
-   
   {% endfor %}
+
+    directionsDisplay.setMap(map);
 } {# fin initialize, anda bien hasta acá #}
 
 function calcRoute() {
   var request =
   {
     origin: Centro,
-    destination: Centro,
+    destination: new google.maps.LatLng(-34.9111, -57.9544),
     travelMode: google.maps.TravelMode.DRIVING,
-    unitSystem: google.maps.UnitSystem.METRIC,
+    unitSystem: UnitSystem.METRIC,
     waypoints: waypts,
     optimizeWaypoints: true
   };
@@ -86,35 +65,18 @@ function calcRoute() {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
     }
-          var route = response.routes[0];
-      var summaryPanel = document.getElementById('directions_panel');
-      summaryPanel.innerHTML = '';
-      // For each route, display summary information.
-      for (var i = 0; i < route.legs.length; i++) {
-        var routeSegment = i + 1;
-        summaryPanel.innerHTML += '<b>Segmento de ruta: ' + routeSegment + '</b><br>';
-        summaryPanel.innerHTML += route.legs[i].start_address + ' hasta ';
-        summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-        summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-      }
-
   });
 } {# fin calc route #}
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-window.onload = function() {
-  calcRoute();
-};
 
 </script>
+
 
 {% endblock %}
 {% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
-<div id="googleMap" style="width:500px; height:380px;"></div>
-<div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
-
 
 <table class="tables">
 
@@ -153,9 +115,6 @@ window.onload = function() {
 
 
 
-
-
-
+<div id="googleMap" style="width:500px;height:380px;"></div>
 {% endblock %}
-
 {% block footer %}{{ parent() }}{% endblock %}

@@ -7,17 +7,33 @@
     <th>Peso por unidad</th>
     <th>Stock</th> 
     <th>Reservado</th>
+    <th>Asignar</th>
   </tr>
 
         
         {% for item in detalles_alimentos %}
         <tr>
 
-            <td><img src="resources/cruz.png" width="16" height="16" alt="delete">{{item.alimento_codigo }}</td>
+            <td><img src="resources/cruz.png" width="16" height="16" alt="por vencer">{{item.getalimento.descripcion }}</td>
             <td>{{item.fecha_vencimiento }}</td>
             <td>{{item.contenido }} </td>
             <td>{{item.peso_unitario }}</td>
             <td>{{item.stock }} </td>
             <td>{{item.reservado }}</td>
+            <td><a href="./?action=attemptAddEntregaDirecta&id={{item.id}}"><img  width="16" height="16" src="resources/puato.png" >Asignar ahora</td>
         </tr>
         {% endfor %}
+   </table>     
+
+<script> 
+$(document).ready(function(){
+
+        $("#hide").click(function(){
+        $("#entregaHoy").hide();
+        });
+
+        $("#entregasdia").click(function(){
+        $("#entregaHoy").show();
+        });
+    });
+</script>

@@ -224,8 +224,9 @@ class ResourceController {
     public function home(){
             $turnos_entrega_hoy = TurnoEntregaRepository::getInstance()->listAllParaHoy();
             $alimentos = DetalleAlimentoRepository::getInstance()->listAlimentoPorVencerEn($this->configuraciones['dias_vencimiento']);
+            $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
             $view = new Home();
-            $view->show($alimentos,$turnos_entrega_hoy);
+            $view->show($alimentos,$turnos_entrega_hoy,$entidades_receptoras);
     }
 
     public function addPedido($id_entidad_receptora,$hora,$fecha,$envio,$alimentos){
@@ -283,14 +284,59 @@ class ResourceController {
         }
     }
 
-    public function entregasHoy()
+    public function entregasHoy($date)
     {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
-            $pedidos = PedidoRepository::getInstance()->getPedidoDia(date('Y-m-d'));
+            $pedidos = PedidoRepository::getInstance()->getPedidoDia($date);
+            $directas = EntregaDirectaRepository::getInstance()->getEntregaDia($date);
             $view = new EntregaHoy();
 
-            $view->show($pedidos);
+            $view->show($pedidos,$directas);
         }
     }
+
+    public function attemptAddEntregaDirecta($id)
+    {
+        $alimentos_por_vencer = DetalleAlimentoRepository::getInstance()->listAllporID($id);
+        $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
+        $view = new AttemptAddEntregaDirecta();
+        $view->show($alimentos_por_vencer, $entidades_receptoras);
+    }
+
+    public function listEntregaDirecta()
+    {
+        $entrega_directa = EntregaDirectaRepository::getInstance()->listAll();
+        $view = new ABMEntregaDirecta();
+        $view->show($entrega_directa);
+    }
+
+    public function listAlimentosEntregaDirecta($id)
+    {
+        $alimentos_entrega_directa = AlimentoEntregaDirectaRepository::getInstance()->getAlimentoEntregaDirectaIdEntrega($id);
+        $entrega_directa = EntregaDirectaRepository::getInstance()->getEntregaDirecta($id);
+        $view = new ABMAlimentoEntregaDirecta();
+        $view->show($entrega_directa, $alimentos_entrega_directa, $entrega_directa[0]->getEntidadReceptora()->getRazon_social());
+    
+    }
+
+    public function addAlimentoEntregaDirecta($detalle, $entidad_receptora, $entrega_directa_id)
+    {   $detalle_alimento = DetalleAlimentoRepository::getInstance()->listAllporID($detalle);
+        AlimentoEntregaDirectaRepository::getInstance()->addAlimentoEntregaDirecta($entrega_directa_id, $detalle, $detalle_alimento->getCantidad());
+        $this->listAlimentosEntregaDirectaDe($entrega_directa_id);
+    }
+
+    public function addEntregaDirecta($detalle, $entidad_receptora)
+    {   $entrega = EntregaDirectaRepository::getInstance()->addEntregaDirecta($entidad_receptora, date("Y-m-d"));
+        $detalle_alimento = DetalleAlimentoRepository::getInstance()->listAllporID($detalle);
+        AlimentoEntregaDirectaRepository::getInstance()->addAlimentoEntregaDirecta($entrega, $detalle, $detalle_alimento->getStock());
+        $this->listAlimentosEntregaDirectaDe($entrega);
+    }
+
+    public function listMap()
+    {
+        $view = new ListMap();
+        $view->show();
+    }
+
 }
 

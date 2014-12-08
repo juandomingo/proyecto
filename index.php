@@ -3,57 +3,8 @@ ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
 
-//We will require  every controller class
-require_once('controller/ResourceController.php');
-require_once('controller/UserController.php');
-
-//We will require  every model class
-require_once('model/PDORepository.php');
-require_once('model/Alimento.php');
-require_once('model/AlimentoRepository.php');
-require_once('model/User.php');
-require_once('model/UserRepository.php');
-require_once('model/DetalleAlimento.php');
-require_once('model/DetalleAlimentoRepository.php');
-require_once('model/Donante.php');
-require_once('model/DonanteRepository.php');
-require_once('model/EntidadReceptora.php');
-require_once('model/EntidadReceptoraRepository.php');
-require_once('model/Pedido.php');
-require_once('model/PedidoRepository.php');
-require_once('model/TurnoEntrega.php');
-require_once('model/TurnoEntregaRepository.php');
-require_once('model/AlimentoPedido.php');
-require_once('model/AlimentoPedidoRepository.php');
-
-//We will require  every view class
-require_once('view/TwigView.php');
-require_once('view/SimpleResourceList.php');
-require_once('view/SimpleAlimentoList.php');
-require_once('view/SimpleDetalleAlimentoList.php');
-require_once('view/AttemptAddEntidadReceptora.php');
-require_once('view/AttemptEditEntidadReceptora.php');
-require_once('view/AttemptAddDetalleAlimento.php');
-require_once('view/AttemptEditDetalleAlimento.php');
-require_once('view/AttemptAddDonante.php');
-require_once('view/AttemptEditDonante.php');
-require_once('view/AttemptAddAlimento.php');
-require_once('view/AttemptEditAlimento.php');
-require_once('view/ABMAlimentoList.php');
-require_once('view/ABMDonanteList.php');
-require_once('view/ABMDetalleAlimentoList.php');
-require_once('view/ABMEntidadReceptora.php');
-require_once('view/ABMPedidoList.php');
-require_once('view/SimpleDonanteList.php');
-require_once('view/SimpleEntidadReceptoraList.php');
-require_once('view/Login.php');
-require_once('view/Login1.php');
-require_once('view/Home.php');
-require_once('view/AuthFail.php');
-require_once('view/AttemptAddPedido.php');
-require_once('view/ListPedido.php');
-require_once('view/AttemptEditPedido.php');
-require_once('view/EntregaHoy.php');
+//We will require every class from requires.php
+require_once('requires.php');
 
 
 
@@ -220,9 +171,29 @@ switch ($_GET["action"]) {
     break;
 
     case "entregaHoy":
-            ResourceController::getInstance()->entregasHoy();
+            ResourceController::getInstance()->entregasHoy($_GET["fecha"]);
     break;
 
+    case "attemptAddEntregaDirecta":
+            ResourceController::getInstance()->attemptAddEntregaDirecta($_GET["id"]);
+    break;
+
+    case "listEntregaDirecta":
+            ResourceController::getInstance()->listEntregaDirecta();
+    break;
+
+    case "listAlimentosEntregaDirecta":
+            ResourceController::getInstance()->listAlimentosEntregaDirecta($_GET["id"]);
+    break;
+
+    case "addEntregaDirecta":
+             ResourceController::getInstance()->addEntregaDirecta($_GET["detalle"],$_GET["entidad"]);
+    break;
+
+    case "listMap":
+            ResourceController::getInstance()->listMap();
+    break;
+    
     default:
     		ResourceController::getInstance()->home();
 	}

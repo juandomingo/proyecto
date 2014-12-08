@@ -1,0 +1,27 @@
+<table class="tables">
+  <tr>
+    <th>Razon Social</th>
+    <th>Fecha</th> 
+    <th>Acciones</th> 
+  </tr>
+  {% for item in entregas %}
+    <tr>
+      <td>{{ item.getEntidadReceptora.getRazon_social }}</td>
+      <td>{{ item.getFecha }}</td>
+      <td><div class="image"><a href="?action=listAlimentosEntregaDirecta&id={{ item.id }}">
+        <img src="resources/lupa.png" width="16" height="16" alt="ver alimentos"></a>
+      </div></td>
+    </tr>
+  {% endfor %}
+
+<script>
+function myFunction(x) {
+    var txt;
+    var r = confirm("Está seguro que desea eliminar el elemento?");
+    if (r == true) {
+        window.location = x;
+    } else {
+    }
+
+}
+</script>

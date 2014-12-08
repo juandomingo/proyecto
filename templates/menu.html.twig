@@ -7,6 +7,45 @@
             <li><a href="./?action=listDonantes">Donantes</a></li>
             <li><a href="./?action=listEntidadesReceptoras">Entidades Receptoras</a></li>
             <li><a href="./?action=listPedidos">Gestion de Pedidos</a></li>
-            <li><a href="./?action=entregaHoy">Entrega del Día</a></li>
+            <li><a href="./?action=listEntregaDirecta">Ver Entregas Directas</a></li>
+            
+            <li><a id = "entregasdia">Entrega del Día</a></li>
+            <form action="" method="get" style="display: none;" id="entregaHoy" hidden>
+                <input type="hidden" name="action" value="entregaHoy">
+                <div class="form-input">
+                <input type="date" name="fecha" size="15" value="" required />
+                </div>
+                {# 
+                <div class="form-input">
+                <input type="time" name="hora" size="15" value="" required />
+                </div> 
+                #}
+                <div class="form-input">
+                <input type="submit" id="verbtn" value="Ver" />
+                <button id="hide">&#10006;</button>
+                </div> 
+            </form>
         </ul>
     </div>
+
+
+ <script>
+    function myFunction() {
+    var person = prompt("Please enter your name", "Harry Potter");
+    if (person != null) {
+        document.getElementById("demo").innerHTML =
+        "Hello " + person + "! How are you today?";
+    }
+}
+
+    $(document).ready(function(){
+
+        $("#hide").click(function(){
+        $("#entregaHoy").hide();
+        });
+
+        $("#entregasdia").click(function(){
+        $("#entregaHoy").show();
+        });
+    });
+</script>

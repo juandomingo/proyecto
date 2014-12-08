@@ -48,11 +48,10 @@ class UserController {
     }
 
     public function logout(){
-        session_start();
         session_unset();
         session_destroy();
         header("location:");
-        exit();
+        ResourceController::getInstance()->login();
     }
 
     

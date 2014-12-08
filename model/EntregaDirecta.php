@@ -12,7 +12,7 @@ class EntregaDirecta {
     private $fecha;
     
     public function __construct($id, $entidad_receptora_id, $fecha) {
-        $this->id = $id
+        $this->id = $id;
         $this->entidad_receptora_id = $entidad_receptora_id;
         $this->fecha = $fecha;
     }
@@ -27,5 +27,11 @@ class EntregaDirecta {
 
     public function getFecha() {
         return $this->fecha;
+    }
+
+    public function getEntidadReceptora()
+    {
+        $result = EntidadReceptoraRepository::getInstance()->listPorId($this->entidad_receptora_id);
+        return $result[0];
     }
 }

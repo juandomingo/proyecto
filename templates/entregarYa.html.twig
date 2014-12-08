@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+{% block title %}Entregas Ya{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+<form action="" method="get" id="enviarYaAEntidades"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="enviarYaAEntidades"/>
+
+    <table class="tables"> 
+        <tr>
+            <th>Alimento</th> 
+            <th>Fecha de vencimiento</th>
+            <th>Contenido</th>
+            <th>Peso por unidad</th>
+            <th>Stock</th> 
+            <th>Reservado</th>
+            <th>Entidad a enviar</th>
+        </tr>
+        {% for item in alimentos %}
+        <tr>
+            <td>{{item.getalimento.descripcion }}</td>
+            <td>{{item.fecha_vencimiento }}</td>
+            <td>{{item.contenido }} </td>
+            <td>{{item.peso_unitario }}</td>
+            <td>{{item.stock }} </td>
+            <td>{{item.reservado }}</td>
+            <td>
+            <select name="entidad" id="entidad">
+                {% for item2 in entidades %}
+                  <option name="entidad" id="entidad" value="{{item.alimento_codigo }}!{{ item2.id }}">{{ item2.razon_social }}</option>
+                {% endfor %}
+                </select>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <button>Acceptar</button>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

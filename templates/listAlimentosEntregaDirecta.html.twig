@@ -1,0 +1,25 @@
+
+Alimentos para {{ razon_social[0] }} el {{ entregas.fecha }}
+<table class="tables">
+  <tr>
+    <th>Codigo Alimento</th>
+    <th>Cantidad</th> 
+  </tr>
+  {% for item in alimentos %}
+    <tr>
+      <td>{{ item.getAlimento }}</td>
+      <td>{{ item.getCantidad }}</td>
+    </tr>
+  {% endfor %}
+
+<script>
+function myFunction(x) {
+    var txt;
+    var r = confirm("Está seguro que desea eliminar el elemento?");
+    if (r == true) {
+        window.location = x;
+    } else {
+    }
+
+}
+</script>

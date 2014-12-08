@@ -9,8 +9,17 @@
             $("#demo-bar").load("../demo-bar.html"); 
             });
         </script> 
-        {% include "listDetallesAlimentosSinLinks.html.twig" %}
-        
-        {% include "listTurnosEntregaHoy.html.twig" %}
+        {% if detalles_alimentos | length > 0 %}
+        	{% include "listDetallesAlimentosSinLinks.html.twig" %}
+        {% else %}
+    		<p class="importante"> No hay alimentos por vencer </p>
+		{% endif %}
+
+		{% if turnos_entrega_hoy | length > 0 %}
+        	{% include "listTurnosEntregaHoy.html.twig" %}
+        {% else %}
+    		<p class="importante"> No hay entregas para hoy </p>
+		{% endif %}	
+
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}

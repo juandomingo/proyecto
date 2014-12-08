@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block title %}ABM Entrega Directa{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+
+    {% include 'listEntregaDirecta.html.twig' %}
+                       
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
