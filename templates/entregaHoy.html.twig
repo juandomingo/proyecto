@@ -2,6 +2,8 @@
 {% block title %}ABM Donantes{% endblock %}
 {% block head %}
 <script src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
 <script>
 
 Array.prototype.inArray = function(element) { 
@@ -18,6 +20,16 @@ Array.prototype.pushIfNotExist = function(element) {
         this.push(element);
     }
 }; 
+
+
+
+var jsonurl = "http://api.openweathermap.org/data/2.5/forecast?lat=-34.89268966339911&lon=-57.9803466796875";
+
+$.get( jsonurl, function( data ) {
+$( "#result" ).html( data.cod );
+alert( data.cod );
+});
+
 
 
 var waypts = [];
@@ -42,28 +54,28 @@ function initialize() {
   CentroMarker.setMap(map);
 
   {% for item in pedido %} 
-    var {{item.getEntidadReceptora.razon_social}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
-    var {{item.getEntidadReceptora.razon_social}}marker=new google.maps.Marker({
-      position:{{item.getEntidadReceptora.razon_social}}Center,
+    var a{{item.getEntidadReceptora.id}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
+    var a{{item.getEntidadReceptora.id}}marker=new google.maps.Marker({
+      position:a{{item.getEntidadReceptora.id}}Center,
       });
-    {{item.getEntidadReceptora.razon_social}}marker.setMap(map);
-    if (waypts.filter(function(e) { return e.location == {{item.getEntidadReceptora.razon_social}}Center; }).length == 0) {
+    a{{item.getEntidadReceptora.id}}marker.setMap(map);
+    if (waypts.filter(function(e) { return e.location == a{{item.getEntidadReceptora.id}}Center; }).length == 0) {
       waypts.pushIfNotExist({
-      location:{{item.getEntidadReceptora.razon_social}}Center,
+      location:a{{item.getEntidadReceptora.id}}Center,
       stopover:true
     }); 
   {% endfor %}
 
   {% for item in directas %}
-    var {{item.getEntidadReceptora.razon_social}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
-    var {{item.getEntidadReceptora.razon_social}}marker=new google.maps.Marker({
-      position:{{item.getEntidadReceptora.razon_social}}Center,
+    var a{{item.getEntidadReceptora.id}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
+    var a{{item.getEntidadReceptora.id}}marker=new google.maps.Marker({
+      position:a{{item.getEntidadReceptora.id}}Center,
     });
-    {{item.getEntidadReceptora.razon_social}}marker.setMap(map);
+    a{{item.getEntidadReceptora.id}}marker.setMap(map);
     
-    if (waypts.filter(function(e) { return e.location == {{item.getEntidadReceptora.razon_social}}Center; }).length == 0) {
+    if (waypts.filter(function(e) { return e.location == a{{item.getEntidadReceptora.id}}Center; }).length == 0) {
       waypts.pushIfNotExist({
-      location:{{item.getEntidadReceptora.razon_social}}Center,
+      location:a{{item.getEntidadReceptora.id}}Center,
       stopover:true
     });
 }
@@ -109,12 +121,14 @@ window.onload = function() {
 
 </script>
 
+
+
 {% endblock %}
 {% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 <div id="googleMap" style="width:500px; height:380px;"></div>
 <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
-
+<p id='result' class='result'> </p>
 {% if pedido|length > 0 %}
 <table class="tables">
 

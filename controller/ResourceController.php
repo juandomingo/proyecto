@@ -182,16 +182,16 @@ class ResourceController {
         }
     }
 
-    public function addEntidadReceptora($razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
+    public function addEntidadReceptora($razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$longitud,$latitud){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
-            EntidadReceptoraRepository::getInstance()->addEntidadReceptora($razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id);
+            EntidadReceptoraRepository::getInstance()->addEntidadReceptora($razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$longitud,$latitud);
             $this->listEntidadesReceptoras();
         }
     }
 
-    public function modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
+    public function modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$latitud,$longitud){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
-            EntidadReceptoraRepository::getInstance()->modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id);
+            EntidadReceptoraRepository::getInstance()->modEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id,$latitud,$longitud);
             $this->listEntidadesReceptoras();
         }
     }
@@ -209,7 +209,7 @@ class ResourceController {
             $view->show();
        }
     }
-    public function attemptEditEntidadReceptora($id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id){
+    public function attemptEditEntidadReceptora($id){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $view = new AttemptEditEntidadReceptora();
             $view->show([$id,$razon_social,$telefono,$domicilio,$estado_entidad_id,$necesidad_entidad_id,$servicio_prestado_id]);
@@ -322,14 +322,14 @@ class ResourceController {
     public function addAlimentoEntregaDirecta($detalle, $entidad_receptora, $entrega_directa_id)
     {   $detalle_alimento = DetalleAlimentoRepository::getInstance()->listAllporID($detalle);
         AlimentoEntregaDirectaRepository::getInstance()->addAlimentoEntregaDirecta($entrega_directa_id, $detalle, $detalle_alimento->getCantidad());
-        $this->listAlimentosEntregaDirectaDe($entrega_directa_id);
+        $this->listAlimentosEntregaDirecta($entrega_directa_id);
     }
 
     public function addEntregaDirecta($detalle, $entidad_receptora)
     {   $entrega = EntregaDirectaRepository::getInstance()->addEntregaDirecta($entidad_receptora, date("Y-m-d"));
         $detalle_alimento = DetalleAlimentoRepository::getInstance()->listAllporID($detalle);
         AlimentoEntregaDirectaRepository::getInstance()->addAlimentoEntregaDirecta($entrega, $detalle, $detalle_alimento->getStock());
-        $this->listAlimentosEntregaDirectaDe($entrega);
+        $this->listAlimentosEntregaDirecta($entrega);
     }
 
     public function listMap()
