@@ -205,7 +205,7 @@ for ( var k = 0; k < sizedata; k++) {
   var temperaturamin = [];
   
 
-  var jsonurl = "http://api.openweathermap.org/data/2.5/forecast?lat="+waypts[k].location.k+"&lon="+waypts[k].location.B;;
+  var jsonurl = "https://api.openweathermap.org/data/2.5/forecast?lat="+waypts[k].location.k+"&lon="+waypts[k].location.B;;
   $.get( jsonurl, function( data ) {
   $( "#result" ).html( data.cod );
   var arr = data.list;
