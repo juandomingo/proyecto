@@ -217,6 +217,8 @@ class ResourceController {
     }
 
     public function login(){
+            //$datos = LinkedInRepository::getInstance()->getData();
+            //echo $datos;
             $view = new Login();
             $view->show();
     }
@@ -291,7 +293,7 @@ class ResourceController {
             $directas = EntregaDirectaRepository::getInstance()->getEntregaDia($date);
             $view = new EntregaHoy();
 
-            $view->show($pedidos,$directas);
+            $view->show($pedidos,$directas, date("Y-m-d"));
         }
     }
 

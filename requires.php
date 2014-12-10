@@ -2,6 +2,7 @@
 require_once('controller/ResourceController.php');
 require_once('controller/UserController.php');
 
+
 //We will require  every model class
 require_once('model/PDORepository.php');
 require_once('model/Alimento.php');
@@ -24,6 +25,7 @@ require_once('model/AlimentoEntregaDirecta.php');
 require_once('model/AlimentoEntregaDirectaRepository.php');
 require_once('model/EntregaDirecta.php');
 require_once('model/EntregaDirectaRepository.php');
+require_once('model/LinkedInRepository.php');
 
 
 //We will require  every view class

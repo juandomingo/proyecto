@@ -15,12 +15,10 @@
 {% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 
-{% if ((pedido|length > 0) or (directas|length > 0)) %}
-<div id="container" style="width:800px; height:380px"></div>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
 <div id="googleMap" style="width:500px; height:380px;"></div>
-{% endif %}
-
-
 <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
 <p id='result' class='result'> </p>
 {% if pedido|length > 0 %}
@@ -82,7 +80,7 @@
 
 
 
-{% if ((pedido|length > 0) or (directas|length > 0)) %}
+
 
 <script>
 $(document).ready(function() {
@@ -104,10 +102,28 @@ Array.prototype.pushIfNotExist = function(element) {
 
 
 
+var jsonurl = "http://api.openweathermap.org/data/2.5/forecast?lat=-34.89268966339911&lon=-57.9803466796875";
+  var ny = [];
+  var horas = [];
+  var temperatura = [];
+  var clima = [];
 
+  $.get( jsonurl, function( data ) {
+  $( "#result" ).html( data.cod );
+  arr = data.list;
+     ny = [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5];
+  var arrayLength = arr.length;
+  for (var i = 0; i < arrayLength; i++) {
+      if (arr[i].dt_txt.split(' ')[0] == '{{fecha}}' )
+        {horas.push(arr[i].dt_txt.split(' ')[1]);
+          temperatura.push(arr[i].main.temp-273 | 1);
+          clima.push(arr[i].weather[0].id);
+        }
+  }
+  });
 });
 
-waypts = [];
+var waypts = [];
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
@@ -186,106 +202,32 @@ function calcRoute() {
       }
 
   });
-
-
-
-
-
-
 } {# fin calc route #}
 
 
-function readData(){
-  ny = [];
-  var horas = [];
-  var clima = [];
-  var sizedata = waypts.length;
-for ( var k = 0; k < sizedata; k++) {
-  var temperaturamax = [];
-  var temperaturamin = [];
-  
 
-  var jsonurl = "http://api.openweathermap.org/data/2.5/forecast?lat="+waypts[k].location.k+"&lon="+waypts[k].location.B;;
-  $.get( jsonurl, function( data ) {
-  $( "#result" ).html( data.cod );
-  var arr = data.list;
-  var arrayLength = arr.length;
-  for (var i = 0; i < arrayLength; i++) {
-      if (arr[i].dt_txt.split(' ')[0] == '{{fecha}}' )
-        {
-          temperaturamax.push(arr[i].main.temp_max-273 | 1);
-          temperaturamin.push(arr[i].main.temp_min-273 | 1);
-        }
-  }
-  var min = 999;
-  var max = -999;
-  for ( var i = 0; i < temperaturamax.length; i++ ) {
-    if (temperaturamax[i] > max)
-      {max = temperaturamax[i]}
-    if (temperaturamin[i] < min)
-      {min = temperaturamin[i]}
-  }
-  ny.push(makehash(data.city.name, min, max));
-
-  });
-  
-}
-}
-
-
-function update() {
-  graph.setData(ny);
-}
-function rd()
-{
-  readData();
-}
-
-setTimeout(update, 5000);
-setTimeout(rd, 2000);
-setTimeout(update, 6000);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function makehash(ciudad, temp1, temp2){
-  return  {ciudad : ciudad, a: temp1, b: temp2}
-}
-
-var a =  [
-   makehash('La Plata', 100, 10),
-  ]
-
-function makemorris(){
-graph= new Morris.Bar({
+new Morris.Line({
   // ID of the element in which to draw the chart.
   element: 'container',
   // Chart data records -- each entry in this array corresponds to a point on
   // the chart.
-  data: a,
+  data: [
+    { year: '2008', value: 20 },
+    { year: '2009', value: 10 },
+    { year: '2010', value: 5 },
+    { year: '2011', value: 5 },
+    { year: '2012', value: 20 }
+  ],
   // The name of the data record attribute that contains x-values.
-  xkey: 'ciudad',
-    parseTime: false,
+  xkey: 'year',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['a','b'],
+  ykeys: ['value'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['minima','máxima']
+  labels: ['Value']
 });
 
-}
+
 
 
 
@@ -296,13 +238,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 window.onload = function() {
   calcRoute();
-  makemorris();
 };
 
 </script>
 
 
-{% endif %}
+
 
 
 {% endblock %}
