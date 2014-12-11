@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block title %}ABM Usuarios{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+
+
+    {% include 'listUser.html.twig' %}
+
+                             
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

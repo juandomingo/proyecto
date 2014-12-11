@@ -34,4 +34,46 @@ class UserRepository extends PDORepository {
         
         return $answer;
     }
+
+    public function listAll(){
+        $mapper = function($row) {
+            $user = new User($row['id'], $row['name'],  $row['password'], $row['type']);
+            return $user;
+        };
+
+        $answer = $this->queryList(
+                "select id, name, password, type from user;", [], $mapper);
+        
+        return $answer;
+    }
+
+    public function getUser($id){
+        $mapper = function($row) {
+            $user = new User($row['id'], $row['name'],  $row['password'], $row['type']);
+            return $user;
+        };
+
+        $answer = $this->queryList(
+                "select id, name, password, type from user where id = ?;", [$id], $mapper);
+        
+        return $answer[0];
+    }
+
+    public function addUser($name,$password,$type){
+        $this->touch(
+            "INSERT INTO `user` (`id`, `name`,`password`, `type`) VALUES (?, ?, ?, ?);",[null, $name, $password, $type]);
+    }
+
+    public function delUser($id){
+        $this->touch(
+            "DELETE FROM `user` WHERE `user`.`id` = ? ;",[$id]);
+    }
+
+    public function modUser($id,$name,$password,$type){
+        echo "holis";
+        $this->touch(
+            "UPDATE `user` SET `name` = ?,`password` = ? ,`type` = ? WHERE `user`.`id` = ?;",[$name, $password, $type, $id]);
+    }
+
+
 }

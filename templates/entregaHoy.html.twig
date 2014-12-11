@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title %}ABM Donantes{% endblock %}
+{% block title %}Entregas hoy{% endblock %}
 {% block head %}
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
@@ -18,14 +18,13 @@
 {% if ((pedido|length > 0) or (directas|length > 0)) %}
 <div id="container" style="width:800px; height:380px"></div>
 <div id="googleMap" style="width:500px; height:380px;"></div>
+<div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
 {% endif %}
 
 
-<div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
-<p id='result' class='result'> </p>
+<p id='result' class='result'></p>
 {% if pedido|length > 0 %}
 <table class="tables">
-
   <tr>
     <th>Número</th>
     <th>Entidad Receptora</th> 
@@ -46,7 +45,6 @@
     </tr>
   {% endfor %}
 </table>
-
 {% else %}
  <p class='importante'> No hay pedido para este día </p>
 {% endif %}
@@ -63,7 +61,7 @@
       <td>{{ item.fecha}}</td>
     </tr>
   {% endfor %}
-
+</table>
 
 {% else %}
  <p class='importante'> No hay envios directos para este día </p>
@@ -89,7 +87,7 @@ $(document).ready(function() {
 
 Array.prototype.inArray = function(element) { 
     for(var i=0; i < this.length; i++) { 
-        if(element.location.B == this[i].location.B) return true; 
+        if(element.location.D == this[i].location.D) return true; 
     }
     return false; 
 }; 
@@ -115,7 +113,7 @@ var Centro;
 
 function initialize() {
   directionsDisplay = new google.maps.DirectionsRenderer();
-  Centro=new google.maps.LatLng(-34.9211, -57.9544);
+  Centro=new google.maps.LatLng({{latitud[0]}},{{longitud[0]}});
   var mapProp = {
     center:Centro, zoom:13,
     mapTypeId:google.maps.MapTypeId.ROADMAP
@@ -132,30 +130,29 @@ function initialize() {
     var a{{item.getEntidadReceptora.id}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
     var a{{item.getEntidadReceptora.id}}marker=new google.maps.Marker({
       position:a{{item.getEntidadReceptora.id}}Center,
-      });
+    });
     a{{item.getEntidadReceptora.id}}marker.setMap(map);
-    if (waypts.filter(function(e) { return e.location == a{{item.getEntidadReceptora.id}}Center; }).length == 0) {
       waypts.pushIfNotExist({
       location:a{{item.getEntidadReceptora.id}}Center,
       stopover:true
-    }); 
+    });
   {% endfor %}
 
-  {% for item in directas %}
+  {% for item in directas %} 
     var a{{item.getEntidadReceptora.id}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
     var a{{item.getEntidadReceptora.id}}marker=new google.maps.Marker({
       position:a{{item.getEntidadReceptora.id}}Center,
     });
     a{{item.getEntidadReceptora.id}}marker.setMap(map);
     
-    if (waypts.filter(function(e) { return e.location == a{{item.getEntidadReceptora.id}}Center; }).length == 0) {
-      waypts.pushIfNotExist({
+    waypts.pushIfNotExist({
       location:a{{item.getEntidadReceptora.id}}Center,
       stopover:true
     });
-}
-   
   {% endfor %}
+
+   
+  
 } {# fin initialize, anda bien hasta acá #}
 
 function calcRoute() {
@@ -205,7 +202,7 @@ for ( var k = 0; k < sizedata; k++) {
   var temperaturamin = [];
   
 
-  var jsonurl = "https://api.openweathermap.org/data/2.5/forecast?lat="+waypts[k].location.k+"&lon="+waypts[k].location.B;;
+  var jsonurl = "http://api.openweathermap.org/data/2.5/forecast?lat="+waypts[k].location.k+"&lon="+waypts[k].location.D;
   $.get( jsonurl, function( data ) {
   $( "#result" ).html( data.cod );
   var arr = data.list;

@@ -1,0 +1,38 @@
+<table class="tables">
+<p class = "importante"> Usuarios </p> 
+    <tr>
+    <td>
+    <a href="?action=attemptAddUser"><img src="resources/add.png" width="16" height="16" alt="add"> Agregar Usuario</a>
+    </td>
+    </tr>
+
+  <tr>
+    <th>Nombre</th> 
+    <th>Password</th> 
+    <th>Tipo</th>
+    <th>ver o modificar</th>
+  </tr>
+  {% for item in user %}
+    <tr>
+      <td>{{ item.name }}</td>
+      <td>{{ item.password }}</td>
+      <td>{{ item.type }}</td>
+      <td><div class="image"><a href="?action=attemptEditUser&id={{ item.id}}">
+        <img src="resources/edit.png" width="16" height="16" alt="modificar"></a>
+        <a onclick="myFunction('?action=delUsuario&id={{item.id}}')")><img src="resources/delete.png" width="16" height="16" alt="Borrar usuario"></a>
+      </div></td>
+
+    </tr>
+  {% endfor %}
+
+<script>
+function myFunction(x) {
+    var txt;
+    var r = confirm("Está seguro que desea eliminar el elemento?");
+    if (r == true) {
+        window.location = x;
+    } else {
+    }
+
+}
+</script>

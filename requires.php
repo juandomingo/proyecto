@@ -1,6 +1,7 @@
 <?php
 require_once('controller/ResourceController.php');
 require_once('controller/UserController.php');
+require_once('controller/ConfiguracionController.php');
 
 
 //We will require  every model class
@@ -26,7 +27,8 @@ require_once('model/AlimentoEntregaDirectaRepository.php');
 require_once('model/EntregaDirecta.php');
 require_once('model/EntregaDirectaRepository.php');
 require_once('model/LinkedInRepository.php');
-
+require_once('model/Configuracion.php');
+require_once('model/ConfiguracionRepository.php');
 
 //We will require  every view class
 require_once('view/TwigView.php');
@@ -61,3 +63,10 @@ require_once('view/AttemptAddEntregaDirecta.php');
 require_once('view/ABMEntregaDirecta.php');
 require_once('view/ABMAlimentoEntregaDirecta.php');
 require_once('view/ListMap.php');
+require_once('view/ABMUsuarioList.php');
+require_once('view/AttemptEditUser.php');
+require_once('view/AttemptAddUser.php');
+require_once('view/ABMConfiguracion.php');
+require_once('view/AttemptEditConfiguracion.php');
+require_once('view/AttemptAddConfiguracion.php');
+

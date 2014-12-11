@@ -32,6 +32,6 @@ class EntregaDirecta {
     public function getEntidadReceptora()
     {
         $result = EntidadReceptoraRepository::getInstance()->listPorId($this->entidad_receptora_id);
-        return $result[0];
+        return $result;
     }
 }

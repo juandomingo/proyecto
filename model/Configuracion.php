@@ -10,11 +10,13 @@ class Configuracion {
     private $id;
     private $clave;
     private $valor;
+    private $nombre;
     
-    public function __construct($id, $clave, $valor) {
-        $this->id = $id
+    public function __construct($id, $clave, $valor, $nombre) {
+        $this->id = $id;
         $this->clave = $clave;
         $this->valor = $valor;
+        $this->nombre = $nombre;
     }
 
     public function getID() {
@@ -27,5 +29,9 @@ class Configuracion {
 
     public function getValor() {
         return $this->valor;
+    }
+    public function getNombre()
+    {
+        return $this->nombre;
     }
 }

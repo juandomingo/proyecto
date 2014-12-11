@@ -30,7 +30,7 @@ class TurnoEntrega {
     }
 
     public function atrasado() {
-        if (($this->hora) > (date("H:i:s")))
+        if (($this->hora) < (date("H:i:s")))
             {return "atrasado";}
         else
             {return "hay tiempo";}

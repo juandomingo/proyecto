@@ -50,7 +50,7 @@ class Pedido {
     }
     public function getEntidadReceptora(){
         $entidad_recetora = EntidadReceptoraRepository::getInstance()->listPorId($this->entidad_receptora_id);
-        return $entidad_recetora[0];
+        return $entidad_recetora;
     }
     public function getEstado(){
         if ($this->estado_pedido_id == 0)

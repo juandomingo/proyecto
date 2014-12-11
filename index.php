@@ -58,6 +58,10 @@ switch ($_GET["action"]) {
                 ResourceController::getInstance()->modPedido($_GET["numero"],$_GET["entidad"],$_GET["ingreso"],$_GET["entrega"],$_GET["hora"],$_GET["estado"],$_GET["envio"],$detalles_alimentos);
     break;
 
+    case "verPedido":
+
+    break;
+
     case "attemptAddPedido":
         ResourceController::getInstance()->attemptAddPedido();
     break;
@@ -193,7 +197,55 @@ switch ($_GET["action"]) {
     case "listMap":
             ResourceController::getInstance()->listMap();
     break;
-    
+
+    case "listUsuarios":
+            UserController::getInstance()->listUsuarios();
+    break;
+
+    case "attemptEditUser":
+            UserController::getInstance()->attemptEditUser($_GET['id']);
+    break;
+
+    case "attemptAddUser":
+            UserController::getInstance()->attemptAddUser();
+    break;
+
+    case "addUser":
+            UserController::getInstance()->addUser($_GET['name'],$_GET['password'],$_GET['type']);
+    break;        
+
+    case "modUser":
+            UserController::getInstance()->modUser($_GET['id'],$_GET['name'],$_GET['password'],$_GET['type']);
+    break;
+
+    case "delUsuario":
+            UserController::getInstance()->delUser($_GET['id']);
+    break;
+
+    case "listConfiguracion":
+            ConfiguracionController::getInstance()->listConfiguraciones();
+    break;
+
+    case "attemptEditConfiguracion":
+            ConfiguracionController::getInstance()->attemptEditConfiguracion($_GET['id']);
+    break;
+
+    case "attemptAddConfiguracion":
+            ConfiguracionController::getInstance()->attemptAddConfiguracion();
+    break;
+
+    case "addConfiguracion":
+            ConfiguracionController::getInstance()->addConfiguracion($_GET['clave'],$_GET['valor'],$_GET['nombre']);
+    break;        
+
+    case "modConfiguracion":
+            ConfiguracionController::getInstance()->modConfiguracion($_GET['id'],$_GET['clave'],$_GET['valor'],$_GET['nombre']);
+    break;
+
+    case "delConfiguracion":
+            ConfiguracionController::getInstance()->delConfiguracion($_GET['id']);
+    break;
+   
     default:
     		ResourceController::getInstance()->home();
 	}

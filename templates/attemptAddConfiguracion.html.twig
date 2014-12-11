@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block head %}Agregar Configuracion{% endblock %}
+{% block loginfo %}{% endblock %}
+{% block content %}
+<div class="agregar">
+    <form action="" method="get" id="attemptAddConfiguracion"  >
+        <div class="form">
+        <input type="hidden" name="action" id="action" size="20" value="addConfiguracion"/>
+            <div class="form-label"><label for="clave">Clave</label></div>
+            <div class="form-input">
+              <input type="text" name="clave" id="clave" size="11" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+            <div class="form-label"><label for="valor">Valor</label></div>
+            <div class="form-input">
+              <input type="text" name="valor" id="valor" size="11" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+            <div class="form-label"><label for="nombre">Valor</label></div>
+            <div class="form-input">
+              <input type="text" name="nombre" id="nombre" size="40" value="" required />
+            </div>
+            <div class="clearer"><!-- --></div>
+
+            <input type="submit" id="addbtn" value="Agregar" />
+          </div>
+       </form>
+</div>
+
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
