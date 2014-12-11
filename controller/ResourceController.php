@@ -302,7 +302,7 @@ class ResourceController {
             $directas = EntregaDirectaRepository::getInstance()->getEntregaDia($date);
             $start = strtotime(date("Y-m-d"));
             $end = strtotime($date);
-            echo $between = ceil(abs($end - $start) / 86400);
+            $between = ceil(abs($end - $start) / 86400);
 
             $view = new EntregaHoy();
             $view->show($pedidos,$directas, $between, [$this->latitud], [$this->longitud]);
@@ -369,7 +369,6 @@ class ResourceController {
     {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $this->dias_vencimiento  = ConfiguracionRepository::getInstance()->getValor('dias_vencimiento');
-            echo $this->dias_vencimiento;
             $this->latitud = ConfiguracionRepository::getInstance()->getValor('latitud');
             $this->longitud  =  ConfiguracionRepository::getInstance()->getValor('longitud');
             $this->clave_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_linkedin');

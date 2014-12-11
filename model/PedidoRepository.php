@@ -119,5 +119,4 @@ class PedidoRepository extends PDORepository {
         return $pedidos_hoy;
     }
 
-
 }

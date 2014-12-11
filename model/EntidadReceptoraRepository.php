@@ -67,4 +67,14 @@ class EntidadReceptoraRepository extends PDORepository {
 
         return $answer[0];
     }
+/*
+    SELECT `pedido`.entidad_receptora_id, SUM(`alimento_pedido`.cantidad)
+                FROM `turno_entrega`,`pedido`,`alimento_pedido`,`detalle_alimento`,`alimento`
+WHERE `alimento_pedido`.pedido_numero = `pedido`.numero 
+AND `turno_entrega`.id = `pedido`.turno_entrega_id
+AND `alimento_pedido`.detalle_alimento_id = `detalle_alimento`.id
+AND `alimento`.codigo = `detalle_alimento`.alimento_codigo
+AND `turno_entrega`.fecha BETWEEN '2014-5-1' AND '2015-10-10'
+GROUP BY `pedido`.entidad_receptora_id
+*/
 }
