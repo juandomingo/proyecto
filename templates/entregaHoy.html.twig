@@ -87,7 +87,7 @@ $(document).ready(function() {
 
 Array.prototype.inArray = function(element) { 
     for(var i=0; i < this.length; i++) { 
-        if(element.location.D == this[i].location.D) return true; 
+        if(element.location.k == this[i].location.k) return true; 
     }
     return false; 
 }; 
@@ -191,37 +191,23 @@ function calcRoute() {
 
 } {# fin calc route #}
 
-
 function readData(){
   ny = [];
   var horas = [];
   var clima = [];
   var sizedata = waypts.length;
 for ( var k = 0; k < sizedata; k++) {
-  var temperaturamax = [];
-  var temperaturamin = [];
+
   
 
-  var jsonurl = "http://api.openweathermap.org/data/2.5/forecast?lat="+waypts[k].location.k+"&lon="+waypts[k].location.D;
+  var jsonurl = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+waypts[k].location.k+"&lon="+waypts[k].location.D+"&cnt={{fecha}}&mode=json";
   $.get( jsonurl, function( data ) {
   $( "#result" ).html( data.cod );
   var arr = data.list;
   var arrayLength = arr.length;
-  for (var i = 0; i < arrayLength; i++) {
-      if (arr[i].dt_txt.split(' ')[0] == '{{fecha}}' )
-        {
-          temperaturamax.push(arr[i].main.temp_max-273 | 1);
-          temperaturamin.push(arr[i].main.temp_min-273 | 1);
-        }
-  }
-  var min = 999;
-  var max = -999;
-  for ( var i = 0; i < temperaturamax.length; i++ ) {
-    if (temperaturamax[i] > max)
-      {max = temperaturamax[i]}
-    if (temperaturamin[i] < min)
-      {min = temperaturamin[i]}
-  }
+  var max = (arr[arrayLength-1].temp.max-273 | 1);
+  var min = (arr[arrayLength-1].temp.min-273 | 1);
+
   ny.push(makehash(data.city.name, min, max));
 
   });

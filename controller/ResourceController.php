@@ -300,8 +300,12 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
             $pedidos = PedidoRepository::getInstance()->getPedidoDia($date);
             $directas = EntregaDirectaRepository::getInstance()->getEntregaDia($date);
+            $start = strtotime(date("Y-m-d"));
+            $end = strtotime($date);
+            echo $between = ceil(abs($end - $start) / 86400);
+
             $view = new EntregaHoy();
-            $view->show($pedidos,$directas, date("Y-m-d"), [$this->latitud], [$this->longitud]);
+            $view->show($pedidos,$directas, $between, [$this->latitud], [$this->longitud]);
         }
     }
 
