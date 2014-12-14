@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block title %}View Reportes{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+
+    {% include 'listAlimentosPedidos.html.twig' with alimentos_pedidos %}
+    {% include 'listAlimentosEntidad.html.twig' with alimentos_entidad %}
+    {% include 'listAlimentosVencidos.html.twig' with alimentos_vencidos %}
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>                   
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

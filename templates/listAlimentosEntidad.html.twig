@@ -1,0 +1,67 @@
+{#
+<table class="tables">
+  <tr>
+    <th>id</th>
+    <th>total_kilos</th> 
+    <th>razon_social</th>
+  </tr>
+  {% for item in alimentos_entidad %}
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.total_kilos }}</td>
+	  <td>{{ item.razon_social }}</td>
+    </tr>
+  {% endfor %}
+</table>
+#}
+<div id="entidades" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto">
+</div>
+
+<script>
+$(function () {
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#entidades').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Kilogramos de alimentos entregados a cada Entidad'
+            },
+            subtitle: {
+            text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f} %</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                      enabled: true,
+                    format: '<b>{point.name}</b>: {point.y} Kg.',
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Kilogramos ',
+                data: [
+
+                {% for item in alimentos_entidad %}
+                  ['<b>{{ item.razon_social }}</b>', {{ item.total_kilos }}]{% if not loop.last %},{% endif %}
+
+                {% endfor %}
+
+                ]
+            }]
+        });
+    });
+
+});
+</script>

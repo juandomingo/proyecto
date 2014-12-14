@@ -375,5 +375,35 @@ class ResourceController {
         }
     }
 
+    public function listListadosYEstadisticas($dia_inicial, $dia_final)
+    {
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+            $alimentos_pedidos_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesPedidosEntreDosFechas($dia_inicial, $dia_final);
+            $alimentos_por_entidad = EntidadReceptoraRepository::getInstance()->listAlimentosPorEntidadEntre($dia_inicial, $dia_final);
+            $alimentos_vencidos_sin_entregar_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inicial, $dia_final);
+            $view = new ListReportes();
+            $view->show($alimentos_pedidos_entre_dos_fechas,$alimentos_por_entidad,$alimentos_vencidos_sin_entregar_entre_dos_fechas,$dia_inicial, $dia_final);
+        }
+/*
+            $kilos_por_alimento = kilosPorAlimento($pedidos_entregados,$alimentos);
+            $kilos_por_entidad = kilosPorEntidad($pedidos_entregados);
+            $alimentos_vencidos = alimentosVencidos($alimentos_vencidos_entre);
+        }
+    }
+/*
+    private function kilosPorAlimento($pedidos_entregados){
+        $kilos_por_alimento;
+        foreach ($alimentos as $alimento) {
+            $kilos_por_alimento[$alimento->getDescripcion()]= 0;
+            foreach ($pedidos_entregados as $pedido) {
+                if ($pedido->get)
+                $kilos_por_alimento[$descripcion] = 
+            }
+        }
+
+    }
+*/
+        }
+
 }
 

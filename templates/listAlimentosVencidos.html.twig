@@ -1,0 +1,72 @@
+{#
+<table class="tables">
+  <tr>
+    <th>Codigo</th>
+    <th>Descripcion</th> 
+    <th>Cantidad</th>
+  </tr>
+  {% for item in alimentos_vencidos %}
+    <tr>
+      <td>{{ item.codigo }}</td>
+      <td>{{ item.descripcion }}</td>
+	  <td>{{ item.cantidad }}</td>
+    </tr>
+  {% endfor %}
+</table>
+#}
+
+<div id="vencidos" style="min-width: 310px; height: 400px; margin: 0"></div>
+
+<script>
+$(function () {
+    $('#vencidos').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Cantidad de alimentos vencidos'
+        },
+        subtitle: {
+            text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}'
+        },
+        xAxis: {
+            categories: [
+                {% for item in alimentos_vencidos %}
+                  '{{ item.descripcion }}'{% if not loop.last %},{% endif %}
+
+                {% endfor %}
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cantidad (Kg.)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:f} Kg.</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Kilogramos',
+            data: [
+            {% for item in alimentos_vencidos %}
+                  {{ item.cantidad }}{% if not loop.last %},{% endif %}
+
+            {% endfor %}
+            ]
+
+        }]
+    });
+});
+</script>

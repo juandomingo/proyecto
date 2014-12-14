@@ -29,6 +29,9 @@ require_once('model/EntregaDirectaRepository.php');
 require_once('model/LinkedInRepository.php');
 require_once('model/Configuracion.php');
 require_once('model/ConfiguracionRepository.php');
+require_once('model/ReporteEntidades.php');
+require_once('model/ReporteAlimentos.php');
+require_once('model/ReporteEntidades.php');
 
 //We will require  every view class
 require_once('view/TwigView.php');
@@ -69,4 +72,4 @@ require_once('view/AttemptAddUser.php');
 require_once('view/ABMConfiguracion.php');
 require_once('view/AttemptEditConfiguracion.php');
 require_once('view/AttemptAddConfiguracion.php');
-
+require_once('view/ListReportes.php');

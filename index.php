@@ -230,21 +230,28 @@ switch ($_GET["action"]) {
             ConfiguracionController::getInstance()->attemptEditConfiguracion($_GET['id']);
     break;
 
+    case "listReportes":
+            ResourceController::getInstance()->listListadosYEstadisticas($_GET['fecha_inicial'],$_GET['fecha_final']);
+    break;
+
+/*
     case "attemptAddConfiguracion":
             ConfiguracionController::getInstance()->attemptAddConfiguracion();
     break;
 
     case "addConfiguracion":
             ConfiguracionController::getInstance()->addConfiguracion($_GET['clave'],$_GET['valor'],$_GET['nombre']);
-    break;        
+    break;  
 
+    case "delConfiguracion":
+            ConfiguracionController::getInstance()->delConfiguracion($_GET['id']);
+    break;      
+*/
     case "modConfiguracion":
             ConfiguracionController::getInstance()->modConfiguracion($_GET['id'],$_GET['clave'],$_GET['valor'],$_GET['nombre']);
     break;
 
-    case "delConfiguracion":
-            ConfiguracionController::getInstance()->delConfiguracion($_GET['id']);
-    break;
+
    
     default:
     		ResourceController::getInstance()->home();

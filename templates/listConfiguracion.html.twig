@@ -1,16 +1,18 @@
 <table class="tables">
 <p class = "importante"> Configuraciones </p> 
+    {# agregar configurcion
     <tr>
     <td>
     <a href="?action=attemptAddConfiguracion"><img src="resources/add.png" width="16" height="16" alt="add"> Agregar Configuracion</a>
     </td>
     </tr>
+    #}
 
   <tr>
     <th>Clave</th> 
     <th>Valor</th> 
     <th>Nombre</th>
-    <th>ver o modificar</th>
+    <th>modificar</th>
   </tr>
   {% for item in configuracion %}
     <tr>
@@ -19,12 +21,15 @@
       <td>{{ item.nombre }}</td>
       <td><div class="image"><a href="?action=attemptEditConfiguracion&id={{ item.id}}">
         <img src="resources/edit.png" width="16" height="16" alt="modificar"></a>
+        {# borrar configurcion
         <a onclick="myFunction('?action=delConfiguracion&id={{item.id}}')")><img src="resources/delete.png" width="16" height="16" alt="Borrar Configuracion"></a>
+        #}
       </div></td>
 
     </tr>
   {% endfor %}
-
+  
+{# borrar configurcion
 <script>
 function myFunction(x) {
     var txt;
@@ -36,3 +41,4 @@ function myFunction(x) {
 
 }
 </script>
+#}

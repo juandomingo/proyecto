@@ -10,7 +10,21 @@
             <li><a href="./?action=listEntregaDirecta">Ver Entregas Directas</a></li>
             <li><a href="./?action=listUsuarios">Ver Usuarios</a></li>
             <li><a href="./?action=listConfiguracion">Ver Configuraciones</a></li>
-            
+            <li><a id = "reportes">Ver reportes</a></li>
+            <form action="" method="get" style="display: none;" id="reportesForm" hidden>
+                <input type="hidden" name="action" value="listReportes">
+                <div class="form-input">
+                <input type="date" name="fecha_inicial" size="15" value="" required />
+                </div>
+                <div class="form-input">
+                <input type="date" name="fecha_final" size="15" value="" required />
+                </div> 
+                <div class="form-input">
+                <input type="submit" id="verbtn" value="Ver" />
+                <button id="hide1">&#10006;</button>
+                </div> 
+            </form>
+
             <li><a id = "entregasdia">Entrega del Día</a></li>
             <form action="" method="get" style="display: none;" id="entregaHoy" hidden>
                 <input type="hidden" name="action" value="entregaHoy">
@@ -48,6 +62,14 @@
 
         $("#entregasdia").click(function(){
         $("#entregaHoy").show();
+        });
+
+        $("#hide1").click(function(){
+        $("#reportesForm").hide();
+        });
+
+        $("#reportes").click(function(){
+        $("#reportesForm").show();
         });
     });
 </script>
