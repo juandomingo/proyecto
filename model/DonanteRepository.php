@@ -56,7 +56,19 @@ class DonanteRepository extends PDORepository {
         $this->touch(
             "DELETE FROM `donante` WHERE `donante`.`id` = ? ;",[$codigo]);
     }
+    
+    public function listAllById($id) {
 
+        $mapper = function($row) {
+            $donante = new Donante($row['id'], $row['razon_social'], $row['apellido_contacto'], $row['nombre_contacto'], $row['telefono_contacto'], $row['mail_contacto'], $row['domicilio_contacto']);
+            return $donante;
+        };
+
+        $answer = $this->queryList(
+                "select id, razon_social, apellido_contacto, nombre_contacto, telefono_contacto, mail_contacto, domicilio_contacto from donante where id = ?;", [$id], $mapper);
+
+        return $answer;
+    }
     
 
 }

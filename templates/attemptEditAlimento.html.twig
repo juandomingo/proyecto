@@ -7,10 +7,10 @@
     <form action="" method="get" id="attemptEditEntidadReceptora"  >
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="modAlimento"/>
-         <input type="hidden" name="codigo" id="codigo" size="20" value="{{ selected_array[0] }}"/>
+         <input type="hidden" name="codigo" id="codigo" size="20" value="{{ selected_array.codigo }}"/>
             <div class="form-label"><label for="descripcion">Descripción de Alimento</label></div>
             <div class="form-input">
-              <input type="text" name="descripcion" id="descripcion" size="11" value="{{ selected_array[1] }}" required />
+              <input type="text" name="descripcion" id="descripcion" size="11" value="{{ selected_array.descripcion }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 

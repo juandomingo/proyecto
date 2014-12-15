@@ -7,41 +7,48 @@
     <form action="" method="get" id="addEntidadReceptora"  >
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="modDetalleAlimento"/>
-         <input type="hidden" name="id" id="id" size="20" value="{{ selected_array[0] }}"/>
-            <div class="form-label"><label for="alimento_codigo">Código de Alimento</label></div>
-            <div class="form-input">
-              <input type="text" name="alimento_codigo" id="alimento_codigo" size="11" value="{{ selected_array[1] }}" required />
-            </div>
+         <input type="hidden" name="id" id="id" size="20" value="{{ selected_array.id }}"/>
+            
             <div class="clearer"><!-- --></div>
+            <select name="alimento_codigo" id="alimento_codigo">
+            {% for item in alimentos %}
+              <option name="alimento_codigo" id="alimento_codigo" value="{{ item.codigo }}" 
+              {% if (item.codigo == selected_array.alimento_codigo) %}
+                selected
+              {%endif%}
 
+              >{{ item.descripcion }}</option>
+
+            {% endfor %}
+            </select>
 
             <div class="form-label"><label for="fecha_vencimiento">Fecha de Vencimiento</label></div>
             <div class="form-input">
-              <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" value="{{ selected_array[2] }}" required />
+              <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" value="{{ selected_array.fecha_vencimiento }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="contenido">Contenido</label></div>
             <div class="form-input">
-              <input type="text" name="contenido" id="contenido" size="300" value="{{ selected_array[3] }}" required />
+              <input type="text" name="contenido" id="contenido" size="300" value="{{ selected_array.contenido }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="peso_unitario">Peso por Unidad</label></div>
             <div class="form-input">
-              <input type="text" name="peso_unitario" id="peso_unitario" size="100" value="{{ selected_array[4]}}" required />
+              <input type="text" name="peso_unitario" id="peso_unitario" size="100" value="{{ selected_array.peso_unitario}}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="stock">Stock</label></div>
             <div class="form-input">
-              <input type="text" name="stock" id="stock" size="100" value="{{ selected_array[5] }}" required />
+              <input type="text" name="stock" id="stock" size="100" value="{{ selected_array.stock }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="reservado">Reservado</label></div>
             <div class="form-input">
-              <input type="text" name="reservado" id="reservado" size="100" value="{{ selected_array[6] }}" required />
+              <input type="text" name="reservado" id="reservado" size="100" value="{{ selected_array.reservado }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 

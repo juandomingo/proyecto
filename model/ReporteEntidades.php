@@ -29,4 +29,14 @@ class ReporteEntidades {
     public function getRazon_social(){
         return $this->razon_social;
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "total_kilos" => $this->total_kilos,
+                "razon_social" => $this->razon_social,
+            );
+        return $serialized;
+    }
 }

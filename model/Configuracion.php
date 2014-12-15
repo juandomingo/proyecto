@@ -34,4 +34,15 @@ class Configuracion {
     {
         return $this->nombre;
     }
+    
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "clave" => $this->clave,
+                "valor" => $this->valor,
+                "nombre" => $this->nombre,
+            );
+        return $serialized;
+    }
 }

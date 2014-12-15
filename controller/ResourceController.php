@@ -25,6 +25,14 @@ class ResourceController {
         return self::$instance;
     }
 
+    private function serializar($objects){
+        $serialized = [];
+        foreach ($objects as $object) {
+            $serialized[] = $object->serializar();
+        }
+        return $serialized;
+    }
+
     
     public function __construct() {
         $this->dias_vencimiento = ConfiguracionRepository::getInstance()->getValor('dias_vencimiento');
@@ -58,6 +66,7 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $pedidos = PedidoRepository::getInstance()->listAll();
             $view = new ABMPedidoList();
+            $pedidos = $this->serializar($pedidos);
             $view->show($pedidos);
         }
     }
@@ -65,6 +74,7 @@ class ResourceController {
     public function listAlimentos(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $alimentos = AlimentoRepository::getInstance()->listAll();
+            $alimentos = $this->serializar($alimentos);
             $view = new ABMAlimentoList();
             $view->show($alimentos);
         }
@@ -78,7 +88,7 @@ class ResourceController {
     }
 
     public function delAlimento($codigo){
-        if ($this->check_auth($_SESSION['user'], array(1))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             AlimentoRepository::getInstance()->delAlimento($codigo);
             $this->listAlimentos();
         }
@@ -91,10 +101,12 @@ class ResourceController {
         }
     }
 
-    public function attemptEditAlimento($codigo,$descripcion){
+    public function attemptEditAlimento($codigo){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $view = new AttemptEditAlimento();
-            $view->show([$codigo,$descripcion]);
+            $alimento = AlimentoRepository::getInstance()->listAlimentoPorCodigo($codigo);
+            $alimento = $this->serializar($alimento);
+            $view->show($alimento[0]);
         }
     }
 
@@ -109,6 +121,7 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1, 2))){
             $detalles_alimentos = DetalleAlimentoRepository::getInstance()->listAll();
             $view = new ABMDetalleAlimentoList();
+            $detalles_alimentos = $this->serializar($detalles_alimentos);
             $view->show($detalles_alimentos);
         }
     }
@@ -118,17 +131,22 @@ class ResourceController {
             $this->listDetallesAlimentos();
         }
     }
-    public function attemptEditDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
+    public function attemptEditDetalleAlimento($id){
         if( $this->check_auth($_SESSION['user']->getType(), array(1))){
             $view = new AttemptEditDetalleAlimento();
-            $view->show([$id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado]);
+            $alimentos = AlimentoRepository::getInstance()->listAll();
+            $alimentos = $this->serializar($alimentos);
+            $detalleAlimento = DetalleAlimentoRepository::getInstance()->listAllporID($id);
+            $detalleAlimento = $this->serializar($detalleAlimento);
+            $view->show($detalleAlimento[0],$alimentos);
         }
     }
     public function attemptAddDetalleAlimento(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $alimentos = AlimentoRepository::getInstance()->listAll();
+            $alimentos = $this->serializar($alimentos);
             $view = new AttemptAddDetalleAlimento();
-            $view->show($alimentos);
+            $view-> show($alimentos);
         }
     }
     public function modDetalleAlimento($id, $alimento_codigo, $fecha_vencimiento, $contenido, $peso_unitario, $stock, $reservado){
@@ -148,6 +166,7 @@ class ResourceController {
         if($this->check_auth($_SESSION['user']->getType(), array(1))){
             $donantes = DonanteRepository::getInstance()->listAll();
             $view = new ABMDonanteList();
+            $donantes = $this->serializar($donantes);
             $view->show($donantes);
         }
     }
@@ -163,10 +182,12 @@ class ResourceController {
             $view->show();
         }
     }
-    public function attemptEditDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
+    public function attemptEditDonante($id){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+            $donante = DonanteRepository::getInstance()->listAllById($id);
+            $donante = $this->serializar($donante);
             $view = new AttemptEditDonante();
-            $view->show([$id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto]);
+            $view->show($donante[0]);
         }
     }
     public function modDonante($id,$razon_social,$apellido_contacto,$nombre_contacto,$telefono_contacto,$mail_contacto,$domicilio_contacto){
@@ -186,6 +207,7 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
             $view = new ABMEntidadReceptoraList();
+            $entidades_receptoras = $this->serializar($entidades_receptoras);
             $view->show($entidades_receptoras);
         }
     }
@@ -221,23 +243,27 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $entidad_receptora = EntidadReceptoraRepository::getInstance()->listPorId($id);
             $view = new AttemptEditEntidadReceptora();
-            $view->show([ $entidad_receptora->getId(), $entidad_receptora->getRazon_social(), $entidad_receptora->getTelefono(), $entidad_receptora->getDomicilio(), $entidad_receptora->getEstado_entidad_id(), $entidad_receptora->getNecesidad_entidad_id(), $entidad_receptora->getServicio_prestado_id(),  $entidad_receptora->getLatitud(), $entidad_receptora->getLongitud()]);
+            $entidad_receptora = $this->serializar($entidad_receptora);
+            $view->show($entidad_receptora[0]);
         }
     }
 
     public function login(){
-            //$datos = LinkedInRepository::getInstance()->getData();
-            //echo $datos;
             $view = new Login();
             $view->show();
     }
 
     public function home(){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1))){     
             $turnos_entrega_hoy = TurnoEntregaRepository::getInstance()->listAllParaHoy();
             $alimentos = DetalleAlimentoRepository::getInstance()->listAlimentoPorVencerEn($this->dias_vencimiento);
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
             $view = new Home();
+            $entidades_receptoras = $this->serializar($entidades_receptoras);
+            $alimentos = $this->serializar($alimentos);
+            $turnos_entrega_hoy = $this->serializar($turnos_entrega_hoy);
             $view->show($alimentos,$turnos_entrega_hoy,$entidades_receptoras);
+        }
     }
 
     public function addPedido($id_entidad_receptora,$hora,$fecha,$envio,$alimentos){
@@ -246,7 +272,7 @@ class ResourceController {
             $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
             $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
             foreach ($alimentos as $alimento ) {
-                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($pedido_numero,$alimento,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getStock());
+                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($pedido_numero,$alimento,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)[0]->getStock());
             }
             $this->listPedidos();
         }
@@ -267,6 +293,8 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
             $detalles_alimentos = DetalleAlimentoRepository::getInstance()->listAll();
+            $entidades_receptoras = $this->serializar($entidades_receptoras);
+            $detalles_alimentos = $this->serializar($detalles_alimentos);
             $view = new AttemptAddPedido();
             $view->show($entidades_receptoras,$detalles_alimentos);
        }
@@ -276,9 +304,14 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1)))
         {
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
+            $detalles_alimentos = $this->serializar(DetalleAlimentoRepository::getInstance()->listAll());
             $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero);
+            $alimentos_pedidos = $pedido[0]->getAlimentosPedidos();
+            $alimentos_pedidos = $this->serializar($alimentos_pedidos);
+            $pedido = $this->serializar($pedido);
+            $entidades_receptoras = $this->serializar($entidades_receptoras);
             $view = new AttemptEditPedido();
-            $view->show($pedido[0],$entidades_receptoras );
+            $view->show($pedido[0],$entidades_receptoras,$alimentos_pedidos,$detalles_alimentos);
         }
     }
     public function modPedido($numero_pedido,$id_entidad_receptora,$fecha_ingreso_pedido,$fecha_entrega,$hora_entrega,$estado,$envio,$alimentos){
@@ -286,10 +319,10 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
             $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero_pedido);
             TurnoEntregaRepository::getInstance()->modTurnoEntrega($pedido[0]->getTurno_entrega_id(), $fecha_entrega, $hora_entrega);
-            PedidoRepository::getInstance()->modPedido($numero_pedido,$id_entidad_receptora,$estado,$envio);
+            PedidoRepository::getInstance()->modPedido($numero_pedido,$id_entidad_receptora, $fecha_ingreso_pedido,$estado,$envio);
             AlimentoPedidoRepository::getInstance()->delAlimentosPedidosPor($numero_pedido);
             foreach ($alimentos as $alimento ) {
-                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($numero_pedido,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getID(),DetalleAlimentoRepository::getInstance()->listAllporID($alimento)->getStock());
+                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($numero_pedido,DetalleAlimentoRepository::getInstance()->listAllporID($alimento)[0]->getID(),DetalleAlimentoRepository::getInstance()->listAllporID($alimento)[0]->getStock());
             }
             $this->listPedidos();
         }
@@ -303,7 +336,8 @@ class ResourceController {
             $start = strtotime(date("Y-m-d"));
             $end = strtotime($date);
             $between = ceil(abs($end - $start) / 86400);
-
+            $pedidos = $this->serializar($pedidos);
+            $directas = $this->serializar($directas);
             $view = new EntregaHoy();
             $view->show($pedidos,$directas, $between, [$this->latitud], [$this->longitud]);
         }
@@ -314,6 +348,8 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $alimentos_por_vencer = DetalleAlimentoRepository::getInstance()->listAllporID($id);
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
+            $alimentos_por_vencer = $this->serializar($alimentos_por_vencer);
+            $entidades_receptoras = $this->serializar($entidades_receptoras);
             $view = new AttemptAddEntregaDirecta();
             $view->show($alimentos_por_vencer, $entidades_receptoras);
         }
@@ -323,6 +359,7 @@ class ResourceController {
     {   
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $entrega_directa = EntregaDirectaRepository::getInstance()->listAll();
+            $entrega_directa = $this->serializar($entrega_directa);
             $view = new ABMEntregaDirecta();
             $view->show($entrega_directa);
         }
@@ -333,8 +370,10 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $alimentos_entrega_directa = AlimentoEntregaDirectaRepository::getInstance()->getAlimentoEntregaDirectaIdEntrega($id);
             $entrega_directa = EntregaDirectaRepository::getInstance()->getEntregaDirecta($id);
+            $entrega_directa_serializado = $this->serializar($entrega_directa);
+            $alimentos_entrega_directa = $this->serializar($alimentos_entrega_directa);
             $view = new ABMAlimentoEntregaDirecta();
-            $view->show($entrega_directa, $alimentos_entrega_directa, $entrega_directa[0]->getEntidadReceptora()->getRazon_social());
+            $view->show($entrega_directa_serializado, $alimentos_entrega_directa, $entrega_directa[0]->getEntidadReceptora()->getRazon_social());
         }
     }
 
@@ -381,29 +420,13 @@ class ResourceController {
             $alimentos_pedidos_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesPedidosEntreDosFechas($dia_inicial, $dia_final);
             $alimentos_por_entidad = EntidadReceptoraRepository::getInstance()->listAlimentosPorEntidadEntre($dia_inicial, $dia_final);
             $alimentos_vencidos_sin_entregar_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inicial, $dia_final);
+            $alimentos_pedidos_entre_dos_fechas = $this->serializar($alimentos_pedidos_entre_dos_fechas);
+            $alimentos_por_entidad = $this->serializar($alimentos_por_entidad);
+            $alimentos_vencidos_sin_entregar_entre_dos_fechas = $this->serializar($alimentos_vencidos_sin_entregar_entre_dos_fechas);
             $view = new ListReportes();
             $view->show($alimentos_pedidos_entre_dos_fechas,$alimentos_por_entidad,$alimentos_vencidos_sin_entregar_entre_dos_fechas,$dia_inicial, $dia_final);
         }
-/*
-            $kilos_por_alimento = kilosPorAlimento($pedidos_entregados,$alimentos);
-            $kilos_por_entidad = kilosPorEntidad($pedidos_entregados);
-            $alimentos_vencidos = alimentosVencidos($alimentos_vencidos_entre);
-        }
     }
-/*
-    private function kilosPorAlimento($pedidos_entregados){
-        $kilos_por_alimento;
-        foreach ($alimentos as $alimento) {
-            $kilos_por_alimento[$alimento->getDescripcion()]= 0;
-            foreach ($pedidos_entregados as $pedido) {
-                if ($pedido->get)
-                $kilos_por_alimento[$descripcion] = 
-            }
-        }
-
-    }
-*/
-        }
 
 }
 

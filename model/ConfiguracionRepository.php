@@ -58,9 +58,9 @@ class ConfiguracionRepository extends PDORepository {
             "DELETE FROM `configuracion` WHERE `configuracion`.`id` = ? ;",[$id]);
     }
 
-    public function modConfiguracion($id,$clave,$valor,$nombre){
+    public function modConfiguracion($id,$valor,$nombre){
         $this->touch(
-            "UPDATE `configuracion` SET `clave` = ?,`valor` = ?, `nombre` = ? WHERE `configuracion`.`id` = ?;",[$clave, $valor, $nombre, $id]);
+            "UPDATE `configuracion` SET `valor` = ?, `nombre` = ? WHERE `configuracion`.`id` = ?;",[$valor, $nombre, $id]);
     }
 
     public function getValor($clave){

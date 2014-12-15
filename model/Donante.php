@@ -54,4 +54,18 @@ class Donante {
     public function getDomicilio_contacto() {
         return $this->domicilio_contacto;
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "razon_social" => $this->razon_social,
+                "apellido_contacto" => $this->apellido_contacto,
+                "nombre_contacto" => $this->nombre_contacto,
+                "telefono_contacto" => $this->telefono_contacto,
+                "mail_contacto" => $this->mail_contacto,
+                "domicilio_contacto" => $this->domicilio_contacto,
+            );
+        return $serialized;
+    }
 }

@@ -24,4 +24,13 @@ class Alimento {
     public function getDescripcion() {
         return $this->descripcion;
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "codigo" => $this->codigo,
+                "descripcion" => $this->descripcion,
+            );
+        return $serialized;
+    }
 }

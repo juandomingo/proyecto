@@ -56,9 +56,9 @@ class ConfiguracionController {
             $view->show([$configuracion->getId(),$configuracion->getClave(),$configuracion->getValor(),$configuracion->getNombre()]);
         }
     }
-    public function modConfiguracion($id,$clave,$valor,$nombre){
+    public function modConfiguracion($id,$valor,$nombre){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
-            ConfiguracionRepository::getInstance()->modConfiguracion($id,$clave,$valor,$nombre);
+            ConfiguracionRepository::getInstance()->modConfiguracion($id,$valor,$nombre);
             $this->configurarSistema();
             $this->listConfiguraciones();
         }

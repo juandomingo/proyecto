@@ -85,7 +85,7 @@ class EntidadReceptora {
     }
 
     public function getMappedNecesidad_entidad_id() {
-        switch ($this->servicio_prestado_id) {
+        switch ($this->necesidad_entidad_id) {
             case "1":
                 return "máxima";
                 break;
@@ -114,5 +114,24 @@ class EntidadReceptora {
                 break;
         }
 
+    }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "razon_social" => $this->razon_social,
+                "telefono" => $this->telefono,
+                "domicilio" => $this->domicilio,
+                "estado_entidad_id" => $this->estado_entidad_id,
+                "estado_entidad" => $this->getMapped_Estado_entidad_id(),
+                "necesidad_entidad_id" => $this->necesidad_entidad_id,
+                "necesidad_entidad" => $this->getMappedNecesidad_entidad_id(),
+                "servicio_prestado_id" => $this->servicio_prestado_id,
+                "servicio_prestado" => $this->getMappedServicio_prestado_id(),
+                "latitud" => $this->latitud,
+                "longitud" => $this->longitud,
+            );
+        return $serialized;
     }
 }

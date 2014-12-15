@@ -65,7 +65,7 @@ class EntidadReceptoraRepository extends PDORepository {
         $answer = $this->queryList(
                 "select id, razon_social, telefono, domicilio, estado_entidad_id, necesidad_entidad_id, servicio_prestado_id, latitud, longitud from entidad_receptora where id = ?;", [$entidad_receptora_id], $mapper);
 
-        return $answer[0];
+        return $answer;
     }
 
     public function listAlimentosPorEntidadEntre($fecha_inicial, $fecha_final){

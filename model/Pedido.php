@@ -50,7 +50,7 @@ class Pedido {
     }
     public function getEntidadReceptora(){
         $entidad_recetora = EntidadReceptoraRepository::getInstance()->listPorId($this->entidad_receptora_id);
-        return $entidad_recetora;
+        return $entidad_recetora[0];
     }
     public function getEstado(){
         if ($this->estado_pedido_id == 0)
@@ -69,5 +69,23 @@ class Pedido {
             {return "Si";}
         else
             {return "No";}
+    }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "numero" => $this->numero,
+                "entidad_receptora_id" => $this->entidad_receptora_id,
+                "razon_social" => $this->getEntidadReceptora()->getRazon_social(),
+                "fecha_ingreso" => $this->fecha_ingreso,
+                "estado_pedido_id" => $this->estado_pedido_id,
+                "estado" => $this->getEstado(),
+                "hora_entrega" => $this->getTurnoEntrega()->getHora(),
+                "fecha_entrega" => $this->getTurnoEntrega()->getFecha(),
+                "turno_entrega_id" => $this->turno_entrega_id,
+                "con_envio" => $this->con_envio,
+                "envio" => $this->getEnvio(),
+            );
+        return $serialized;
     }
 }

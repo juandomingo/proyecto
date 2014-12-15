@@ -69,4 +69,19 @@ class DetalleAlimento {
         $alimento = AlimentoRepository::getInstance()->listAlimentoPorCodigo($this->alimento_codigo);
         return $alimento[0];
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "alimento_codigo" => $this->alimento_codigo,
+                "fecha_vencimiento" => $this->fecha_vencimiento,
+                "contenido" => $this->contenido,
+                "peso_unitario" => $this->peso_unitario,
+                "stock" => $this->stock,
+                "reservado" => $this->reservado,
+                "descripcion" => $this->getAlimento()->getDescripcion(),
+            );
+        return $serialized;
+    }
 }

@@ -32,45 +32,45 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <form action="" method="get" id="addEntidadReceptora"  >
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="modEntidadReceptora"/>
-         <input type="hidden" name="id" id="id" size="20" value="{{ selected_array[0] }}"/>
+         <input type="hidden" name="id" id="id" size="20" value="{{ selected_array.id }}"/>
             <div class="form-label"><label for="razon_social">Razon Social</label></div>
             <div class="form-input">
-              <input type="text" name="razon_social" id="razon_social" size="11" value="{{ selected_array[1] }}" required />
+              <input type="text" name="razon_social" id="razon_social" size="11" value="{{ selected_array.razon_social }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
 
             <div class="form-label"><label for="telefono">Telefono</label></div>
             <div class="form-input">
-              <input type="text" name="telefono" id="telefono" size="100" value="{{ selected_array[2] }}" required />
+              <input type="text" name="telefono" id="telefono" size="100" value="{{ selected_array.telefono }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="domicilio">Domicilio</label></div>
             <div class="form-input">
-              <input type="text" name="domicilio" id="domicilio" size="300" value="{{ selected_array[3] }}" required />
+              <input type="text" name="domicilio" id="domicilio" size="300" value="{{ selected_array.domicilio }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="estado_entidad_id">Estado Entidad Id</label></div>
             <div class="form-input">
             <select id = "estado_entidad_id" name="estado_entidad_id">
-                {% if selected_array[4] == 1 %}
+                {% if selected_array.estado_entidad_id == 1 %}
                     <option value = "1" selected>alta</option>
                     <option value = "2">en tramite</option>
                     <option value = "3">suspendida</option>
                     <option value = "4">baja</option>
-                {% elseif selected_array[4] == 2 %}
+                {% elseif selected_array.estado_entidad_id == 2 %}
                     <option value = "1" >alta</option>
                     <option value = "2" selected>en tramite</option>
                     <option value = "3">suspendida</option>
                     <option value = "4">baja</option>
-                {% elseif selected_array[4] == 3 %}
+                {% elseif selected_array.estado_entidad_id == 3 %}
                     <option value = "1" >alta</option>
                     <option value = "2">en tramite</option>
                     <option value = "3"selected>suspendida</option>
                     <option value = "4">baja</option>
-                {% elseif selected_array[4] == 4%}   
+                {% elseif selected_array.estado_entidad_id == 4%}   
                     <option value = "1" >alta</option>
                     <option value = "2">en tramite</option>
                     <option value = "3">suspendida</option>
@@ -83,15 +83,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
             <div class="form-label"><label for="necesidad_entidad_id">Necesidad Entidad Id</label></div>
             <div class="form-input">
             <select id = "necesidad_entidad_id" name="necesidad_entidad_id">
-                {% if selected_array[5] == 1 %}
+                {% if selected_array.necesidad_entidad_id == 1 %}
                     <option value = "1"selected>máxima</option>
                     <option value = "2">mediana</option>
                     <option value = "3">minima</option>
-                {% elseif selected_array[5] == 2 %}
+                {% elseif selected_array.necesidad_entidad_id == 2 %}
                     <option value = "1">máxima</option>
                     <option value = "2"selected>mediana</option>
                     <option value = "3">minima</option>
-                {% elseif selected_array[5] == 3 %}   
+                {% elseif selected_array.necesidad_entidad_id == 3 %}   
                     <option value = "1">máxima</option>
                     <option value = "2">mediana</option>
                     <option value = "3"selected>minima</option>
@@ -103,22 +103,22 @@ google.maps.event.addDomListener(window, 'load', initialize);
             <div class="form-label"><label for="servicio_prestado_id">Servicio Prestado Id</label></div>
             <div class="form-input">
             <select id = "servicio_prestado_id" name="servicio_prestado_id">
-                {% if selected_array[6] == 1 %}
+                {% if selected_array.servicio_prestado_id == 1 %}
                     <option value = "1" selected>hogar de día</option>
                     <option value = "2">comedor infantil</option>
                     <option value = "3">hogar de adolescentes</option>
                     <option value = "4">jardín maternal</option>
-                {% elseif selected_array[6] == 2 %}
+                {% elseif selected_array.servicio_prestado_id == 2 %}
                     <option value = "1" >hogar de día</option>
                     <option value = "2"selected>comedor infantil</option>
                     <option value = "3">hogar de adolescentes</option>
                     <option value = "4">jardín maternal</option>
-                {% elseif  selected_array[6]  == 3 %}
+                {% elseif  selected_array.servicio_prestado_id  == 3 %}
                     <option value = "1" >hogar de día</option>
                     <option value = "2">comedor infantil</option>
                     <option value = "3"selected>hogar de adolescentes</option>
                     <option value = "4">jardín maternal</option>
-                {% elseif selected_array[6]  == 4 %}   
+                {% elseif selected_array.servicio_prestado_id  == 4 %}   
                     <option value = "1" >hogar de día</option>
                     <option value = "2">comedor infantil</option>
                     <option value = "3">hogar de adolescentes</option>
@@ -129,14 +129,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
             <div class="clearer"><!-- --></div>
             <div class="form-label"><label for="longitud">Longitud</label></div>
             <div class="form-input">
-              <input type="text" name="longitud" id="longitud" size="11" value="{{selected_array[7]}}" required />
+              <input type="text" name="longitud" id="longitud" size="11" value="{{selected_array.longitud}}" required />
             </div>
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="latitud">Latitud</label></div>
             <div class="form-input">
-              <input type="text" name="latitud" id="latitud" size="11" value="{{selected_array[8]}}" required />
+              <input type="text" name="latitud" id="latitud" size="11" value="{{selected_array.latitud}}" required />
             </div>
             </div>
             <div class="clearer"><!-- --></div>

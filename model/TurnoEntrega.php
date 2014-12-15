@@ -41,4 +41,14 @@ class TurnoEntrega {
         $pedido = PedidoRepository::getInstance()->listPorTurnoEntrega($this->id);
         return $pedido[0];
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "fecha" => $this->fecha,
+                "hora" => $this->hora,
+            );
+        return $serialized;
+    }
 }

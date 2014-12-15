@@ -32,6 +32,7 @@ require_once('model/ConfiguracionRepository.php');
 require_once('model/ReporteEntidades.php');
 require_once('model/ReporteAlimentos.php');
 require_once('model/ReporteEntidades.php');
+require_once('model/AlimentoDisponible.php');
 
 //We will require  every view class
 require_once('view/TwigView.php');

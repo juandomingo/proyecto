@@ -30,4 +30,13 @@ class ReporteAlimentos{
     public function getCantidad() {
         return $this->cantidad;
     }
+    public function serializar()
+    {
+        $serialized = array(
+                "codigo" => $this->codigo,
+                "descripcion" => $this->descripcion,
+                "cantidad" => $this->cantidad,
+            );
+        return $serialized;
+    }
 }

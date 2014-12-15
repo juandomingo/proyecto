@@ -80,7 +80,62 @@ class DetalleAlimentoRepository extends PDORepository {
         $answer = $this->queryList(
                 "select id, alimento_codigo, fecha_vencimiento, contenido, peso_unitario, stock, reservado from detalle_alimento where id = ?;", [$id], $mapper);
 
-        return $answer[0];
+        return $answer;
     }
 
+    public function listAlimentoDisponibleEnMiPedido($id) {
+
+        $mapper = function($row) {
+            $alimento_disponible = new AlimentoDisponible($row['detalle_alimento_id'], $row['codigo'], $row['descripcion'], $row['contenido'], $row['actual'], $row['disponible']);
+            return $alimento_disponible;
+        };
+
+        $answer = $this->queryList(
+                "SELECT `alimento`.codigo as codigo, `alimento`.descripcion as descripcion,
+                 `detalle_alimento`.contenido as contenido ,IFNULL(t2.cantidad,0) as actual,
+                 (`detalle_alimento`.stock - `detalle_alimento`.reservado + IFNULL(t2.cantidad,0)) as disponible,
+                 `detalle_alimento`.id as detalle_alimento_id
+                from `detalle_alimento` 
+                LEFT JOIN
+                (
+                    SELECT `alimento_pedido`.detalle_alimento_id as detalle_alimento_id, `alimento_pedido`.cantidad as cantidad
+                    FROM `alimento_pedido`
+                    where `alimento_pedido`.pedido_numero = ?
+                ) as t2
+                ON t2.detalle_alimento_id = `detalle_alimento`.id
+                inner join alimento
+                on `alimento`.codigo = `detalle_alimento`.alimento_codigo;", [$id], $mapper);
+        return $answer;
+    }
+
+    public function listAlimentoDisponible($id) {
+
+        $mapper = function($row) {
+            $alimento_disponible = new AlimentoDisponible($row['detalle_alimento_id'], $row['codigo'], $row['descripcion'], $row['contenido'], $row['actual'], $row['disponible']);
+            return $alimento_disponible;
+        };
+
+        $answer = $this->queryList(
+                "SELECT `alimento`.codigo as codigo, `alimento`.descripcion as descripcion, `detalle_alimento`.contenido as contenido ,0 as actual,(`detalle_alimento`.stock - `detalle_alimento`.reservado) as disponible, `detalle_alimento`.id as detalle_alimento_id
+                from `detalle_alimento` 
+                inner join alimento
+                on `alimento`.codigo = `detalle_alimento`.alimento_codigo", [$id], $mapper);
+                return $answer;
+    }
 }
+
+
+
+/*
+SELECT `alimento`.codigo as codigo, `alimento`.descripcion as descripcion, `detalle_alimento`.contenido as contenido ,IFNULL(t2.cantidad,0) as actual ,(`detalle_alimento`.stock - `detalle_alimento`.reservado + IFNULL(t2.cantidad,0)) as disponible, `detalle_alimento`.id as detalle_alimento_id
+from `detalle_alimento` 
+LEFT JOIN
+(
+SELECT `alimento_pedido`.detalle_alimento_id as detalle_alimento_id, `alimento_pedido`.cantidad as cantidad
+FROM `alimento_pedido`
+where `alimento_pedido`.pedido_numero = 20
+) as t2
+ON t2.detalle_alimento_id = `detalle_alimento`.id
+inner join alimento
+on `alimento`.codigo = `detalle_alimento`.alimento_codigo
+*/

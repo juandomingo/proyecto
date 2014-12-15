@@ -7,41 +7,40 @@
     <form action="" method="get" id="addEntidadReceptora"  >
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="modDonante"/>
-         <input type="hidden" name="id" id="id" size="20" value="{{ selected_array[0] }}"/>
+         <input type="hidden" name="id" id="id" size="20" value="{{ selected_array.id }}"/>
             <div class="form-label"><label for="razon_social">Razon Social</label></div>
             <div class="form-input">
-              <input type="text" name="razon_social" id="razon_social" size="11" value="{{ selected_array[1] }}" required />
+              <input type="text" name="razon_social" id="razon_social" size="11" value="{{ selected_array.razon_social }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
-
             <div class="form-label"><label for="apellido_contacto">Apellido de Contacto</label></div>
             <div class="form-input">
-              <input type="text" name="apellido_contacto" id="apellido_contacto" size="100" value="{{ selected_array[2] }}" required />
+              <input type="text" name="apellido_contacto" id="apellido_contacto" size="100" value="{{ selected_array.apellido_contacto }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="nombre_contacto">Nombre de Contacto</label></div>
             <div class="form-input">
-              <input type="text" name="nombre_contacto" id="nombre_contacto" size="300" value="{{ selected_array[3] }}" required />
+              <input type="text" name="nombre_contacto" id="nombre_contacto" size="300" value="{{ selected_array.nombre_contacto }}" required />
             </div>
             <div class="clearer"><!-- --></div>
-
+            
             <div class="form-label"><label for="telefono_contacto">Teléfono de Contacto</label></div>
             <div class="form-input">
-              <input type="text" name="telefono_contacto" id="telefono_contacto" size="100" value="{{ selected_array[4]}}" required />
+              <input type="text" name="telefono_contacto" id="telefono_contacto" size="100" value="{{ selected_array.telefono_contacto}}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="mail_contacto">Mail de Contacto</label></div>
             <div class="form-input">
-              <input type="text" name="mail_contacto" id="mail_contacto" size="100" value="{{ selected_array[5] }}" required />
+              <input type="text" name="mail_contacto" id="mail_contacto" size="100" value="{{ selected_array.mail_contacto }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
             <div class="form-label"><label for="domicilio_contacto">Domicilio de Contacto</label></div>
             <div class="form-input">
-              <input type="text" name="domicilio_contacto" id="domicilio_contacto" size="100" value="{{ selected_array[6] }}" required />
+              <input type="text" name="domicilio_contacto" id="domicilio_contacto" size="100" value="{{ selected_array.domicilio_contacto }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 

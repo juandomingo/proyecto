@@ -34,14 +34,14 @@
 
            <div class="form-label"><label for="descripcion">Fecha de entrega</label></div>
             <div class="form-input">
-              <input type="date" name="entrega" id="entrega" value ="{{ pedido.getTurnoEntrega.fecha }}" required />
+              <input type="date" name="entrega" id="entrega" value ="{{ pedido.fecha_entrega}}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
 
             <div class="form-label"><label for="descripcion">Hora de entrega</label></div>
             <div class="form-input">
-              <input type="time" name="hora" id="hora" value= "{{ pedido.getTurnoEntrega.hora }}"required />
+              <input type="time" name="hora" id="hora" value= "{{ pedido.hora_entrega }}"required />
             </div>
             <div class="clearer"><!-- --></div>
 
@@ -82,14 +82,13 @@
              <div class="form-label"><label for="detalles alimentos">Alimentos en pedido</label></div>
             <div class="form-input">
 
-            {% for item in pedido.getAlimentosPedidos %}
+            {% for item in alimentos %}
               <input type="checkbox" id="{{ item.id }}"
-                 name="{{ item.getDetalle_alimento_id }}"
-                 value="{{ item.getDetalle_alimento_id }}"
+                 name="{{ item.detalle_alimento_id }}"
+                 value="{{ item.detalle_alimento_id }}"
                  checked>
-                 {{ item.getDetalleAlimento.getAlimento.descripcion }} por {{ item.getCantidad }} unidades
+                 {{ item.descripcion }} por {{ item.cantidad }} unidades
                  <br>
-
             {% endfor %}
 
             </div>

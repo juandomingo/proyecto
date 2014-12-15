@@ -18,14 +18,14 @@
         
         {% for item in detalles_alimentos %}
         <tr>
-            <td>{{item.getAlimento.descripcion }}</td>
+            <td>{{item.descripcion }}</td>
             <td>{{item.fecha_vencimiento }}</td>
             <td>{{item.contenido }} </td>
             <td>{{item.peso_unitario }}</td>
             <td>{{item.stock }} </td>
             <td>{{item.reservado }}</td>
             <td><div class="image">
-                <a href="?action=attemptEditDetalleAlimento&id={{ item.id }}&alimento_codigo={{ item.alimento_codigo }}&fecha_vencimiento={{ item.fecha_vencimiento }}&contenido={{ item.contenido }}&peso_unitario={{ item.peso_unitario }}&stock={{ item.stock }}&reservado={{ item.reservado }}"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
+                <a href="?action=attemptEditDetalleAlimento&id={{ item.id }}"><img src="resources/edit.png" width="16" height="16" alt="Edit" > </a>
 
                 <a onclick="myFunction('?action=delDetalleAlimento&id={{item.id}}')"><img src="resources/delete.png" width="16" height="16" alt="delete"> </a>
             </div></td>

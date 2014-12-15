@@ -36,4 +36,15 @@ class User {
     public function getType() {
         return $this->type;
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "name" => $this->name,
+                "password" => $this->password,
+                "type" => $this->type,
+            );
+        return $serialized;
+    }
 }

@@ -45,9 +45,9 @@ class PedidoRepository extends PDORepository {
         $this->touch(
             "UPDATE `pedido` SET `del` = 1 WHERE `pedido`.`numero` = ?;",[$numero]);
     }
-    public function modPedido($numero_pedido,$id_entidad_receptora,$estado,$envio){
+    public function modPedido($numero_pedido,$id_entidad_receptora, $fecha_ingreso_pedido,$estado,$envio){
         $this->touch(
-            "UPDATE `pedido` SET `entidad_receptora_id` = ?,  `estado_pedido_id` = ?, `con_envio` = ? WHERE `pedido`.`numero` = ?;",[$id_entidad_receptora, $estado, $envio, $numero_pedido]);
+            "UPDATE `pedido` SET `entidad_receptora_id` = ?, fecha_ingreso = ? , `estado_pedido_id` = ?, `con_envio` = ? WHERE `pedido`.`numero` = ?;",[$id_entidad_receptora, $fecha_ingreso_pedido, $estado, $envio, $numero_pedido]);
     }
     public function listPorTurnoEntrega($id){
 

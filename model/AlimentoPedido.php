@@ -32,6 +32,17 @@ class AlimentoPedido {
     public function getDetalleAlimento()
     {
         $detalle = DetalleAlimentoRepository::getInstance()->listAllporID($this->detalle_alimento_id);
-        return $detalle;
+        return $detalle[0];
+    }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "pedido_numero" => $this->pedido_numero,
+                "detalle_alimento_id" => $this->detalle_alimento_id,
+                "descripcion" => $this->getDetalleAlimento()->getAlimento()->getDescripcion(),
+                "cantidad" => $this->cantidad,
+            );
+        return $serialized;
     }
 }

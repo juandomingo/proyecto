@@ -87,7 +87,7 @@ switch ($_GET["action"]) {
     break;
 
     case "attemptEditAlimento":
-        ResourceController::getInstance()->attemptEditAlimento($_GET["codigo"],$_GET["descripcion"]);
+        ResourceController::getInstance()->attemptEditAlimento($_GET["codigo"]);
     break;
 
     case "listPedidos":
@@ -119,7 +119,7 @@ switch ($_GET["action"]) {
     break;
 
     case "attemptEditDetalleAlimento":
-        ResourceController::getInstance()->attemptEditDetalleAlimento($_GET["id"],$_GET["alimento_codigo"],$_GET["fecha_vencimiento"],$_GET["contenido"],$_GET["peso_unitario"],$_GET["stock"],$_GET["reservado"]);	
+        ResourceController::getInstance()->attemptEditDetalleAlimento($_GET["id"]);	
     break;
 
     case "listEntidadesReceptoras":
@@ -143,7 +143,7 @@ switch ($_GET["action"]) {
     break;
 
     case "attemptEditEntidadReceptora":
-    		ResourceController::getInstance()->attemptEditEntidadReceptora($_GET["id"],$_GET["razon_social"],$_GET["telefono"],$_GET["domicilio"],$_GET["estado_entidad_id"],$_GET["necesidad_entidad_id"],$_GET["servicio_prestado_id"]);		
+    		ResourceController::getInstance()->attemptEditEntidadReceptora($_GET["id"]);		
     break;
 
     case "listDonantes":
@@ -171,7 +171,7 @@ switch ($_GET["action"]) {
     break;
 
     case "attemptEditDonante":
-    		ResourceController::getInstance()->attemptEditDonante($_GET["id"],$_GET["razon_social"],$_GET["apellido_contacto"],$_GET["nombre_contacto"],$_GET["telefono_contacto"],$_GET["mail_contacto"],$_GET["domicilio_contacto"]);
+    		ResourceController::getInstance()->attemptEditDonante($_GET["id"]);
     break;
 
     case "entregaHoy":
@@ -248,7 +248,7 @@ switch ($_GET["action"]) {
     break;      
 */
     case "modConfiguracion":
-            ConfiguracionController::getInstance()->modConfiguracion($_GET['id'],$_GET['clave'],$_GET['valor'],$_GET['nombre']);
+            ConfiguracionController::getInstance()->modConfiguracion($_GET['id'],$_GET['valor'],$_GET['nombre']);
     break;
 
 

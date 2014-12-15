@@ -28,4 +28,14 @@ class AlimentoDonante {
     public function getCantidad() {
         return $this->cantidad;
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "detalle_alimento_id" => $this->detalle_alimento_id,
+                "donante_id" => $this->donante_id,
+                "cantidad" => $this->cantidad,
+            );
+        return $serialized;
+    }
 }

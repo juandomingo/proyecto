@@ -34,4 +34,14 @@ class EntregaDirecta {
         $result = EntidadReceptoraRepository::getInstance()->listPorId($this->entidad_receptora_id);
         return $result;
     }
+
+    public function serializar()
+    {
+        $serialized = array(
+                "id" => $this->id,
+                "entidad_receptora_id" => $this->entidad_receptora_id,
+                "fecha" => $this->fecha,
+            );
+        return $serialized;
+    }
 }
