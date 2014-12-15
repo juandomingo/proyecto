@@ -12,7 +12,8 @@
 
         
         {% for item in detalles_alimentos %}
-        <tr>
+            {% if not (item.stock == item.reservado) %}
+            <tr>
 
             <td><img src="resources/cruz.png" width="16" height="16" alt="por vencer">{{item.descripcion }}</td>
             <td>{{item.fecha_vencimiento }}</td>
@@ -22,6 +23,7 @@
             <td>{{item.reservado }}</td>
             <td><a href="./?action=attemptAddEntregaDirecta&id={{item.id}}"><img  width="16" height="16" src="resources/puato.png" >Asignar ahora</td>
         </tr>
+            {% endif %}
         {% endfor %}
    </table>     
 

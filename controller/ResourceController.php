@@ -185,7 +185,8 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $entrega = EntregaDirectaRepository::getInstance()->addEntregaDirecta($entidad_receptora, date("Y-m-d"));
             $detalle_alimento = DetalleAlimentoRepository::getInstance()->listAllporID($detalle);
-            AlimentoEntregaDirectaRepository::getInstance()->addAlimentoEntregaDirecta($entrega, $detalle, $detalle_alimento->getStock());
+            AlimentoEntregaDirectaRepository::getInstance()->addAlimentoEntregaDirecta($entrega, $detalle, $detalle_alimento[0]->getStockDisponible());
+            DetalleAlimentoRepository::getInstance()->actualizarStock($detalle_alimento[0]->getId(),$detalle_alimento[0]->getStock());
             $this->listAlimentosEntregaDirecta($entrega);
         }
     }
@@ -329,10 +330,12 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $alimentos_por_vencer = DetalleAlimentoRepository::getInstance()->listAllporID($id);
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
+
             $alimentos_por_vencer = $this->serializar($alimentos_por_vencer);
             $entidades_receptoras = $this->serializar($entidades_receptoras);
+
             $view = new AttemptAddEntregaDirecta();
-            $view->show($alimentos_por_vencer, $entidades_receptoras);
+            $view->show($alimentos_por_vencer[0], $entidades_receptoras);
         }
     }
 
