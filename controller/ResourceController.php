@@ -14,7 +14,9 @@ class ResourceController {
     public $latitud = '-34.9211';
     public $longitud =  '-57.9544';
     public $clave_linkedin = '77hmwr84id5v3g';
-
+    public $clave_secreta_linkedin = 'RGkP9LLdAzkKPFkA';
+    public $credencial_oauth = '7a2e2926-615c-4737-a542-f518a4c86e74';
+    public $clave_secreta_oauth = '5d919a19-a12c-44a5-badd-2cc4ec1cdbf7';
 
     public static function getInstance() {
 
@@ -30,9 +32,9 @@ class ResourceController {
         $this->latitud = ConfiguracionRepository::getInstance()->getValor('latitud');
         $this->longitud =  ConfiguracionRepository::getInstance()->getValor('longitud');
         $this->clave_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_linkedin');
-    
-
-
+        $this->clave_secreta_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_secreta_linkedin');
+        $this->credencial_oauth =ConfiguracionRepository::getInstance()->getValor('credencial_oauth');
+        $this->clave_secreta_oauth = ConfiguracionRepository::getInstance()->getValor('clave_secreta_oauth');
     }
 
 
@@ -397,8 +399,8 @@ class ResourceController {
 
 
     public function login(){
-            $linkedin =  LinkedInRepository::getInstance()->getData();
-            //$linkedin[0]='holis';
+            //$linkedin =  LinkedInRepository::getInstance()->getData($this->clave_linkedin,$this->clave_secreta_linkedin,$this->credencial_oauth,$this->clave_secreta_oauth );
+            $linkedin[0]='holis';
             $view = new Login();
             $view->show($linkedin);
     }
@@ -421,6 +423,10 @@ class ResourceController {
             $this->latitud = ConfiguracionRepository::getInstance()->getValor('latitud');
             $this->longitud  =  ConfiguracionRepository::getInstance()->getValor('longitud');
             $this->clave_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_linkedin');
+            $this->clave_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_linkedin');
+            $this->clave_secreta_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_secreta_linkedin');
+            $this->credencial_oauth =ConfiguracionRepository::getInstance()->getValor('credencial_oauth');
+            $this->clave_secreta_oauth = ConfiguracionRepository::getInstance()->getValor('clave_secreta_oauth');
         }
     }
     private function give_my_name()

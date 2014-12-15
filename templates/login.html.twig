@@ -9,17 +9,17 @@
 
 <p><script type="IN/MemberProfile" data-id="http://www.linkedin.com/in/bdalp" data-related="false" data-format="inline"></script></p>
 <h2> {{ linkedin.firstName }} </h2>
-<p> {{ linkedin.headline }} </p>
-<img src="{{ linkedin.pictureUrl }}" alt= "imagen del banco">
+<p id="linkedin"> {{ linkedin.headline }} </p>
+<img src="{{ linkedin }}" alt= "imagen del banco">
 
-		<input hidden checked="" type="radio" name="slider" id="slide1">
+		
+<article id="slider">
+		
+	<input hidden checked="" type="radio" name="slider" id="slide1">
 		<input hidden type="radio" name="slider" id="slide2" selected="true">
 		<input hidden type="radio" name="slider" id="slide3" selected="false">
 		<input hidden type="radio" name="slider" id="slide4" selected="false">
 		<input hidden type="radio" name="slider" id="slide5" selected="false">
-<article id="slider"
-		
-	
 	
 
 
@@ -75,7 +75,6 @@
 			<label for="slide5"></label>
 		
 		</div> 
-		
 <div id="active">
 
 			<label for="slide1"></label>
@@ -83,17 +82,23 @@
 			<label for="slide3"></label>
 			<label for="slide4"></label>
 			<label for="slide5"></label>
-			
 </div> 
 </article>
 		
 
 <script type="text/javascript" src="https://platform.linkedin.com/in.js">
   api_key: 77hmwr84id5v3g
-  </script>
 
+<h2> {{ linkedin.firstName }} </h2>
+<p id="linkedin"> {{ linkedin.headline }} </p>
+<img src="{{ linkedin }}" alt= "imagen del banco">
 
+      var lkin = {{ linkedin }};
+      var linkedIn = document.getElementById('linkedIn');
+      linkedIn.innerHTML = '';
+      linkedIn.innerHTML += '<b>Segmento de ruta: ' + lkin.firstName + '</b><br>';
+      linkedIn.innerHTML += lkin.headline + ' hasta ';
 
-
+ </script>
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}
