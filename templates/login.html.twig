@@ -93,8 +93,8 @@
 <p id="linkedin"> {{ linkedin.headline }} </p>
 <img src="{{ linkedin }}" alt= "imagen del banco">
 
-      var lkin = {{ linkedin }};
-      var linkedIn = document.getElementById('linkedIn');
+      lkin = {{ linkedin }};
+      linkedIn = document.getElementById('linkedIn');
       linkedIn.innerHTML = '';
       linkedIn.innerHTML += '<b>Segmento de ruta: ' + lkin.firstName + '</b><br>';
       linkedIn.innerHTML += lkin.headline + ' hasta ';

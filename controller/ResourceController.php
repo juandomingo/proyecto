@@ -48,7 +48,7 @@ class ResourceController {
         }
     }
     public function listAlimentos(){
-        if ($this->check_auth($_SESSION['user']->getType(), array(1,2))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,2,3))){
             $alimentos = AlimentoRepository::getInstance()->listAll();
             $alimentos = $this->serializar($alimentos);
             $view = new ABMAlimentoList();
@@ -64,7 +64,7 @@ class ResourceController {
         }
     }
     public function listDetallesAlimentos(){
-        if ($this->check_auth($_SESSION['user']->getType(), array(1, 2))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1, 2,3))){
             $detalles_alimentos = DetalleAlimentoRepository::getInstance()->listAll();
             $view = new ABMDetalleAlimentoList();
             $detalles_alimentos = $this->serializar($detalles_alimentos);
@@ -81,7 +81,7 @@ class ResourceController {
     }
     public function listEntregaDirecta()
     {   
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){
             $entrega_directa = EntregaDirectaRepository::getInstance()->listAll();
             $entrega_directa = $this->serializar($entrega_directa);
             $view = new ABMEntregaDirecta();
@@ -90,7 +90,7 @@ class ResourceController {
     }
     public function listAlimentosEntregaDirecta($id)
     {
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){
             $alimentos_entrega_directa = AlimentoEntregaDirectaRepository::getInstance()->getAlimentoEntregaDirectaIdEntrega($id);
             $entrega_directa = EntregaDirectaRepository::getInstance()->getEntregaDirecta($id);
             $entrega_directa_serializado = $this->serializar($entrega_directa);
@@ -109,7 +109,7 @@ class ResourceController {
     }
     public function listListadosYEstadisticas($dia_inicial, $dia_final)
     {
-        if ($this->check_auth($_SESSION['user']->getType(), array(1,2))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,2,3))){
             $alimentos_pedidos_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesPedidosEntreDosFechas($dia_inicial, $dia_final);
             $alimentos_por_entidad = EntidadReceptoraRepository::getInstance()->listAlimentosPorEntidadEntre($dia_inicial, $dia_final);
             $alimentos_vencidos_sin_entregar_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inicial, $dia_final);
@@ -122,7 +122,7 @@ class ResourceController {
     }
     public function entregasHoy($date)
     {
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
             $pedidos = PedidoRepository::getInstance()->getPedidoDia($date);
             $directas = EntregaDirectaRepository::getInstance()->getEntregaDia($date);
             $start = strtotime(date("Y-m-d"));
@@ -164,7 +164,7 @@ class ResourceController {
     }
     public function addPedido($id_entidad_receptora,$hora,$fecha,$envio,$alimentos){
     #validame       
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
             $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
             $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
             foreach ($alimentos as $id => $value ) {
@@ -255,7 +255,7 @@ class ResourceController {
     }
     public function modPedido($numero_pedido,$id_entidad_receptora,$fecha_ingreso_pedido,$fecha_entrega,$hora_entrega,$estado,$envio,$alimentos){
     #validame       
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){ 
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
             $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero_pedido);
             TurnoEntregaRepository::getInstance()->modTurnoEntrega($pedido[0]->getTurno_entrega_id(), $fecha_entrega, $hora_entrega);
             PedidoRepository::getInstance()->modPedido($numero_pedido,$id_entidad_receptora, $fecha_ingreso_pedido,$estado,$envio);
@@ -272,18 +272,9 @@ class ResourceController {
                     }
                 else
                     {   
-                        echo "stock_nuevo ";
-                        echo $reservados_nuevos;
-                        echo "stock_viejo ";
-                        echo $reservados_viejos;
-                        echo "cantidad vieja ";
-                        echo $reservado[0]->getCantidad();
-                        echo "cantidad nuevo ";
-                        echo $value;
-                        echo "-----";
+
                         $reservados_nuevos = ($reservados_viejos - $reservado[0]->getCantidad()) + $value;
-                        echo "stock_nuevo nuevo ";
-                        echo $reservados_nuevos;
+
                         AlimentoPedidoRepository::getInstance()->modAlimentoPedido($reservado[0]->getId(),$value, $id ,$numero_pedido);
                     }
                     DetalleAlimentoRepository::getInstance()->actualizarStock($id,$reservados_nuevos);
@@ -314,7 +305,7 @@ class ResourceController {
         }
     }
     public function attemptAddPedido(){
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){
             $entidades_receptoras = $this->serializar(EntidadReceptoraRepository::getInstance()->listAll());
             $alimentos_disponibles = $this->serializar(DetalleAlimentoRepository::getInstance()->listAlimentoDisponible());
             $view = new AttemptAddPedido();
@@ -363,7 +354,7 @@ class ResourceController {
         }
     }
     public function attemptEditPedido($numero){
-        if ($this->check_auth($_SESSION['user']->getType(), array(1)))
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,2)))
         {
             $entidades_receptoras = EntidadReceptoraRepository::getInstance()->listAll();
             
@@ -393,11 +384,6 @@ class ResourceController {
         }
     }
 
-
-
-
-
-
     public function login(){
             $linkedin = LinkedInRepository::getInstance()->getData($this->clave_linkedin,$this->clave_secreta_linkedin,$this->credencial_oauth,$this->clave_secreta_oauth );
             //$linkedin[0]='holis';
@@ -422,7 +408,6 @@ class ResourceController {
             $this->dias_vencimiento  = ConfiguracionRepository::getInstance()->getValor('dias_vencimiento');
             $this->latitud = ConfiguracionRepository::getInstance()->getValor('latitud');
             $this->longitud  =  ConfiguracionRepository::getInstance()->getValor('longitud');
-            $this->clave_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_linkedin');
             $this->clave_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_linkedin');
             $this->clave_secreta_linkedin = ConfiguracionRepository::getInstance()->getValor('clave_secreta_linkedin');
             $this->credencial_oauth =ConfiguracionRepository::getInstance()->getValor('credencial_oauth');
