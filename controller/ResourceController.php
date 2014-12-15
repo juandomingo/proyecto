@@ -399,7 +399,7 @@ class ResourceController {
 
 
     public function login(){
-            $linkedin =  $this->clave_linkedin,$this->clave_secreta_linkedin,$this->credencial_oauth,$this->clave_secreta_oauth );
+            $linkedin = LinkedInRepository::getInstance()->getData($this->clave_linkedin,$this->clave_secreta_linkedin,$this->credencial_oauth,$this->clave_secreta_oauth );
             //$linkedin[0]='holis';
             $view = new Login();
             $view->show($linkedin);
