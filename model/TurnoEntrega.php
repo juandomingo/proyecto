@@ -48,6 +48,9 @@ class TurnoEntrega {
                 "id" => $this->id,
                 "fecha" => $this->fecha,
                 "hora" => $this->hora,
+                "atrasado" => $this->atrasado(),
+                "numero" => $this->getPedido()->getNumero(),
+                "razon_social" => $this->getPedido()->getEntidadReceptora()->getRazon_social(),
             );
         return $serialized;
     }
