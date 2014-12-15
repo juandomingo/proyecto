@@ -25,6 +25,9 @@ class AlimentoDisponible {
         $this->descripcion = $descripcion;
     }
 
+    public function getDetalle_alimento_id() {
+        return $this->detalle_alimento_id;
+    }
 
     public function getCodigo() {
         return $this->codigo;
