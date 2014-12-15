@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of ABMUsuarioList
+ * Description of ABMConfiguracionList
  *
  * @author Tino
  */

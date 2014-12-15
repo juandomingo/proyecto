@@ -279,6 +279,16 @@ class ResourceController {
                     }
                     DetalleAlimentoRepository::getInstance()->actualizarStock($id,$reservados_nuevos);
             }
+            if ($estado = 1){
+                    $alimentos_pedidos = $pedido[0]->getAlimentosPedidos();
+                    foreach ($alimentos_pedidos as $alimento) {
+                         $nuevo_stock = DetalleAlimentoRepository::getInstance()->listAllporID($alimento->getDetalle_alimento_id())[0]->getStock() - $alimento->getCantidad();
+                         $nuevo_reservado = DetalleAlimentoRepository::getInstance()->listAllporID($alimento->getDetalle_alimento_id())[0]->getReservado() - $alimento->getCantidad();
+                         DetalleAlimentoRepository::getInstance()->reducirStock($alimento->getDetalle_alimento_id(),$nuevo_stock);
+                         DetalleAlimentoRepository::getInstance()->actualizarStock($alimento->getDetalle_alimento_id(),$nuevo_reservado);
+                    }
+               
+            }
             $this->listPedidos();
         }
     }

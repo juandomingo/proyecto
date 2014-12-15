@@ -8,9 +8,8 @@
 <p class="headermain inside">Somos una organización sin fines de lucro que tiene como misión la recuperación de alimentos para para generar conciencia ambiental combatiendo el hambre y la desnutrición en el área del Gran La Plata</p>
 
 <p><script type="IN/MemberProfile" data-id="http://www.linkedin.com/in/bdalp" data-related="false" data-format="inline"></script></p>
-<h2> {{ linkedin.firstName }} </h2>
-<p id="linkedin"> {{ linkedin.headline }} </p>
-<img src="{{ linkedin }}" alt= "imagen del banco">
+<h2> {{ linkedin }} </h2>
+
 
 		
 <article id="slider">
@@ -92,12 +91,6 @@
 <h2> {{ linkedin.firstName }} </h2>
 <p id="linkedin"> {{ linkedin.headline }} </p>
 <img src="{{ linkedin }}" alt= "imagen del banco">
-
-      lkin = {{ linkedin }};
-      linkedIn = document.getElementById('linkedIn');
-      linkedIn.innerHTML = '';
-      linkedIn.innerHTML += '<b>Segmento de ruta: ' + lkin.firstName + '</b><br>';
-      linkedIn.innerHTML += lkin.headline + ' hasta ';
 
  </script>
 {% endblock %}

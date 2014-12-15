@@ -105,7 +105,7 @@ class PedidoRepository extends PDORepository {
         };
 
         $answer = $this->queryList(
-                "select numero, entidad_receptora_id, fecha_ingreso, estado_pedido_id, turno_entrega_id, con_envio from pedido where turno_entrega_id = ? and del <> 1;", [$id_pedido], $mapper);
+                "select numero, entidad_receptora_id, fecha_ingreso, estado_pedido_id, turno_entrega_id, con_envio from pedido where turno_entrega_id = ? and del <> 1 and estado_pedido_id = 0;", [$id_pedido], $mapper);
         return $answer;
     }
 

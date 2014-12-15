@@ -92,6 +92,13 @@ class DetalleAlimentoRepository extends PDORepository {
          );
     }
 
+    public function reducirStock($id,$value)
+        {$this->touch("UPDATE `detalle_alimento`
+         SET  `stock` = ?
+         WHERE `detalle_alimento`.`id` = ?;",
+         [$value, $id]
+         );}
+
     public function listAlimentoDisponibleEnMiPedido($id) {
 
         $mapper = function($row) {
