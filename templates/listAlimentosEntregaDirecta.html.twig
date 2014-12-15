@@ -7,8 +7,8 @@ Alimentos para {{ razon_social[0] }} el {{ entregas.fecha }}
   </tr>
   {% for item in alimentos %}
     <tr>
-      <td>{{ item.getAlimento }}</td>
-      <td>{{ item.getCantidad }}</td>
+      <td>{{ item.descripcion }}</td>
+      <td>{{ item.cantidad }}</td>
     </tr>
   {% endfor %}
 

@@ -1,26 +1,26 @@
 {% extends "base.html.twig" %}
 {% block title %}{% endblock %}
 {% block head %}Modificar Usuario{% endblock %}
-{% block loginfo %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 <div class="agregar">
     <form action="" method="get" id="attemptEditUser"  >
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="modUser"/>
-         <input type="hidden" name="id" id="id" size="20" value="{{ usuarios[0] }}"/>
+         <input type="hidden" name="id" id="id" size="20" value="{{ usuarios.id }}"/>
             <div class="form-label"><label for="name">Nombre de Usuario</label></div>
             <div class="form-input">
-              <input type="text" name="name" id="name" size="11" value="{{ usuarios[1] }}" required />
+              <input type="text" name="name" id="name" size="11" value="{{ usuarios.name }}" required />
             </div>
             <div class="clearer"><!-- --></div>
             <div class="form-label"><label for="password">Constraseña</label></div>
             <div class="form-input">
-              <input type="text" name="password" id="password" size="11" value="{{ usuarios[2] }}" required />
+              <input type="text" name="password" id="password" size="11" value="{{ usuarios.password }}" required />
             </div>
             <div class="clearer"><!-- --></div>
             <div class="form-label"><label for="type">Tipo</label></div>
             <div class="form-input">
-              <input type="text" name="type" id="type" size="11" value="{{ usuarios[3] }}" required />
+              <input type="text" name="type" id="type" size="11" value="{{ usuarios.type }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 

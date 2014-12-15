@@ -1,26 +1,26 @@
 {% extends "base.html.twig" %}
 {% block title %}{% endblock %}
 {% block head %}Modificar Configuracion{% endblock %}
-{% block loginfo %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 <div class="agregar">
     <form action="" method="get" id="attemptEditConfiguracion"  >
         <div class="form">
         <input type="hidden" name="action" id="action" size="20" value="modConfiguracion"/>
-         <input type="hidden" name="id" id="id" size="20" value="{{ configuracion[0] }}"/>
+         <input type="hidden" name="id" id="id" size="20" value="{{ configuracion.id }}"/>
             <div class="form-label"><label for="clave">Clave</label></div>
             <div class="form-input">
-              <input type="text" name="clave" id="clave" size="11" value="{{ configuracion[1] }}" required readonly/>
+              <input type="text" name="clave" id="clave" size="11" value="{{ configuracion.clave }}" required readonly/>
             </div>
             <div class="clearer"><!-- --></div>
             <div class="form-label"><label for="valor">Valor</label></div>
             <div class="form-input">
-              <input type="text" name="valor" id="valor" size="11" value="{{ configuracion[2] }}" required />
+              <input type="text" name="valor" id="valor" size="11" value="{{ configuracion.valor }}" required />
             </div>
             <div class="clearer"><!-- --></div>
             <div class="form-label"><label for="nombre">Nombre</label></div>
             <div class="form-input">
-              <input type="text" name="nombre" id="nombre" size="40" value="{{ configuracion[3] }}" required />
+              <input type="text" name="nombre" id="nombre" size="40" value="{{ configuracion.nombre }}" required />
             </div>
             <div class="clearer"><!-- --></div>
             <input type="submit" id="addbtn" value="Modificar" />

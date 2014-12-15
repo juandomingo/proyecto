@@ -22,7 +22,7 @@ class AlimentoDisponible {
         $this->contenido = $contenido;
         $this->actual = $actual;
         $this->disponible = $disponible;
-        $this->detalle_alimento_id = $detalle_alimento_id;
+        $this->descripcion = $descripcion;
     }
 
     public function getDetalle_alimento_id() {
@@ -45,8 +45,8 @@ class AlimentoDisponible {
         return $this->disponible;
     }
 
-    public function getDetalle_alimento_id() {
-        return $this->detalle_alimento_id;
+    public function getDescripcion() {
+        return $this->descripcion;
     }
 
     public function serializar()

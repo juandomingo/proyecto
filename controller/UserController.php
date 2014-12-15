@@ -35,6 +35,14 @@ class UserController {
         }
     }
 
+    private function serializar($objects){
+        $serialized = [];
+        foreach ($objects as $object) {
+            $serialized[] = $object->serializar();
+        }
+        return $serialized;
+    }
+
     public function login($name, $password ){
         ob_start();
         echo "peon";
@@ -82,10 +90,10 @@ class UserController {
     }
     public function attemptEditUser($id){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
-            $users = UserRepository::getInstance()->getUser($id);
+            $user = $this->serializar(UserRepository::getInstance()->getUser($id));
             $view = new AttemptEditUser();
 
-            $view->show([$users->getId(),$users->getName(),$users->getPassword(),$users->getType()]);
+            $view->show($user[0]);
         }
     }
     public function modUser($id,$name,$password,$type){
@@ -97,7 +105,7 @@ class UserController {
 
     public function listUsuarios(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
-            $users = UserRepository::getInstance()->listAll();
+            $users = $this->serializar(UserRepository::getInstance()->listAll());
             $view = new ABMUsuarioList();
             $view->show($users);
         }

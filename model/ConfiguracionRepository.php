@@ -45,7 +45,7 @@ class ConfiguracionRepository extends PDORepository {
         $answer = $this->queryList(
                 "select id, clave, valor, nombre  from configuracion where id = ?;", [$id], $mapper);
         
-        return $answer[0];
+        return $answer;
     }
 
     public function addConfiguracion($clave,$valor,$nombre){

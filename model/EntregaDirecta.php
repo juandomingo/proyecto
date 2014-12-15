@@ -41,6 +41,10 @@ class EntregaDirecta {
                 "id" => $this->id,
                 "entidad_receptora_id" => $this->entidad_receptora_id,
                 "fecha" => $this->fecha,
+                "razon_social" => $this->getEntidadReceptora()[0]->getRazon_social(),
+                "latitud" => $this->getEntidadReceptora()[0]->getLatitud(),
+                "longitud" => $this->getEntidadReceptora()[0]->getLongitud(),
+
             );
         return $serialized;
     }

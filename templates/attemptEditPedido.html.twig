@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %}{% endblock %}
 {% block head %}Modificar Entidad Receptora{% endblock %}
-{% block loginfo %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 <div class="agregar">
     <form action="" method="get" id="modPedido"  >
@@ -82,13 +82,13 @@
              <div class="form-label"><label for="detalles alimentos">Alimentos en pedido</label></div>
             <div class="form-input">
 
+
             {% for item in alimentos %}
-              <input type="checkbox" id="{{ item.id }}"
-                 name="{{ item.detalle_alimento_id }}"
-                 value="{{ item.detalle_alimento_id }}"
-                 checked>
-                 {{ item.descripcion }} por {{ item.cantidad }} unidades
+                {% if not (item.actual == 0 and item.disponible == 0) %}
+                 <input type="text" name="{{item.detalle_alimento_id}}" id="{{item.detalle_alimento_id}}" size="30" value="{{ item.actual }}" required />
+                 {{ item.descripcion }} de {{ item.contenido }}. ({{ item.disponible }} máximo)
                  <br>
+                 {% endif %}
             {% endfor %}
 
             </div>

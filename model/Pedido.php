@@ -85,6 +85,8 @@ class Pedido {
                 "turno_entrega_id" => $this->turno_entrega_id,
                 "con_envio" => $this->con_envio,
                 "envio" => $this->getEnvio(),
+                "latitud" => $this->getEntidadReceptora()->getLatitud(),
+                "longitud" => $this->getEntidadReceptora()->getLongitud(),
             );
         return $serialized;
     }

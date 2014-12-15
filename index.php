@@ -40,10 +40,14 @@ switch ($_GET["action"]) {
 
     case 'addPedido':
         $detalles_alimentos= [];
-				foreach(array_slice($_GET, 5) as $name => $value) {
-					$detalles_alimentos[] = $value;
+        $num = 0;
+		foreach($_GET as $name => $value) {
+            if ((! $value == 0) && ($num > 4)) {
+                $detalles_alimentos[$name] = $value;
 				}
-				ResourceController::getInstance()->addPedido($_GET["entidad"],$_GET["hora"],$_GET["dia"],$_GET["envio"],$detalles_alimentos);
+            $num++;
+            }
+	   ResourceController::getInstance()->addPedido($_GET["entidad"],$_GET["hora"],$_GET["dia"],$_GET["envio"],$detalles_alimentos);
     break;
 
     case 'delPedido':
@@ -51,10 +55,16 @@ switch ($_GET["action"]) {
     break;
 
     case 'modPedido':
+
         $detalles_alimentos= [];
-                foreach(array_slice($_GET, 8) as $name => $value) {
-                    $detalles_alimentos[] = $value;
+        $num = 0;
+        foreach($_GET as $name => $value) {
+            if ((! $value == 0) && ($num > 7)) {
+                $detalles_alimentos[$name] = $value;
                 }
+            $num++;
+            }
+
                 ResourceController::getInstance()->modPedido($_GET["numero"],$_GET["entidad"],$_GET["ingreso"],$_GET["entrega"],$_GET["hora"],$_GET["estado"],$_GET["envio"],$detalles_alimentos);
     break;
 

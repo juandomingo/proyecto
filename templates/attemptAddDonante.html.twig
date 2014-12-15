@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %}{% endblock %}
 {% block head %}Agregar Donante{% endblock %}
-{% block loginfo %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 <div class="agregar">
     <form action="" method="get" id="addDonante"  >

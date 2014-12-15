@@ -25,39 +25,51 @@ class AlimentoPedidoRepository extends PDORepository {
     public function listAll() {
 
         $mapper = function($row) {
-            $alimentoPedido = new AlimentoPedido($row['pedido_numero'], $row['detalle_alimento_id'],$row['cantidad']);
+            $alimentoPedido = new AlimentoPedido($row['id'], $row['pedido_numero'], $row['detalle_alimento_id'],$row['cantidad']);
             return $alimentoPedido;
         };
 
         $answer = $this->queryList(
-                "select pedido_numero, detalle_alimento_id, cantidad from alimento_pedido;", [], $mapper);
+                "select id ,pedido_numero, detalle_alimento_id, cantidad from alimento_pedido;", [], $mapper);
 
         return $answer;
     }
 
-    public function addAlimentoPedido($pedido_numero, $detalle_alimento_id, $cantidad){
+    public function addAlimentoPedido($cantidad, $detalle_alimento_id ,$pedido_numero){
         $this->touch(
-            "INSERT INTO `alimento_pedido` (`pedido_numero`, `detalle_alimento_id`, `cantidad`) VALUES (?, ?, ?);",[$pedido_numero, $detalle_alimento_id, $cantidad]);
+            "INSERT INTO `alimento_pedido` (`id`, `cantidad`, `detalle_alimento_id`, `pedido_numero`) VALUES (?,?, ?, ?);",[null, $cantidad, $detalle_alimento_id ,$pedido_numero]);
     }
 
-    public function delAlimentoPedido($pedido_numero, $detalle_alimento_id, $cantidad){
+    public function delAlimentoPedido($id){
         $this->touch(
-            "DELETE FROM `alimento_pedido` WHERE `alimento_pedido`.`pedido_numero` = ?, `alimento_pedido`.`detalle_alimento_id` = ?, `alimento_pedido`.`cantidad` = ? ;",[$pedido_numero, $detalle_alimento_id, $cantidad]);
+            "DELETE FROM `alimento_pedido` WHERE `id` = ?;",[$id]);
     }
-    public function modAlimentoPedido($codigo,$descripcion){
+    public function modAlimentoPedido($id ,$cantidad, $detalle_alimento_id ,$pedido_numero){
         $this->touch(
-            "UPDATE `alimento` SET `descripcion` = ? WHERE `alimento`.`codigo` = ?;",[$descripcion,$codigo]);
+            "UPDATE `alimento_pedido` SET `cantidad` = ?,`detalle_alimento_id` = ?, `pedido_numero` = ? WHERE `alimento_pedido`.`id` = ?;",[$cantidad, $detalle_alimento_id ,$pedido_numero,$id]);
     }
     
     public function getAlimentosPedido($numero){
         $mapper = function($row) {
-            $alimentoPedido = new AlimentoPedido($row['pedido_numero'], $row['detalle_alimento_id'],$row['cantidad']);
+            $alimentoPedido = new AlimentoPedido($row['id'], $row['pedido_numero'], $row['detalle_alimento_id'],$row['cantidad']);
             return $alimentoPedido;
         };
 
         $answer = $this->queryList(
-                "select pedido_numero, detalle_alimento_id, cantidad from alimento_pedido where pedido_numero = ?;", [$numero], $mapper);
+                "select id, pedido_numero, detalle_alimento_id, cantidad from alimento_pedido where pedido_numero = ?;", [$numero], $mapper);
 
+        return $answer;
+    }
+
+        public function getAlimentosPedidoPorPedidoYDetalle($numero, $detalle_id){
+        $mapper = function($row) {
+            $alimentoPedido = new AlimentoPedido($row['id'],$row['pedido_numero'], $row['detalle_alimento_id'],$row['cantidad']);
+            return $alimentoPedido;
+        };
+
+        $answer = $this->queryList(
+                "SELECT id, pedido_numero, detalle_alimento_id, cantidad FROM `alimento_pedido` WHERE `alimento_pedido`.pedido_numero = ? and `alimento_pedido`.detalle_alimento_id = ?", [$numero,$detalle_id], $mapper);
+                
         return $answer;
     }
 

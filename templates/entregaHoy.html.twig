@@ -32,16 +32,15 @@
     <th>Estado de Pedido</th> 
     <th>Dia y hora</th> 
     <th>Envío</th>
-    <th>Acciones</th>
   </tr>
   {% for item in pedido %}
     <tr>
       <td>{{ item.numero }}</td>
-      <td>{{ item.getEntidadReceptora.razon_social }}</td>
+      <td>{{ item.razon_social }}</td>
       <td>{{ item.fecha_ingreso }}</td>
-      <td>{{ item.getEstado }}</td>
-      <td>{{ item.getTurnoEntrega.fecha }} {{ item.getTurnoEntrega.hora }}</td>
-      <td>{{ item.getEnvio }}</td>
+      <td>{{ item.estado }}</td>
+      <td>{{ item.fecha_entrega }} {{ item.hora_entrega }}</td>
+      <td>{{ item.envio }}</td>
     </tr>
   {% endfor %}
 </table>
@@ -57,7 +56,7 @@
   </tr>
   {% for item in directas %}
     <tr>
-      <td>{{ item.getEntidadReceptora.razon_social }}</td>
+      <td>{{ item.razon_social }}</td>
       <td>{{ item.fecha}}</td>
     </tr>
   {% endfor %}
@@ -127,26 +126,26 @@ function initialize() {
   CentroMarker.setMap(map);
 
   {% for item in pedido %} 
-    var a{{item.getEntidadReceptora.id}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
-    var a{{item.getEntidadReceptora.id}}marker=new google.maps.Marker({
-      position:a{{item.getEntidadReceptora.id}}Center,
+    var a{{item.numero}}Center=new google.maps.LatLng({{item.latitud}}, {{item.longitud}});
+    var a{{item.numero}}marker=new google.maps.Marker({
+      position:a{{item.numero}}Center,
     });
-    a{{item.getEntidadReceptora.id}}marker.setMap(map);
+    a{{item.numero}}marker.setMap(map);
       waypts.pushIfNotExist({
-      location:a{{item.getEntidadReceptora.id}}Center,
+      location:a{{item.numero}}Center,
       stopover:true
     });
   {% endfor %}
 
   {% for item in directas %} 
-    var a{{item.getEntidadReceptora.id}}Center=new google.maps.LatLng({{item.getEntidadReceptora.getLatitud}}, {{item.getEntidadReceptora.getLongitud}});
-    var a{{item.getEntidadReceptora.id}}marker=new google.maps.Marker({
-      position:a{{item.getEntidadReceptora.id}}Center,
+    var a{{item.numero}}Center=new google.maps.LatLng({{item.latitud}}, {{item.longitud}});
+    var a{{item.numero}}marker=new google.maps.Marker({
+      position:a{{item.numero}}Center,
     });
-    a{{item.getEntidadReceptora.id}}marker.setMap(map);
+    a{{item.numero}}marker.setMap(map);
     
     waypts.pushIfNotExist({
-      location:a{{item.getEntidadReceptora.id}}Center,
+      location:a{{item.numero}}Center,
       stopover:true
     });
   {% endfor %}

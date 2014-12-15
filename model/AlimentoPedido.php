@@ -6,12 +6,13 @@
  * @author Tino
  */
 class AlimentoPedido {
-    
+    private $id;
     private $pedido_numero;
     private $detalle_alimento_id;
     private $cantidad;
     
-    public function __construct($pedido_numero, $detalle_alimento_id, $cantidad) {
+    public function __construct($id,$pedido_numero, $detalle_alimento_id, $cantidad) {
+        $this->id = $id;
         $this->pedido_numero = $pedido_numero;
         $this->detalle_alimento_id = $detalle_alimento_id;
         $this->cantidad = $cantidad;
@@ -25,6 +26,10 @@ class AlimentoPedido {
         return $this->detalle_alimento_id;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
     public function getCantidad() {
         return $this->cantidad;
     }
@@ -38,6 +43,7 @@ class AlimentoPedido {
     public function serializar()
     {
         $serialized = array(
+                "id" => $this->id,
                 "pedido_numero" => $this->pedido_numero,
                 "detalle_alimento_id" => $this->detalle_alimento_id,
                 "descripcion" => $this->getDetalleAlimento()->getAlimento()->getDescripcion(),

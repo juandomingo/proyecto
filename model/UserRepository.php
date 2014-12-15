@@ -56,7 +56,7 @@ class UserRepository extends PDORepository {
         $answer = $this->queryList(
                 "select id, name, password, type from user where id = ?;", [$id], $mapper);
         
-        return $answer[0];
+        return $answer;
     }
 
     public function addUser($name,$password,$type){

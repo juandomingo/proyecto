@@ -25,7 +25,7 @@ function latLngPicker(location) {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {% endblock %}
-{% block loginfo %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 <div id="googleMap" style="width:500px;height:380px;"></div>
 <div class="agregar">

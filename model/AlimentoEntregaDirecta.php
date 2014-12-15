@@ -34,8 +34,8 @@ class AlimentoEntregaDirecta {
 
     public function getAlimento() {
         $detalle = DetalleAlimentoRepository::getInstance()->listAllporID($this->detalle_alimento_id);
-        $alimento = AlimentoRepository::getInstance()->listAlimentoPorCodigo($detalle->getAlimento_codigo());
-        return $alimento[0]->getDescripcion();
+        $alimento = AlimentoRepository::getInstance()->listAlimentoPorCodigo($detalle[0]->getAlimento_codigo());
+        return $alimento;
     }
 
     public function serializar()
@@ -44,6 +44,7 @@ class AlimentoEntregaDirecta {
                 "id" => $this->id,
                 "entrega_directa_id" => $this->entrega_directa_id,
                 "detalle_alimento_id" => $this->detalle_alimento_id,
+                "descripcion" => $this->getAlimento()[0]->getDescripcion(),
                 "cantidad" => $this->cantidad,
             );
         return $serialized;

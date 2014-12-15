@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %}{% endblock %}
 {% block head %}Agregar Alimento{% endblock %}
-{% block loginfo %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 <div class="agregar">
     <form action="" method="get" id="addPedido"  >
@@ -42,14 +42,12 @@
             <div class="form-label"><label for="detalle_alimento">Entidad Receptora</label></div>
             <div class="form-input">
 
-            {% for item in detalles_alimentos %}
-              {% if item.stock > 0 %}
-                <input type="checkbox" id="{{ item.id }}"
-                 name="{{ item.id }}"
-                 value="{{ item.id }}">
-                 {{ item.descripcion }} por {{ item.stock }} unidades
+            {% for item in alimentos %}
+                {% if not (item.actual == 0 and item.disponible == 0) %}
+                 <input type="text" name="{{item.detalle_alimento_id}}" id="{{item.detalle_alimento_id}}" size="30" value="{{ item.actual }}" required />
+                 {{ item.descripcion }} de {{ item.contenido }}. ({{ item.disponible }} máximo)
                  <br>
-              {% endif %}
+                 {% endif %}
             {% endfor %}
 
             </div>

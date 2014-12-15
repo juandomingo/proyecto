@@ -82,6 +82,15 @@ class DetalleAlimentoRepository extends PDORepository {
 
         return $answer;
     }
+    public function actualizarStock($id,$value)
+    {
+
+         $this->touch("UPDATE `detalle_alimento`
+         SET  `reservado` = ?
+         WHERE `detalle_alimento`.`id` = ?;",
+         [$value, $id]
+         );
+    }
 
     public function listAlimentoDisponibleEnMiPedido($id) {
 
@@ -108,7 +117,7 @@ class DetalleAlimentoRepository extends PDORepository {
         return $answer;
     }
 
-    public function listAlimentoDisponible($id) {
+    public function listAlimentoDisponible() {
 
         $mapper = function($row) {
             $alimento_disponible = new AlimentoDisponible($row['detalle_alimento_id'], $row['codigo'], $row['descripcion'], $row['contenido'], $row['actual'], $row['disponible']);
@@ -119,7 +128,7 @@ class DetalleAlimentoRepository extends PDORepository {
                 "SELECT `alimento`.codigo as codigo, `alimento`.descripcion as descripcion, `detalle_alimento`.contenido as contenido ,0 as actual,(`detalle_alimento`.stock - `detalle_alimento`.reservado) as disponible, `detalle_alimento`.id as detalle_alimento_id
                 from `detalle_alimento` 
                 inner join alimento
-                on `alimento`.codigo = `detalle_alimento`.alimento_codigo", [$id], $mapper);
+                on `alimento`.codigo = `detalle_alimento`.alimento_codigo", [], $mapper);
                 return $answer;
     }
 }

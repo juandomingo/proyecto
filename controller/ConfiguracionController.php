@@ -21,7 +21,13 @@ class ConfiguracionController {
     private function __construct() {
         
     }
-    
+    private function serializar($objects){
+        $serialized = [];
+        foreach ($objects as $object) {
+            $serialized[] = $object->serializar();
+        }
+        return $serialized;
+    }
     private function check_auth($type_, $arr_){
         
         if (in_array($type_, $arr_))
@@ -51,9 +57,9 @@ class ConfiguracionController {
     }
     public function attemptEditConfiguracion($id){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
-            $configuracion = ConfiguracionRepository::getInstance()->getConfiguracion($id);
+            $configuracion = $this->serializar(ConfiguracionRepository::getInstance()->getConfiguracion($id));
             $view = new AttemptEditConfiguracion();
-            $view->show([$configuracion->getId(),$configuracion->getClave(),$configuracion->getValor(),$configuracion->getNombre()]);
+            $view->show($configuracion[0]);
         }
     }
     public function modConfiguracion($id,$valor,$nombre){
@@ -66,7 +72,7 @@ class ConfiguracionController {
 
     public function listConfiguraciones(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
-            $configuracion = ConfiguracionRepository::getInstance()->listAll();
+            $configuracion = $this->serializar(ConfiguracionRepository::getInstance()->listAll());
             $view = new ABMConfiguracionList();
             $view->show($configuracion);
         }

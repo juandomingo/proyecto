@@ -6,8 +6,8 @@
   </tr>
   {% for item in entregas %}
     <tr>
-      <td>{{ item.getEntidadReceptora.getRazon_social }}</td>
-      <td>{{ item.getFecha }}</td>
+      <td>{{ item.razon_social }}</td>
+      <td>{{ item.fecha }}</td>
       <td><div class="image"><a href="?action=listAlimentosEntregaDirecta&id={{ item.id }}">
         <img src="resources/lupa.png" width="16" height="16" alt="ver alimentos"></a>
       </div></td>

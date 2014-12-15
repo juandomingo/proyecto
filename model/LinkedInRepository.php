@@ -29,27 +29,16 @@ class LinkedInRepository {
         return self::$instance;
     }
 
-    private function getConnection(){
-        $oauth = new OAuth(CLAVE_API, CLAVE_SECRETA);
-        $oauth->setToken(CRECENCIAL_OAUTH, CLAVE_SECRETA_OAUTH);
-        return $oauth;
-    }
-
     public function getData(){
-        $oauth = $this->getConnection();
-        $params = array();
-        $headers = array();
-        $method = OAUTH_HTTP_METHOD_GET;
-        // Specify LinkedIn API endpoint to retrieve your own profile
-        $url = "https://api.linkedin.com/v1/people/~";
-         
-        // By default, the LinkedIn API responses are in XML format. If you prefer JSON, simply specify the format in your call
-        // $url = "https://api.linkedin.com/v1/people/~?format=json";
-         
-        // Make call to LinkedIn to retrieve your own profile
-        $oauth->fetch($url, $params, $method, $headers);
-  
+        // Fill the keys and secrets you retrieved after registering your app
+        $oauth=newOAuth(CLAVE_API,CLAVE_SECRETA);
+        $oauth->setToken(CRECENCIAL_OAUTH,CLAVE_SECRETA_OAUTH);
+        $params=array();
+        $headers=array();
+        $method=OAUTH_HTTP_METHOD_GET;
+        $url="http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url)";
+        // $url = "http://api.linkedin.com/v1/people/~?format=json";
+        $oauth->fetch($url,$params,$method,$headers);
         return $oauth->getLastResponse();
     }
 }
-

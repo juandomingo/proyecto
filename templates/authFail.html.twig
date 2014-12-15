@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %}Error{% endblock %}
 {% block head %}{% endblock %}
-{% block loginfo %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
      <h2 class="allert">Not found</h2>
      <a href='/'>Back</a>
