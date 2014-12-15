@@ -31,7 +31,7 @@ class LinkedInRepository {
 
     public function getData(){
         // Fill the keys and secrets you retrieved after registering your app
-        $oauth=newOAuth(CLAVE_API,CLAVE_SECRETA);
+        $oauth=new OAuth(CLAVE_API,CLAVE_SECRETA);
         $oauth->setToken(CRECENCIAL_OAUTH,CLAVE_SECRETA_OAUTH);
         $params=array();
         $headers=array();
