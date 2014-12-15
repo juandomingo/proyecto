@@ -9,9 +9,9 @@
 
 class Login extends TwigView {
     
-    public function show() {
+    public function show($linkedin) {
         
-        echo self::getTwig()->render('login.html.twig');
+        echo self::getTwig()->render('login.html.twig',array('linkedin' => $linkedin));
         
         
     }

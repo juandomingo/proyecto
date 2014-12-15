@@ -36,7 +36,7 @@ class LinkedInRepository {
         $params=array();
         $headers=array();
         $method=OAUTH_HTTP_METHOD_GET;
-        $url="http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url)";
+        $url="http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url)?format=json";
         // $url = "http://api.linkedin.com/v1/people/~?format=json";
         $oauth->fetch($url,$params,$method,$headers);
         return $oauth->getLastResponse();

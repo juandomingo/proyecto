@@ -46,7 +46,7 @@ class ResourceController {
         }
     }
     public function listAlimentos(){
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,2))){
             $alimentos = AlimentoRepository::getInstance()->listAll();
             $alimentos = $this->serializar($alimentos);
             $view = new ABMAlimentoList();
@@ -101,13 +101,13 @@ class ResourceController {
     {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $view = new ListMap();
-            echo LinkedInRepository::getInstance()->getData();
+            echo  LinkedInRepository::getInstance()->getData();
             $view->show();
         }
     }
     public function listListadosYEstadisticas($dia_inicial, $dia_final)
     {
-        if ($this->check_auth($_SESSION['user']->getType(), array(1))){
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,2))){
             $alimentos_pedidos_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesPedidosEntreDosFechas($dia_inicial, $dia_final);
             $alimentos_por_entidad = EntidadReceptoraRepository::getInstance()->listAlimentosPorEntidadEntre($dia_inicial, $dia_final);
             $alimentos_vencidos_sin_entregar_entre_dos_fechas = AlimentoPedidoRepository::getInstance()->getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inicial, $dia_final);
@@ -397,8 +397,10 @@ class ResourceController {
 
 
     public function login(){
+            $linkedin =  LinkedInRepository::getInstance()->getData();
+            //$linkedin[0]='holis';
             $view = new Login();
-            $view->show();
+            $view->show($linkedin);
     }
     public function home(){
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){     
