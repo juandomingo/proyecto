@@ -167,9 +167,20 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
             $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
             $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
-            foreach ($alimentos as $id => $value ) {
-                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($value, $id ,$pedido_numero);
-                DetalleAlimentoRepository::getInstance()->actualizarStock($id,$value);
+            foreach ($alimentos as $id => $value ) 
+            {
+                if (DetalleAlimentoRepository::getInstance()->hayStock($id,$value))
+                {
+                    AlimentoPedidoRepository::getInstance()->addAlimentoPedido($value, $id ,$pedido_numero);
+                    DetalleAlimentoRepository::getInstance()->actualizarStock($id,$value);
+                }
+                else
+                {
+                    $mensajes = ["no hay stock disponible para realizar el pedido"];
+                    $view = new Error();
+                    $view->show($mensajes);
+                    return;
+                }
             }
             $this->listPedidos();
         }
@@ -256,38 +267,97 @@ class ResourceController {
     public function modPedido($numero_pedido,$id_entidad_receptora,$fecha_ingreso_pedido,$fecha_entrega,$hora_entrega,$estado,$envio,$alimentos){
     #validame       
         if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
+            
             $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero_pedido);
             TurnoEntregaRepository::getInstance()->modTurnoEntrega($pedido[0]->getTurno_entrega_id(), $fecha_entrega, $hora_entrega);
             PedidoRepository::getInstance()->modPedido($numero_pedido,$id_entidad_receptora, $fecha_ingreso_pedido,$estado,$envio);
+            $alimentos_pedidos = $pedido->getAlimentosPedidos();
 
-            foreach ($alimentos as $id => $value ) {       
-                $reservados_viejos = DetalleAlimentoRepository::getInstance()->listAllporID($id)[0]->getReservado();
-                $reservado = AlimentoPedidoRepository::getInstance()->getAlimentosPedidoPorPedidoYDetalle($numero_pedido, $id);
-                $reservados_nuevos = 0;
-                if (!isset($reservado[0]))
+
+            foreach ($alimentos as $id => $value ) 
+            {
+                $detalle_alimento = DetalleAlimentoRepository::listAllporID($id);
+                $cantidad_actual = 0;
+                $pedido_alimento_actual = 0;
+                //obtiene cantidad actual del alimento ingresado, si no existe entonces es 0.
+                foreach ($alimentos_pedidos as $alimento_pedido) {
+                    if ($alimento_pedido->getDetalle_alimento_id() == $id)
                     {
+                        if (!$detalle_alimento->hayStockPara($value))
+                        {
+                            $mensajes = ["no hay stock disponible para realizar el pedido"];
+                            $view = new Error();
+                            $view->show($mensajes);
+                            return;
+                        }
+                    }
+                }
 
-                    $reservados_nuevos = $reservados_viejos + $value;
+
+            foreach ($alimentos as $id => $value ) 
+            {       
+                $detalle_alimento = DetalleAlimentoRepository::listAllporID($id);
+                $cantidad_actual = 0;
+                $pedido_alimento_actual = 0;
+                //obtiene cantidad actual del alimento ingresado, si no existe entonces es 0.
+                foreach ($alimentos_pedidos as $alimento_pedido) {
+                    if ($alimento_pedido->getDetalle_alimento_id() == $id)
+                    {
+                        $cantidad_actual = $alimento_pedido->getCantidad();
+                        $pedido_alimento_actual = $alimento_pedido;
+                        break;
+                    }
+                } 
+                if (($cantidad_actual== 0) && ($value == 0) )
+                {
+                //no hago nada
+                }
+                elseif(($cantidad_actual== 0) && ($detalle_alimento->hayStockPara($value)))
+                {   
                     AlimentoPedidoRepository::getInstance()->addAlimentoPedido($value, $id ,$numero_pedido);
+                    $detalle_alimento->actualizarReserva($value);
+                }
+                elseif(($cantidad_actual== 0) && !($detalle_alimento->hayStockPara($value)))
+                {
+                    $mensajes = ["no hay stock disponible para realizar el pedido"];
+                    $view = new Error();
+                    $view->show($mensajes);
+                    return;
+                }
+                elseif(($cantidad_actual > 0) && ($value == 0))
+                {
+                    AlimentoPedidoRepository::getInstance()->delAlimentoPedido($id);
+                    $detalle_alimento->actualizarReserva(-$pedido_alimento_actual->getCantidad);
+                }
+                elseif(($cantidad_actual > 0) && ($detalle_alimento->hayStockPara($value))))
+                {
+                    if ($cantidad_actual == $value)
+                    {
+                           //nada
                     }
-                else
-                    {   
-
-                        $reservados_nuevos = ($reservados_viejos - $reservado[0]->getCantidad()) + $value;
-
-                        AlimentoPedidoRepository::getInstance()->modAlimentoPedido($reservado[0]->getId(),$value, $id ,$numero_pedido);
+                    else
+                    {
+                        $diferencia = $value - $pedido_alimento_actual->getCantidad(); 
+                        $pedido_alimento_actual->actualizarCantidad($value);
+                        $detalle_alimento->actualizarReserva($diferencia );
                     }
-                    DetalleAlimentoRepository::getInstance()->actualizarStock($id,$reservados_nuevos);
+                }
+                elseif(($cantidad_actual > 0) && !($detalle_alimento->hayStockPara($value)))
+                {
+                    $mensajes = ["no hay stock disponible para realizar el pedido"];
+                    $view = new Error();
+                    $view->show($mensajes);
+                    return;
+                }
             }
-            if ($estado = 1){
-                    $alimentos_pedidos = $pedido[0]->getAlimentosPedidos();
-                    foreach ($alimentos_pedidos as $alimento) {
-                         $nuevo_stock = DetalleAlimentoRepository::getInstance()->listAllporID($alimento->getDetalle_alimento_id())[0]->getStock() - $alimento->getCantidad();
-                         $nuevo_reservado = DetalleAlimentoRepository::getInstance()->listAllporID($alimento->getDetalle_alimento_id())[0]->getReservado() - $alimento->getCantidad();
-                         DetalleAlimentoRepository::getInstance()->reducirStock($alimento->getDetalle_alimento_id(),$nuevo_stock);
-                         DetalleAlimentoRepository::getInstance()->actualizarStock($alimento->getDetalle_alimento_id(),$nuevo_reservado);
-                    }
-               
+            if ($estado == 1){
+                $alimentos_pedidos = $pedido[0]->getAlimentosPedidos();
+                foreach ($alimentos_pedidos as $alimento) {
+                    $nuevo_stock = DetalleAlimentoRepository::getInstance()->listAllporID($alimento->getDetalle_alimento_id())[0]->getStock() - $alimento->getCantidad();
+                    $nuevo_reservado = DetalleAlimentoRepository::getInstance()->listAllporID($alimento->getDetalle_alimento_id())[0]->getReservado() - $alimento->getCantidad();
+                    DetalleAlimentoRepository::getInstance()->reducirStock($alimento->getDetalle_alimento_id(),$nuevo_stock);
+                    DetalleAlimentoRepository::getInstance()->actualizarStock($alimento->getDetalle_alimento_id(),$nuevo_reservado);
+                }        
             }
             $this->listPedidos();
         }

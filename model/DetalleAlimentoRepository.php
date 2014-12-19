@@ -82,7 +82,7 @@ class DetalleAlimentoRepository extends PDORepository {
 
         return $answer;
     }
-    public function actualizarStock($id,$value)
+    public function actualizarReserva($id,$value)
     {
 
          $this->touch("UPDATE `detalle_alimento`
@@ -138,10 +138,15 @@ class DetalleAlimentoRepository extends PDORepository {
                 on `alimento`.codigo = `detalle_alimento`.alimento_codigo", [], $mapper);
                 return $answer;
     }
+
+    public function hayStock($id,$value)
+    {
+        $detalle = $this->listAllporID();
+        $result = $detalle->hayStockPara($value);
+        return $result;
+    }
+
 }
-
-
-
 /*
 SELECT `alimento`.codigo as codigo, `alimento`.descripcion as descripcion, `detalle_alimento`.contenido as contenido ,IFNULL(t2.cantidad,0) as actual ,(`detalle_alimento`.stock - `detalle_alimento`.reservado + IFNULL(t2.cantidad,0)) as disponible, `detalle_alimento`.id as detalle_alimento_id
 from `detalle_alimento` 

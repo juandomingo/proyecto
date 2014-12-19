@@ -3,7 +3,6 @@ require_once('controller/ResourceController.php');
 require_once('controller/UserController.php');
 require_once('controller/ConfiguracionController.php');
 
-
 //We will require  every model class
 require_once('model/PDORepository.php');
 require_once('model/Alimento.php');
@@ -74,3 +73,6 @@ require_once('view/ABMConfiguracion.php');
 require_once('view/AttemptEditConfiguracion.php');
 require_once('view/AttemptAddConfiguracion.php');
 require_once('view/ListReportes.php');
+
+//requires nuevos
+require_once('security/Validator.class.php');

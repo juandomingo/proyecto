@@ -64,10 +64,20 @@ class DetalleAlimento {
         return $this->stock > $this->reservado;
     }
 
+    public function hayStockPara($cantidad)
+    {
+        return $this->stock > ($this->reservado+$cantidad);
+    }
+
     public function getAlimento()
     {
         $alimento = AlimentoRepository::getInstance()->listAlimentoPorCodigo($this->alimento_codigo);
         return $alimento[0];
+    }
+
+    public function actualizarReserva($cantidad)
+    {
+        DetalleAlimentoRepository::getInstance()->actualizarReserva($this->id,$this->getReservado()+$cantidad);
     }
 
     public function serializar()

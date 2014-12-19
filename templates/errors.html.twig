@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block title %}Se produjo un error{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+	<p class='importante'> Se produjeron los siguentes errores</p>
+    {% include 'listErrors.twig' %}
+                       
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
