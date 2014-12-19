@@ -7,14 +7,14 @@
 <h2 class="headermain inside">Lo que hacemos en el banco de alimento</h2>
 <p class="headermain inside">Somos una organización sin fines de lucro que tiene como misión la recuperación de alimentos para para generar conciencia ambiental combatiendo el hambre y la desnutrición en el área del Gran La Plata</p>
 
-<p><script type="IN/MemberProfile" data-id="http://www.linkedin.com/in/bdalp" data-related="false" data-format="inline"></script></p>
-<h2> {{ linkedin }} </h2>
-
+<div class="linkedin">
+<p id="linkedin"></p>
+</div>
 
 		
 <article id="slider">
 		
-	<input hidden checked="" type="radio" name="slider" id="slide1">
+		<input hidden checked="" type="radio" name="slider" id="slide1">
 		<input hidden type="radio" name="slider" id="slide2" selected="true">
 		<input hidden type="radio" name="slider" id="slide3" selected="false">
 		<input hidden type="radio" name="slider" id="slide4" selected="false">
@@ -71,9 +71,9 @@
 			<label for="slide2"></label>
 			<label for="slide3"></label>
 			<label for="slide4"></label>
-			<label for="slide5"></label>
-		
-		</div> 
+			<label for="slide5"></label>	
+</div> 
+
 <div id="active">
 
 			<label for="slide1"></label>
@@ -85,13 +85,19 @@
 </article>
 		
 
-<script type="text/javascript" src="https://platform.linkedin.com/in.js">
-  api_key: 77hmwr84id5v3g
+<script>
 
-<h2> {{ linkedin.firstName }} </h2>
-<p id="linkedin"> {{ linkedin.headline }} </p>
-<img src="{{ linkedin }}" alt= "imagen del banco">
-holis = {{ linkedin }};
- </script>
+$(document).ready(function() {
+ var linkedin = document.getElementById('linkedin');
+ var holis = '{{linkedin[0]|e('js')}}';
+ var alas = JSON.parse(holis);
+ linkedin.innerHTML += '<b>Organización: ' + alas.firstName + alas.lastName +'</b><br>';
+ linkedin.innerHTML += '<b>Nombre de contacto: ' + alas.headline + '</b><br>';
+
+ $('#linkedin').prepend('<img id="theImg" src="'+alas.pictureUrl+'"/>')
+});
+</script>
+
 {% endblock %}
+
 {% block footer %}{{ parent() }}{% endblock %}

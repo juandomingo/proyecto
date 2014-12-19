@@ -14,10 +14,90 @@
   {% endfor %}
 </table>
 #}
- 
+<button id="imprimir"> imprimir </button>
+
 <div id="pedidos" style="min-width: 310px; height: 400px; margin: 0"></div>
 
 <script>
+var headers =[{ text: 'Codigo', style: 'tableHeader' },
+            { text: 'Descripcion', style: 'tableHeader'},
+            { text: 'Cantidad', style: 'tableHeader' }]
+var rows = [headers, {% for item in alimentos_pedidos %}
+[ '{{ item.codigo }}', '{{ item.descripcion }}', '{{ item.cantidad }}' ],
+{% endfor %}]
+
+ var dd = {
+    content: [
+                { text: 'Tables', style: 'header' },
+                'Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.',
+                { text: 'but you can provide a custom styler as well', margin: [0, 20, 0, 8] },
+                                {
+                        style: 'tableExample',
+                        table: {
+                                headerRows: 1,
+                                body: rows
+                        },
+                        layout: {
+                                                        hLineWidth: function(i, node) {
+                                                                return (i === 0 || i === node.table.body.length) ? 2 : 1;
+                                                        },
+                                                        vLineWidth: function(i, node) {
+                                                                return (i === 0 || i === node.table.widths.length) ? 2 : 1;
+                                                        },
+                                                        hLineColor: function(i, node) {
+                                                                return (i === 0 || i === node.table.body.length) ? 'black' : 'gray';
+                                                        },
+                                                        vLineColor: function(i, node) {
+                                                                return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';
+                                                        },
+                                                        // paddingLeft: function(i, node) { return 4; },
+                                                        // paddingRight: function(i, node) { return 4; },
+                                                        // paddingTop: function(i, node) { return 2; },
+                                                        // paddingBottom: function(i, node) { return 2; }
+                        }
+                }
+    ],
+    styles: {
+        header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+        },
+        subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+        },
+        tableExample: {
+            margin: [0, 5, 0, 15]
+        },
+        tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'black'
+        }
+    },
+    defaultStyle: {
+        // alignment: 'justify'
+    }
+    
+}
+
+$( "#imprimir" ).click( function() {
+pdfMake.createPdf(dd).print();});
+
+
+function callback($this){
+    var img = $this.renderer.image('resources/add.png',$this.chartWidth-40,5,40,12); 
+    img.add(); 
+    img.css({'cursor':'pointer'});
+    img.attr({'title':'Pop out chart'});
+    img.on('click',function(){
+              // prcessing after image is clicked
+    });
+
+ }
+
 $(function () {
     $('#pedidos').highcharts({
         chart: {
@@ -29,6 +109,9 @@ $(function () {
         subtitle: {
             text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}'
         },
+        events: {
+          redraw: callback,
+          },
         xAxis: {
             categories: [
                 {% for item in alimentos_pedidos %}
