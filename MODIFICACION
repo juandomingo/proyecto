@@ -1,0 +1,152 @@
+MODIFICACION
+
+
+
+ResourceController ::
+
+
+    public function addPedido($id_entidad_receptora,$hora,$fecha,$envio,$alimentos){
+    #validame       
+        if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
+            $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
+            $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
+            foreach ($alimentos as $id => $value ) 
+            {
+                if (DetalleAlimentoRepository::getInstance()->hayStock($id,$value))
+                {
+                    AlimentoPedidoRepository::getInstance()->addAlimentoPedido($value, $id ,$pedido_numero);
+                    DetalleAlimentoRepository::getInstance()->actualizarStock($id,$value);
+                }
+                else
+                {
+                    $mensajes = ["no hay stock disponible para realizar el pedido"];
+                    $view = new Error();
+                    $view->show($mensajes);
+                    return;
+                }
+            }
+            $this->listPedidos();
+        }
+    }
+
+
+
+detalleAlimento::
+
+    public function hayStockPara($pedido)
+    {
+        return $this->stock > ($this->reservado+$pedido);
+    }
+
+DetalleAlimentoRepository:: 
+    public function hayStock($id,$value)
+    {
+        $detalle = $this->listAllporID();
+        $result = $detalle->hayStockPara($value);
+        return $result;
+    }
+
+Error::
+
+<?php
+
+/**
+ * Description of Error
+ *
+ * @author Tino
+ */
+
+class Error extends TwigView {
+    
+    public function show($errorMessages) {
+        
+        echo self::getTwig()->render('errors.html.twig', array('errors' => $errorMessages));
+        
+    }
+    
+}
+
+errors.html.twig::
+
+{% extends "base.html.twig" %}
+{% block title %}Se produjo un error{% endblock %}
+{% block head %}{% endblock %}
+{% block loginfo %}{{parent()}}{% endblock %}
+{% block content %}
+	<p class='importante'> Se produjeron los siguentes errores</p>
+    {% include 'listErrors.twig' %}
+                       
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
+
+listError.html.twig ::
+
+<table class="tables">
+
+  {% for item in errors %}
+    <tr>
+      <td>{{ item.message }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+
+attemptAddDetalleAlimento.html.twig ::
+---->end
+$(function() {
+$( "#fecha_vencimiento" ).datepicker();
+});
+
+attemptAddDetalleAlimento.html.twig
+
+$(function() {
+$( "#dia" ).datepicker();
+});
+
+attemptEditDetalleAlimento.html.twig::
+$(function() {
+$( "#fecha_vencimiento" ).datepicker();
+});
+
+
+attemptEditPedido.html.twig::
+$(function() {
+$( "#ingreso" ).datepicker();
+});
+
+$(function() {
+$( "#entrega" ).datepicker();
+});
+
+
+
+menu.html.twig::
+
+$(function() {
+$( "#date1" ).datepicker();
+});
+
+$(function() {
+$( "#date2" ).datepicker();
+});
+
+$(function() {
+$( "#date3" ).datepicker();
+});
+
+
+index.php ::
+
+    case 'modPedido':
+
+        $detalles_alimentos= [];
+        $num = 0;
+        foreach($_GET as $name => $value) {
+            if ($num > 7) {
+                $detalles_alimentos[$name] = $value;
+                }
+            $num++;
+            }
+
+                ResourceController::getInstance()->modPedido($_GET["numero"],$_GET["entidad"],$_GET["ingreso"],$_GET["entrega"],$_GET["hora"],$_GET["estado"],$_GET["envio"],$detalles_alimentos);
+    break;

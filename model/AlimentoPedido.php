@@ -40,6 +40,12 @@ class AlimentoPedido {
         return $detalle[0];
     }
 
+    public function actualizarCantidad($cantidad)
+    {
+        AlimentoPedidoRepository::getInstance()->actualizarCantidad($cantidad);
+        $self->cantidad = $cantidad;
+    }
+
     public function serializar()
     {
         $serialized = array(

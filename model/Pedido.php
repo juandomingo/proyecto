@@ -64,6 +64,7 @@ class Pedido {
         $detalles = AlimentoPedidoRepository::getInstance()->getAlimentosPedido($this->numero);
         return $detalles;
     }
+    
     public function getEnvio(){
         if ($this->con_envio == 1)
             {return "Si";}

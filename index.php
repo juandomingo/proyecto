@@ -59,7 +59,7 @@ switch ($_GET["action"]) {
         $detalles_alimentos= [];
         $num = 0;
         foreach($_GET as $name => $value) {
-            if ((! $value == 0) && ($num > 7)) {
+            if ($num > 7) {
                 $detalles_alimentos[$name] = $value;
                 }
             $num++;
