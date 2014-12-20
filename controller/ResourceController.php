@@ -473,7 +473,6 @@ class ResourceController {
             
             $linkedin[0] = LinkedInRepository::getInstance()->getData($this->clave_linkedin,$this->clave_secreta_linkedin,$this->credencial_oauth,$this->clave_secreta_oauth );
             //$linkedin[0]='{ "firstName": "Banco", "headline": "IT dev en Banco Alimentos La Plata", "lastName": "Alimentos", "pictureUrl": "https://media.licdn.com/mpr/mprx/0_OEI5XqeIkIQiWu7sOD4VXBwHXdCiIE7syw0VXBsRR2n-qaZVtuRWEcazobGjeSmn0WdUIredDppS" }';
-            echo $linkedin[0];
             $view = new Login();
             $view->show($linkedin);
     }
