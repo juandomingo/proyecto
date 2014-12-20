@@ -24,7 +24,7 @@
 
             <div class="form-label"><label for="fecha_vencimiento">Fecha de Vencimiento</label></div>
             <div class="form-input">
-              <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" value="{{ selected_array.fecha_vencimiento }}" required />
+              <input type="date" name="fecha_vencimiento" class="datepickr" id="fecha_vencimiento" value="{{ selected_array.fecha_vencimiento }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
@@ -60,6 +60,3 @@
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}
 
-$(function() {
-$( "#fecha_vencimiento" ).datepicker();
-});

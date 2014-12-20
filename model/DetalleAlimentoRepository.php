@@ -141,8 +141,8 @@ class DetalleAlimentoRepository extends PDORepository {
 
     public function hayStock($id,$value)
     {
-        $detalle = $this->listAllporID();
-        $result = $detalle->hayStockPara($value);
+        $detalle = $this->listAllporID($id);
+        $result = $detalle[0]->hayStockPara($value);
         return $result;
     }
 

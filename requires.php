@@ -73,6 +73,7 @@ require_once('view/ABMConfiguracion.php');
 require_once('view/AttemptEditConfiguracion.php');
 require_once('view/AttemptAddConfiguracion.php');
 require_once('view/ListReportes.php');
+require_once('view/Error.php');
 
 //requires nuevos
 require_once('security/Validator.class.php');

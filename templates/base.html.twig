@@ -7,9 +7,16 @@
         <meta charset="UTF-8">
         <link href="view/main.css" rel="stylesheet" type="text/css">
         <link rel="icon" 
-            type="image/png" 
-            href="resources/favicom.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        type="image/png" 
+        href="resources/favicom.png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+    </script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="vendor/modernizr-latest.js"></script>
+    
+    
     <link rel="stylesheet" href="view/menu.css">
 
         <title>{% block title %}{% endblock %} - Banco de Alimentos</title>    
@@ -34,6 +41,27 @@
                 </div>
             </div>
         </div>
+
+
+
+<script>
+$(document).ready(function() {
+  if (!Modernizr.inputtypes.date) 
+  {
+      var currentDate = new Date();
+      $(".datepickr").datepicker({
+        dateFormat: 'yy-mm-dd',
+        maxDate: 100,
+        minDate: 0,
+        changeYear: true 
+      });
+      $(".datepickr").datepicker("setDate", currentDate);
+  }
+});
+</script>
+
+
+
         {% endblock %}
         <div class="content">{% block content %}{% endblock %}</div>
             <div class="footer">

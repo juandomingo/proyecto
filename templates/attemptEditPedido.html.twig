@@ -28,13 +28,13 @@
 
             <div class="form-label"><label for="ingreso">Fecha Pedido</label></div>
             <div class="form-input">
-              <input type="date" name="ingreso" id="ingreso" size="30" value="{{ pedido.fecha_ingreso }}" required />
+              <input type="date" name="ingreso" class="datepickr" id="ingreso" size="30" value="{{ pedido.fecha_ingreso }}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
            <div class="form-label"><label for="descripcion">Fecha de entrega</label></div>
             <div class="form-input">
-              <input type="date" name="entrega" id="entrega" value ="{{ pedido.fecha_entrega}}" required />
+              <input type="date" name="entrega" class="datepickr" id="entrega" value ="{{ pedido.fecha_entrega}}" required />
             </div>
             <div class="clearer"><!-- --></div>
 
@@ -100,11 +100,3 @@
 
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}
-
-$(function() {
-$( "#ingreso" ).datepicker();
-});
-
-$(function() {
-$( "#entrega" ).datepicker();
-});

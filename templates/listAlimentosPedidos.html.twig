@@ -1,4 +1,4 @@
-{#
+
 <table class="tables">
   <tr>
     <th>Codigo</th>
@@ -13,29 +13,29 @@
     </tr>
   {% endfor %}
 </table>
-#}
-<button id="imprimir"> imprimir </button>
+
+<button id="imprimir3"> imprimir </button>
 
 <div id="pedidos" style="min-width: 310px; height: 400px; margin: 0"></div>
 
 <script>
-var headers =[{ text: 'Codigo', style: 'tableHeader' },
+var headers3 =[{ text: 'Codigo', style: 'tableHeader' },
             { text: 'Descripcion', style: 'tableHeader'},
             { text: 'Cantidad', style: 'tableHeader' }]
-var rows = [headers, {% for item in alimentos_pedidos %}
+var rows3 = [headers3, {% for item in alimentos_pedidos %}
 [ '{{ item.codigo }}', '{{ item.descripcion }}', '{{ item.cantidad }}' ],
 {% endfor %}]
 
  var dd = {
     content: [
-                { text: 'Tables', style: 'header' },
-                'Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.',
-                { text: 'but you can provide a custom styler as well', margin: [0, 20, 0, 8] },
+                { text: 'Reporte', style: 'header' },
+                'Listado de Alimentos Pedidos.',
+                { text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}', margin: [0, 20, 0, 8] },
                                 {
                         style: 'tableExample',
                         table: {
                                 headerRows: 1,
-                                body: rows
+                                body: rows3
                         },
                         layout: {
                                                         hLineWidth: function(i, node) {
@@ -83,20 +83,10 @@ var rows = [headers, {% for item in alimentos_pedidos %}
     
 }
 
-$( "#imprimir" ).click( function() {
-pdfMake.createPdf(dd).print();});
+$( "#imprimir3" ).click( function() {
+pdfMake.createPdf(dd3).print();});
 
 
-function callback($this){
-    var img = $this.renderer.image('resources/add.png',$this.chartWidth-40,5,40,12); 
-    img.add(); 
-    img.css({'cursor':'pointer'});
-    img.attr({'title':'Pop out chart'});
-    img.on('click',function(){
-              // prcessing after image is clicked
-    });
-
- }
 
 $(function () {
     $('#pedidos').highcharts({
@@ -109,9 +99,6 @@ $(function () {
         subtitle: {
             text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}'
         },
-        events: {
-          redraw: callback,
-          },
         xAxis: {
             categories: [
                 {% for item in alimentos_pedidos %}

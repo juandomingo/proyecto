@@ -1,4 +1,4 @@
-{#
+
 <table class="tables">
   <tr>
     <th>Codigo</th>
@@ -13,11 +13,78 @@
     </tr>
   {% endfor %}
 </table>
-#}
+<button id="imprimir2"> imprimir </button>
 
 <div id="vencidos" style="min-width: 310px; height: 400px; margin: 0"></div>
 
 <script>
+var headers2 =[{ text: 'Codigo', style: 'tableHeader' },
+            { text: 'Descripcion', style: 'tableHeader'},
+            { text: 'Cantidad', style: 'tableHeader' }]
+var rows2 = [headers2, {% for item in alimentos_vencidos %}
+[ '{{ item.codigo }}', '{{ item.descripcion }}', '{{ item.cantidad }}' ],
+{% endfor %}]
+
+ var dd2 = {
+    content: [
+                { text: 'Reporte', style: 'header' },
+                'Listado de Alimentos vencidos.',
+                { text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}', margin: [0, 20, 0, 8] },
+                                {
+                        style: 'tableExample',
+                        table: {
+                                headerRows: 1,
+                                body: rows2
+                        },
+                        layout: {
+                                                        hLineWidth: function(i, node) {
+                                                                return (i === 0 || i === node.table.body.length) ? 2 : 1;
+                                                        },
+                                                        vLineWidth: function(i, node) {
+                                                                return (i === 0 || i === node.table.widths.length) ? 2 : 1;
+                                                        },
+                                                        hLineColor: function(i, node) {
+                                                                return (i === 0 || i === node.table.body.length) ? 'black' : 'gray';
+                                                        },
+                                                        vLineColor: function(i, node) {
+                                                                return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';
+                                                        },
+                                                        // paddingLeft: function(i, node) { return 4; },
+                                                        // paddingRight: function(i, node) { return 4; },
+                                                        // paddingTop: function(i, node) { return 2; },
+                                                        // paddingBottom: function(i, node) { return 2; }
+                        }
+                }
+    ],
+    styles: {
+        header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+        },
+        subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+        },
+        tableExample: {
+            margin: [0, 5, 0, 15]
+        },
+        tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'black'
+        }
+    },
+    defaultStyle: {
+        // alignment: 'justify'
+    }
+    
+}
+$( "#imprimir2" ).click( function() {
+pdfMake.createPdf(dd2).print();});
+
+
 $(function () {
     $('#vencidos').highcharts({
         chart: {

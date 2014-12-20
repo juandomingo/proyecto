@@ -4,7 +4,7 @@
 {% block loginfo %}{{parent()}}{% endblock %}
 {% block content %}
 	<p class='importante'> Se produjeron los siguentes errores</p>
-    {% include 'listErrors.twig' %}
+    {% include 'listErrors.html.twig' %}
                        
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}

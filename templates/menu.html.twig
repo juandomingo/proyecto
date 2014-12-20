@@ -14,10 +14,10 @@
             <form action="" method="get" style="display: none;" id="reportesForm" hidden>
                 <input type="hidden" name="action" value="listReportes">
                 <div class="form-input">
-                <input type="date" name="fecha_inicial" id="date1" size="15" value="" required />
+                <input type="date" name="fecha_inicial" id="date1" class="datepickr" size="15" value="" required />
                 </div>
                 <div class="form-input">
-                <input type="date" name="fecha_final" size="15"  id="date2" value="" required />
+                <input type="date" name="fecha_final" size="15" class="datepickr" id="date2" value="" required />
                 </div> 
                 <div class="form-input">
                 <input type="submit" id="verbtn" value="Ver" />
@@ -29,7 +29,7 @@
             <form action="" method="get" style="display: none;" id="entregaHoy" hidden>
                 <input type="hidden" name="action" value="entregaHoy">
                 <div class="form-input">
-                <input type="date" name="fecha" size="15"  id="date3" value="" required />
+                <input type="date" name="fecha" size="15" class="datepickr" id="date3" value="" required />
                 </div>
                 {# 
                 <div class="form-input">
@@ -73,15 +73,3 @@
         });
     });
 </script>
-
-$(function() {
-$( "#date1" ).datepicker();
-});
-
-$(function() {
-$( "#date2" ).datepicker();
-});
-
-$(function() {
-$( "#date3" ).datepicker();
-});

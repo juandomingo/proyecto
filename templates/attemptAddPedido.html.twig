@@ -25,7 +25,7 @@
 
             <div class="form-label"><label for="descripcion">Fecha de entrega</label></div>
             <div class="form-input">
-              <input type="date" name="dia" id="dia" required />
+              <input type="date" class="datepickr" name="dia" id="dia" required />
             </div>
             <div class="clearer"><!-- --></div>
 
@@ -62,7 +62,3 @@
 {% block footer %}{{ parent() }}{% endblock %}
 
 {#$id_entidad_receptora,$alimentos,$fecha,$hora,$envio#}
-
-$(function() {
-$( "#dia" ).datepicker();
-});

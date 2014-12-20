@@ -165,22 +165,23 @@ class ResourceController {
     public function addPedido($id_entidad_receptora,$hora,$fecha,$envio,$alimentos){
     #validame       
         if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
+            foreach ($alimentos as $id => $value ) 
+            {
+                if (!DetalleAlimentoRepository::getInstance()->hayStock($id,$value))
+                {
+                    $mensages['message']="no hay stock disponible para realizar el pedido";
+                    $view = new Error();
+                    $view->show($mensages);
+                    return;
+                }
+            }
+
             $turno_id = TurnoEntregaRepository::getInstance()->addTurnoEntrega( $fecha, $hora);
             $pedido_numero = PedidoRepository::getInstance()->createPedido($id_entidad_receptora,$turno_id,$envio);
             foreach ($alimentos as $id => $value ) 
             {
-                if (DetalleAlimentoRepository::getInstance()->hayStock($id,$value))
-                {
-                    AlimentoPedidoRepository::getInstance()->addAlimentoPedido($value, $id ,$pedido_numero);
-                    DetalleAlimentoRepository::getInstance()->actualizarStock($id,$value);
-                }
-                else
-                {
-                    $mensajes = ["no hay stock disponible para realizar el pedido"];
-                    $view = new Error();
-                    $view->show($mensajes);
-                    return;
-                }
+                AlimentoPedidoRepository::getInstance()->addAlimentoPedido($value, $id ,$pedido_numero);
+                DetalleAlimentoRepository::getInstance()->actualizarStock($id,$value);
             }
             $this->listPedidos();
         }
@@ -269,36 +270,40 @@ class ResourceController {
         if ($this->check_auth($_SESSION['user']->getType(), array(1,3))){ 
             
             $pedido = PedidoRepository::getInstance()->listPedidoByNumero($numero_pedido);
-            TurnoEntregaRepository::getInstance()->modTurnoEntrega($pedido[0]->getTurno_entrega_id(), $fecha_entrega, $hora_entrega);
-            PedidoRepository::getInstance()->modPedido($numero_pedido,$id_entidad_receptora, $fecha_ingreso_pedido,$estado,$envio);
-            $alimentos_pedidos = $pedido->getAlimentosPedidos();
-
-
+            $alimentos_pedidos = $pedido[0]->getAlimentosPedidos();
             foreach ($alimentos as $id => $value ) 
             {
-                $detalle_alimento = DetalleAlimentoRepository::listAllporID($id);
+                $detalle_alimento = DetalleAlimentoRepository::getInstance()->listAllporID($id);
                 $cantidad_actual = 0;
                 $pedido_alimento_actual = 0;
                 //obtiene cantidad actual del alimento ingresado, si no existe entonces es 0.
                 foreach ($alimentos_pedidos as $alimento_pedido) {
                     if ($alimento_pedido->getDetalle_alimento_id() == $id)
                     {
-                        if (!$detalle_alimento->hayStockPara($value))
+                        if (!$detalle_alimento->hayStockPara($value-$alimento_pedido->getCantidad()))
                         {
-                            $mensajes = ["no hay stock disponible para realizar el pedido"];
-                            $view = new Error();
+                            $mensages['message']="no hay stock disponible para realizar el pedido";
+                            echo $massages[message];
                             $view->show($mensajes);
                             return;
                         }
                     }
                 }
 
+            }
+
+            TurnoEntregaRepository::getInstance()->modTurnoEntrega($pedido[0]->getTurno_entrega_id(), $fecha_entrega, $hora_entrega);
+            PedidoRepository::getInstance()->modPedido($numero_pedido,$id_entidad_receptora, $fecha_ingreso_pedido,$estado,$envio);
+            
+
+
 
             foreach ($alimentos as $id => $value ) 
             {       
-                $detalle_alimento = DetalleAlimentoRepository::listAllporID($id);
+                $detalle_alimento = DetalleAlimentoRepository::getInstance()->listAllporID($id)[0];
                 $cantidad_actual = 0;
                 $pedido_alimento_actual = 0;
+
                 //obtiene cantidad actual del alimento ingresado, si no existe entonces es 0.
                 foreach ($alimentos_pedidos as $alimento_pedido) {
                     if ($alimento_pedido->getDetalle_alimento_id() == $id)
@@ -319,9 +324,9 @@ class ResourceController {
                 }
                 elseif(($cantidad_actual== 0) && !($detalle_alimento->hayStockPara($value)))
                 {
-                    $mensajes = ["no hay stock disponible para realizar el pedido"];
+                    $mensages['message']="no hay stock disponible para realizar el pedido";
                     $view = new Error();
-                    $view->show($mensajes);
+                    $view->show($mensages);
                     return;
                 }
                 elseif(($cantidad_actual > 0) && ($value == 0))
@@ -329,7 +334,7 @@ class ResourceController {
                     AlimentoPedidoRepository::getInstance()->delAlimentoPedido($id);
                     $detalle_alimento->actualizarReserva(-$pedido_alimento_actual->getCantidad);
                 }
-                elseif(($cantidad_actual > 0) && ($detalle_alimento->hayStockPara($value))))
+                elseif(($cantidad_actual > 0) && ($detalle_alimento->hayStockPara($value)))
                 {
                     if ($cantidad_actual == $value)
                     {
@@ -344,9 +349,9 @@ class ResourceController {
                 }
                 elseif(($cantidad_actual > 0) && !($detalle_alimento->hayStockPara($value)))
                 {
-                    $mensajes = ["no hay stock disponible para realizar el pedido"];
+                    $mensages['message']="no hay stock disponible para realizar el pedido";
                     $view = new Error();
-                    $view->show($mensajes);
+                    $view->show($mensages);
                     return;
                 }
             }
@@ -465,8 +470,8 @@ class ResourceController {
     }
 
     public function login(){
-            //$linkedin = LinkedInRepository::getInstance()->getData($this->clave_linkedin,$this->clave_secreta_linkedin,$this->credencial_oauth,$this->clave_secreta_oauth );
-            $linkedin[0]='{ "firstName": "Banco", "headline": "IT dev en Banco Alimentos La Plata", "lastName": "Alimentos", "pictureUrl": "https://media.licdn.com/mpr/mprx/0_OEI5XqeIkIQiWu7sOD4VXBwHXdCiIE7syw0VXBsRR2n-qaZVtuRWEcazobGjeSmn0WdUIredDppS" }';
+            $linkedin = LinkedInRepository::getInstance()->getData($this->clave_linkedin,$this->clave_secreta_linkedin,$this->credencial_oauth,$this->clave_secreta_oauth );
+            //$linkedin[0]='{ "firstName": "Banco", "headline": "IT dev en Banco Alimentos La Plata", "lastName": "Alimentos", "pictureUrl": "https://media.licdn.com/mpr/mprx/0_OEI5XqeIkIQiWu7sOD4VXBwHXdCiIE7syw0VXBsRR2n-qaZVtuRWEcazobGjeSmn0WdUIredDppS" }';
             $view = new Login();
             $view->show($linkedin);
     }

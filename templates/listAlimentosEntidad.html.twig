@@ -1,23 +1,90 @@
-{#
+
 <table class="tables">
   <tr>
-    <th>id</th>
+
     <th>total_kilos</th> 
     <th>razon_social</th>
   </tr>
   {% for item in alimentos_entidad %}
     <tr>
-      <td>{{ item.id }}</td>
+
       <td>{{ item.total_kilos }}</td>
 	  <td>{{ item.razon_social }}</td>
     </tr>
   {% endfor %}
 </table>
-#}
+<button id="imprimir1"> imprimir </button>
+
 <div id="entidades" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto">
 </div>
 
 <script>
+var headers1 =[{ text: 'total_kilos', style: 'tableHeader' },
+            { text: 'razon_social', style: 'tableHeader'},]
+var rows1 = [headers1, {% for item in alimentos_entidad %}
+[ '{{ item.total_kilos }}', '{{ item.razon_social }}' ],
+{% endfor %}]
+
+ var dd1 = {
+    content: [
+                { text: 'Reporte', style: 'header' },
+                'Listado de Alimentos entregados a Entidades.',
+                { text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}', margin: [0, 20, 0, 8] },
+                                {
+                        style: 'tableExample',
+                        table: {
+                                headerRows: 1,
+                                body: rows1
+                        },
+                        layout: {
+                                                        hLineWidth: function(i, node) {
+                                                                return (i === 0 || i === node.table.body.length) ? 2 : 1;
+                                                        },
+                                                        vLineWidth: function(i, node) {
+                                                                return (i === 0 || i === node.table.widths.length) ? 2 : 1;
+                                                        },
+                                                        hLineColor: function(i, node) {
+                                                                return (i === 0 || i === node.table.body.length) ? 'black' : 'gray';
+                                                        },
+                                                        vLineColor: function(i, node) {
+                                                                return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';
+                                                        },
+                                                        // paddingLeft: function(i, node) { return 4; },
+                                                        // paddingRight: function(i, node) { return 4; },
+                                                        // paddingTop: function(i, node) { return 2; },
+                                                        // paddingBottom: function(i, node) { return 2; }
+                        }
+                }
+    ],
+    styles: {
+        header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+        },
+        subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+        },
+        tableExample: {
+            margin: [0, 5, 0, 15]
+        },
+        tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'black'
+        }
+    },
+    defaultStyle: {
+        // alignment: 'justify'
+    }
+    
+}
+$( "#imprimir1" ).click( function() {
+pdfMake.createPdf(dd1).print();});
+
+
 $(function () {
     $(document).ready(function () {
 
