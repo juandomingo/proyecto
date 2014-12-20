@@ -103,7 +103,6 @@ class ResourceController {
     {
         if ($this->check_auth($_SESSION['user']->getType(), array(1))){
             $view = new ListMap();
-            echo  LinkedInRepository::getInstance()->getData();
             $view->show();
         }
     }

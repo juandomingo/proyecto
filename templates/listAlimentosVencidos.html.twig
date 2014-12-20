@@ -13,7 +13,7 @@
     </tr>
   {% endfor %}
 </table>
-<button id="imprimir2"> imprimir </button>
+<button id="imprimir2"> Generar PDF  </button>
 
 <div id="vencidos" style="min-width: 310px; height: 400px; margin: 0"></div>
 
@@ -82,7 +82,7 @@ var rows2 = [headers2, {% for item in alimentos_vencidos %}
     
 }
 $( "#imprimir2" ).click( function() {
-pdfMake.createPdf(dd2).print();});
+pdfMake.createPdf(dd2).open();});
 
 
 $(function () {
