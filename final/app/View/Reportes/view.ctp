@@ -10,6 +10,6 @@ window.pdfMake = window.pdfMake || {}; window.pdfMake.vfs = {"LICENSE.txt":"DQog
 
 <?php
 echo $this->element('report1');
-//echo $this->element('report2');
-//echo $this->element('report3');
+echo $this->element('report2');
+echo $this->element('report3');
 ?>

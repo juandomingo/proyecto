@@ -5,13 +5,14 @@
     <th>Descripcion</th> 
     <th>Cantidad</th>
   </tr>
-  {% for item in alimentos_pedidos %}
+
+  <?php foreach ($alimentos_pedidos as $item): ?>
     <tr>
-      <td>{{ item.codigo }}</td>
-      <td>{{ item.descripcion }}</td>
-	    <td>{{ item.cantidad }}</td>
+        <td><?php echo $item['alimentos']['id'] ; ?></td>
+        <td><?php echo $item['alimentos']['descripcion'] ; ?></td>
+        <td><?php echo $item[0]['cantidad'] ; ?></td>
     </tr>
-  {% endfor %}
+  <?php endforeach; ?>
 </table>
 
 <button id="imprimir3"> Generar PDF  </button>
@@ -22,15 +23,15 @@
 var headers3 =[{ text: 'Codigo', style: 'tableHeader' },
             { text: 'Descripcion', style: 'tableHeader'},
             { text: 'Cantidad', style: 'tableHeader' }]
-var rows3 = [headers3, {% for item in alimentos_pedidos %}
-[ '{{ item.codigo }}', '{{ item.descripcion }}', '{{ item.cantidad }}' ],
-{% endfor %}]
+var rows3 = [headers3, <?php foreach ($alimentos_vencidos as $item): ?>
+[ <?php echo $item['alimentos']['id'] ; ?>, '<?php echo $item['alimentos']['descripcion'] ; ?>', <?php echo $item[0]['cantidad'] ; ?> ],
+<?php endforeach; ?>]
 
  var dd3 = {
     content: [
                 { text: 'Reporte', style: 'header' },
                 'Listado de Alimentos Pedidos.',
-                { text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}', margin: [0, 20, 0, 8] },
+                { text: 'Período entre'+ '<?php echo $fecha_inicial; ?>'+' y '+'<?php echo $fecha_final; ?>', margin: [0, 20, 0, 8] },
                                 {
                         style: 'tableExample',
                         table: {
@@ -97,14 +98,14 @@ $(function () {
             text: 'Cantidad de alimentos entregados'
         },
         subtitle: {
-            text: 'Período entre {{fecha_inicial[0]}} y {{ fecha_final[0]}}'
+            text: 'Período entre'+ '<?php echo $fecha_inicial; ?>'+' y '+'<?php echo $fecha_final; ?>'
         },
         xAxis: {
             categories: [
-                {% for item in alimentos_pedidos %}
-                  '{{ item.descripcion }}'{% if not loop.last %},{% endif %}
-
-                {% endfor %}
+                                <?php $last_key = end($alimentos_pedidos); ?>
+<?php foreach ($alimentos_pedidos as $item): ?>
+[  '<?php echo $item['alimentos']['descripcion'] ; ?>' ]<?php if ($item !=   $last_key) {echo ',';} ?>
+<?php endforeach; ?>
             ]
         },
         yAxis: {
@@ -130,10 +131,14 @@ $(function () {
         series: [{
             name: 'Kilogramos',
             data: [
-            {% for item in alimentos_pedidos %}
-                  {{ item.cantidad }}{% if not loop.last %},{% endif %}
 
-            {% endfor %}
+<?php $last_key = end($alimentos_pedidos); ?>
+<?php foreach ($alimentos_pedidos as $item): ?>
+[ <?php echo $item['alimentos']['id'] ; ?>, <?php echo $item[0]['cantidad'] ; ?>,'<?php echo $item['alimentos']['descripcion'] ; ?>' ]<?php if ($item !=   $last_key) {echo ',';} ?>
+<?php endforeach; ?>
+
+
+
             ]
 
         }]

@@ -33,44 +33,44 @@ private function  ParseDateTime($dateField) {
     }
 
 
-	private function getAlimentosTotalesPedidosEntreDosFechas($dia_inicial, $dia_final){
-        $db = $this->getDataSource();
-		$db->fetchAll(
-                "SELECT `alimento`.codigo as codigo,`alimento`.descripcion as descripcion, IFNULL(T2.total,0) as cantidad
-                FROM `alimento`
+	private function getAlimentosTotalesPedidosEntreDosFechas($fecha_inicial, $fecha_final){
+        $Alimento = ClassRegistry::init('Alimento');
+        $answer = $Alimento->query(
+                "SELECT `alimentos`.id as id,`alimentos`.descripcion as descripcion, IFNULL(T2.total,0) as cantidad
+                FROM `alimentos`
                 LEFT JOIN (
-                    SELECT `alimento`.codigo as codigo, SUM(`alimento_pedido`.cantidad) as total,`alimento`.descripcion
-                    FROM `turno_entrega`,`pedido`,`alimento_pedido`,`detalle_alimento`,`alimento`
-                    WHERE `alimento_pedido`.pedido_numero = `pedido`.numero 
-                    AND `turno_entrega`.id = `pedido`.turno_entrega_id
-                    AND `alimento_pedido`.detalle_alimento_id = `detalle_alimento`.id
-                    AND `alimento`.codigo = `detalle_alimento`.alimento_codigo
-                    AND `turno_entrega`.fecha BETWEEN ? AND ?
-                    GROUP BY `alimento`.descripcion
+                    SELECT `alimentos`.id as id, SUM(`alimentos_pedidos`.cantidad) as total,`alimentos`.descripcion
+                    FROM `turno_entregas`,`pedidos`,`alimentos_pedidos`,`detalle_alimentos`,`alimentos`
+                    WHERE `alimentos_pedidos`.pedido_id = `pedidos`.id 
+                    AND `turno_entregas`.id = `pedidos`.turno_entrega_id
+                    AND `alimentos_pedidos`.detalle_alimento_id = `detalle_alimentos`.id
+                    AND `alimentos`.id = `detalle_alimentos`.alimento_id
+                    AND `turno_entregas`.fecha BETWEEN ? AND ?
+                    GROUP BY `alimentos`.descripcion
                 ) as T2
-                on `alimento`.codigo = T2.codigo", array($fecha_inicial, $fecha_final));
+                on `alimentos`.id = T2.id", array($fecha_inicial, $fecha_final));
         return $answer;
         }
 
 
 
-private function getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inicial, $dia_final){
-        $db = $this->getDataSource();
-		$db->fetchAll(
-                "SELECT `alimento`.codigo as codigo,`alimento`.descripcion as descripcion, IFNULL(T2.total,0) as cantidad
-                FROM `alimento`
+private function getAlimentosTotalesVencidosSinEntregarEntreDosFechas($fecha_inicial, $fecha_final){
+        $Alimento = ClassRegistry::init('Alimento');
+        $answer = $Alimento->query(
+                "SELECT `alimentos`.id as id,`alimentos`.descripcion as descripcion, IFNULL(T2.total,0) as cantidad
+                FROM `alimentos`
                 LEFT JOIN (
-                    SELECT `alimento`.codigo as codigo, SUM(`alimento_pedido`.cantidad) as total,`alimento`.descripcion
-                    FROM `turno_entrega`,`pedido`,`alimento_pedido`,`detalle_alimento`,`alimento`
-                    WHERE `turno_entrega`.fecha BETWEEN ? AND ?
-                        AND `pedido`.estado_pedido_id = 0
-                        AND `turno_entrega`.id = `pedido`.turno_entrega_id
-                        AND `pedido`.numero = `alimento_pedido`.pedido_numero
-                        AND `alimento_pedido`.detalle_alimento_id = `detalle_alimento`.id
-                        AND `alimento`.codigo = `detalle_alimento`.alimento_codigo
-                    GROUP BY `alimento`.descripcion
+                    SELECT `alimentos`.id as id, SUM(`alimentos_pedidos`.cantidad) as total,`alimentos`.descripcion
+                    FROM `turno_entregas`,`pedidos`,`alimentos_pedidos`,`detalle_alimentos`,`alimentos`
+                    WHERE `turno_entregas`.fecha BETWEEN ? AND ?
+                        AND `pedidos`.estado_pedido_id = 0
+                        AND `turno_entregas`.id = `pedidos`.turno_entrega_id
+                        AND `pedidos`.id = `alimentos_pedidos`.pedido_id
+                        AND `alimentos_pedidos`.detalle_alimento_id = `detalle_alimentos`.id
+                        AND `alimentos`.id = `detalle_alimentos`.alimento_id
+                    GROUP BY `alimentos`.descripcion
                 ) as T2
-                on `alimento`.codigo = T2.codigo", array($fecha_inicial, $fecha_final));
+                on `alimentos`.id = T2.id", array($fecha_inicial, $fecha_final));
 
         return $answer;
         }
@@ -107,8 +107,12 @@ private function getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inici
 		$fecha_inicial = $this->ParseDateTime($this->request->data['reportes']['fecha_inicial']);
 		$fecha_final = $this->ParseDateTime($this->request->data['reportes']['fecha_final']);
 		$alimentos_entidad = $this->listAlimentosPorEntidadEntre($fecha_inicial,$fecha_final);
-		//pr($this->request->data);
+		$alimentos_pedidos = $this->getAlimentosTotalesPedidosEntreDosFechas($fecha_inicial,$fecha_final);
+        $alimentos_vencidos = $this->getAlimentosTotalesVencidosSinEntregarEntreDosFechas($fecha_inicial,$fecha_final);
+        //pr($alimentos_pedidos);
 		//$alimentos_entidad = $this->getAlimentosEntidadReporte();
+        $this->set('alimentos_pedidos', $alimentos_pedidos);
+        $this->set('alimentos_vencidos', $alimentos_vencidos);
 		$this->set('alimentos_entidad', $alimentos_entidad);
         $this->set('fecha_inicial', $fecha_inicial);
         $this->set('fecha_final', $fecha_final);
