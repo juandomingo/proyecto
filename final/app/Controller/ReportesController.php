@@ -8,10 +8,13 @@ App::uses('CakeTime', 'Utility');
  * @property PaginatorComponent $Paginator
  */
 class ReportesController extends AppController {
-	public function beforeFilter(){
-		parent::beforeFilter();
-		$this->Auth->allow('index','view');
-	}
+	public function isAuthorized($user){
+    if(in_array($this->action, array('index','view'))){
+            if ($this->Auth->loggedIn()){
+                return true;
+            }
+        }
+    }
 /**
  * Components
  *

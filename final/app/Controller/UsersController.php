@@ -8,6 +8,11 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 	public function isAuthorized($user){
+		if(in_array($this->action, array('index'))){
+			if ($this->Auth->loggedIn()){
+				return true;
+			}
+		}
 		if($user['group_id'] == 1){
 			return true;
 		}
@@ -20,11 +25,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function beforeFilter(){
-		parent::beforeFilter();
-		$this->Auth->allow('index');
 
-	}
 
 	public function login(){
 		if ($this->request->is('post')){
