@@ -93,7 +93,7 @@ private function getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inici
                 WHERE `alimentos_pedidos`.pedido_id = `pedidos`.id 
                 AND `turno_entregas`.id = `pedidos`.turno_entrega_id
                 AND `alimentos_pedidos`.detalle_alimento_id = `detalle_alimentos`.id
-                AND `alimentos`.codigo = `detalle_alimentos`.alimento_id
+                AND `alimentos`.id = `detalle_alimentos`.alimento_id
                 AND `turno_entregas`.fecha BETWEEN ? AND ?
                 GROUP BY `pedidos`.entidad_receptora_id
                 ) AS t2
