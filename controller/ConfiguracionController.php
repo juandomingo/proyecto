@@ -3,7 +3,7 @@
 /**
  * Description of ConfiguracionController
  *
- * @author Tino
+ * @author Tinoa
  */
 class ConfiguracionController {
     
