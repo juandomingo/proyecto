@@ -26,6 +26,7 @@ class LinkedInRepository {
     }
 
     public function getData($clave_linkedin,$clave_secreta, $credencial_oauth,$clave_secreta_oauth ){
+        /*
         // Fill the keys and secrets you retrieved after registering your app
         $oauth=new OAuth($clave_linkedin,$clave_secreta);
         $oauth->setToken($credencial_oauth,$clave_secreta_oauth);
@@ -35,6 +36,7 @@ class LinkedInRepository {
         $url="http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url)?format=json";
         // $url = "http://api.linkedin.com/v1/people/~?format=json";
         $oauth->fetch($url,$params,$method,$headers);
-        return $oauth->getLastResponse();
+        */
+        return 'holis';
     }
 }
