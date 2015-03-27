@@ -38,25 +38,30 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1>Banco de Alimento La Plata</h1>
 		</div>
 		<div id="content">
 			<div style="text-align: left;">
+				<h2>
 				<?php if ($logged_in){
-					echo $this->Html->link('Users',array('controller'=>'users','action'=>'index'));
+					echo $this->Html->link('Usuario',array('controller'=>'users','action'=>'index'));
 					echo '°';
-					echo $this->Html->link('Reports',array('controller'=>'reportes','action'=>'index'));
+					echo $this->Html->link('Reportes',array('controller'=>'reportes','action'=>'index'));
 				}
 				?>
+				</h2>
 			</div>
 
 			<div style="text-align: right;">
+				<h2>
 				<?php if ($logged_in): ?>
 					Hola <?php echo $current_user['username']; ?> .
 					<?php echo $this->Html->link('Logout',array('controller'=>'users','action'=>'logout')) ?>
 				<?php else: ?>
 					<?php echo $this->Html->link('Login',array('controller'=>'users','action'=>'login')) ?>
+
 				<?php endif; ?>
+				</h2>
 			</div>
 			<?php echo $this->Session->flash(); ?>
 			<?php echo $this->Session->flash('auth'); ?>
@@ -74,6 +79,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</p>
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php //echo $this->element('sql_dump'); ?>
 </body>
 </html>

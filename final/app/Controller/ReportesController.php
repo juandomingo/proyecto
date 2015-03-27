@@ -104,20 +104,25 @@ private function getAlimentosTotalesVencidosSinEntregarEntreDosFechas($fecha_ini
     }
 
 	public function view() {
-		$fecha_inicial = $this->ParseDateTime($this->request->data['reportes']['fecha_inicial']);
-		$fecha_final = $this->ParseDateTime($this->request->data['reportes']['fecha_final']);
-		$alimentos_entidad = $this->listAlimentosPorEntidadEntre($fecha_inicial,$fecha_final);
-		$alimentos_pedidos = $this->getAlimentosTotalesPedidosEntreDosFechas($fecha_inicial,$fecha_final);
-        $alimentos_vencidos = $this->getAlimentosTotalesVencidosSinEntregarEntreDosFechas($fecha_inicial,$fecha_final);
-        //pr($alimentos_pedidos);
-		//$alimentos_entidad = $this->getAlimentosEntidadReporte();
-        $this->set('alimentos_pedidos', $alimentos_pedidos);
-        $this->set('alimentos_vencidos', $alimentos_vencidos);
-		$this->set('alimentos_entidad', $alimentos_entidad);
-        $this->set('fecha_inicial', $fecha_inicial);
-        $this->set('fecha_final', $fecha_final);
-	}
-
+        if ($this->request->is(array('post', 'put'))) {
+    		$fecha_inicial = $this->ParseDateTime($this->request->data['reportes']['fecha_inicial']);
+    		$fecha_final = $this->ParseDateTime($this->request->data['reportes']['fecha_final']);
+    		$alimentos_entidad = $this->listAlimentosPorEntidadEntre($fecha_inicial,$fecha_final);
+    		$alimentos_pedidos = $this->getAlimentosTotalesPedidosEntreDosFechas($fecha_inicial,$fecha_final);
+            $alimentos_vencidos = $this->getAlimentosTotalesVencidosSinEntregarEntreDosFechas($fecha_inicial,$fecha_final);
+            //pr($alimentos_pedidos);
+    		//$alimentos_entidad = $this->getAlimentosEntidadReporte();
+            $this->set('alimentos_pedidos', $alimentos_pedidos);
+            $this->set('alimentos_vencidos', $alimentos_vencidos);
+    		$this->set('alimentos_entidad', $alimentos_entidad);
+            $this->set('fecha_inicial', $fecha_inicial);
+            $this->set('fecha_final', $fecha_final);
+        }else{
+            $this->Session->setFlash(__('Por favor ingrese las fechas a consultar'));
+            return $this->redirect(array('action' => 'index'));
+        }
+    }
+        
 	public function index(){
 	}
 

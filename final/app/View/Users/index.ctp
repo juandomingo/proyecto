@@ -36,8 +36,9 @@
 	</tbody>
 	</table>
 	<p>
-	<?php
-	echo $this->Paginator->counter(array(
+	
+	<?php if ($current_user['group_id'] == 1): ?>
+	<?php echo $this->Paginator->counter(array(
 		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
 	));
 	?>	</p>
@@ -47,15 +48,18 @@
 		echo $this->Paginator->numbers(array('separator' => ''));
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
+	<?php endif; ?>
 	</div>
 </div>
+<?php if ($current_user['group_id'] == 1): ?>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<?php if ($current_user['group_id'] == 1): ?>
+		
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Groups'), array('controller' => 'groups', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Group'), array('controller' => 'groups', 'action' => 'add')); ?> </li>
-		<?php endif; ?>
+		
 	</ul>
 </div>
+<?php endif; ?>
