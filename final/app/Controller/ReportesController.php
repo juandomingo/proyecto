@@ -110,6 +110,8 @@ private function getAlimentosTotalesVencidosSinEntregarEntreDosFechas($dia_inici
 		//pr($this->request->data);
 		//$alimentos_entidad = $this->getAlimentosEntidadReporte();
 		$this->set('alimentos_entidad', $alimentos_entidad);
+        $this->set('fecha_inicial', $fecha_inicial);
+        $this->set('fecha_final', $fecha_final);
 	}
 
 	public function index(){

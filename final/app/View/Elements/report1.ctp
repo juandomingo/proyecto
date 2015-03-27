@@ -8,7 +8,7 @@
   <?php foreach ($alimentos_entidad as $item): ?>
     <tr>
       <td><?php echo $item[0]['total_kilos'] ; ?></td>
-	  <td><?php echo $item['entidad_receptoras']['razon_social'] ; ?></td>
+      <td><?php echo $item['entidad_receptoras']['razon_social'] ; ?></td>
     </tr>
   <?php endforeach; ?>
 </table>
@@ -22,14 +22,17 @@ var headers1 =[{ text: 'total_kilos', style: 'tableHeader' },
             { text: 'razon_social', style: 'tableHeader'},]
 var rows1 = [headers1,
  <?php foreach ($alimentos_entidad as $item): ?>
-[ <?php echo $item['total_kilos'] ; ?>, <?php echo $item['razon_social'] ; ?> ],
-<?php endforeach; ?>
+    [ 
+    '<?php echo $item[0]['total_kilos']; ?>'
+    , 
+    '<?php echo $item['entidad_receptoras']['razon_social'] ; ?>' ],
+<?php endforeach; ?>]
 
  var dd1 = {
     content: [
                 { text: 'Reporte', style: 'header' },
                 'Listado de Alimentos entregados a Entidades.',
-                { text: <?php echo 'Período entre'. $fecha_inicial.' y '. $fecha_final ;  ?>,
+                { text: 'Período entre'+ '<?php echo $fecha_inicial; ?>'+' y '+'<?php echo $fecha_final; ?>',
                  margin: [0, 20, 0, 8] },
                                 {
                         style: 'tableExample',
@@ -100,7 +103,7 @@ $(function () {
                 text: 'Kilogramos de alimentos entregados a cada Entidad'
             },
             subtitle: {
-            text: <?php echo 'Período entre'. $fecha_inicial.' y '. $fecha_final ; ?>
+            text: '<?php echo 'Período entre '. $fecha_inicial.' y '. $fecha_final ; ?>'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f} %</b>'
@@ -122,9 +125,9 @@ $(function () {
                 data: [
 
 
-<?php $last_key = end(array_keys($alimentos_entidad));?>
+<?php $last_key = end($alimentos_entidad); ?>
 <?php foreach ($alimentos_entidad as $item): ?>
-    [ <?php echo $item['razon_social'] ; ?>, <?php echo $item['total_kilos'] ; ?> ] <?php if ($item !=   $last_key) {echo ',';} ?>
+    [ '<?php echo $item['entidad_receptoras']['razon_social'] ; ?>', <?php echo $item[0]['total_kilos'] ; ?> ] <?php if ($item !=   $last_key) {echo ',';} ?>
 <?php endforeach; ?>
 
 
