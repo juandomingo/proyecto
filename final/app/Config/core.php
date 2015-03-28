@@ -113,7 +113,7 @@
  * will override the automatic detection of full base URL and can be
  * useful when generating links from the CLI (e.g. sending emails)
  */
-	Configure::write('App.fullBaseUrl', 'https://grupo_38.proyecto2014.linti.unlp.edu.ar/final/');
+	Configure::write('App.fullBaseUrl', 'https://grupo_38.proyecto2014.linti.unlp.edu.ar/final/index.php');
 
 /**
  * Web path to the public images directory under webroot.
