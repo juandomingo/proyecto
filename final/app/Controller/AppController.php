@@ -34,10 +34,10 @@ class AppController extends Controller {
 	public $components = array(
 		'Session',
 		'Auth' => array(
-			'loginRedirect'=>array('controller' => 'pages', 'action' => 'display', 'home'),
-			'logoutRedirect'=>array('controller' => 'pages', 'action' => 'display', 'home'),
+			'loginRedirect'=>array(''),
+			'logoutRedirect'=>array(''),
 			'authError'=>'No se tiene los permisos para acceder al recurso o el mismo no existe',
-			'unauthorizedRedirect'=>array('controller' => 'pages', 'action' => 'display', 'home'),
+			'unauthorizedRedirect'=>array(''),
 			'authorize'=>array('Controller')
 		)
 	);

@@ -5,7 +5,12 @@ necesita tener permisos de escritura.
 muchas gracias,
 Agustín
 
+logeense con 
 
+usuario:admin
+password:admin
+
+hay un problema de redirección que no puse solucional, cuando se logeen y deslogueen hay que modificar la url para que quede /index.php
 
 ------------------------------------------------------------------------------------
 
