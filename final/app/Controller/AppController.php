@@ -45,7 +45,7 @@ class AppController extends Controller {
 	public function isAuthorized($user){
 		return false;
 	}
-
+//
 	public function beforeFilter(){
 		$this->Auth->autoRedirect = false;
 		$this->Auth->allow('home','login','logout');

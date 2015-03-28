@@ -2,13 +2,15 @@
 #################################################
 
 /app/tmp
+=======
+
 /lib/Cake/Console/Templates/skel/tmp/
 /plugins
 /vendors
 /build
 /dist
 /tags
-*.mo
+.mo
 
 # IDE and editor specific files #
 #################################
