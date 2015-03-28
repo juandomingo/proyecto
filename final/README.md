@@ -1,16 +1,18 @@
-mi trabajo final requiere que cierta carpeta tenga permisos de escritura.
-La carpeta en particular es : /home/gitlab/gitlab-satellites/ayudantes/grupo_38/final/app/tmp
-necesita tener permisos de escritura.
-
-muchas gracias,
-Agustín
-
 logeense con 
 
 usuario:admin
 password:admin
 
-hay un problema de redirección que no puse solucional, cuando se logeen y deslogueen hay que modificar la url para que quede /index.php
+para crear usuarios, ver los reportes etc. 
+
+!!!ATENCIÓN : deben activar "permitir secuencias de comando de sitios no autorizados" pára poder ver los gráficos de highchart. El problema surge porque hightcharts usa http para las librerías y el cliente se queja por el servidor estar sobre https.
+
+
+---solucionado :::: mi trabajo final requiere que cierta carpeta tenga permisos de escritura.
+La carpeta en particular es : /home/gitlab/gitlab-satellites/ayudantes/grupo_38/final/app/tmp
+necesita tener permisos de escritura.
+
+---solucionado :::: hay un problema de redirección que no puse solucional, cuando se logeen y deslogueen hay que modificar la url para que quede /index.php
 
 ------------------------------------------------------------------------------------
 
