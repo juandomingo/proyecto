@@ -5,6 +5,7 @@ password:admin
 
 para crear usuarios, ver los reportes etc. 
 
+!!!ATENCIÓN : si la sitio no carga la url debería ser ./final/index.php
 !!!ATENCIÓN : deben activar "permitir secuencias de comando de sitios no autorizados" pára poder ver los gráficos de highchart. El problema surge porque hightcharts usa http para las librerías y el cliente se queja por el servidor estar sobre https.
 
 

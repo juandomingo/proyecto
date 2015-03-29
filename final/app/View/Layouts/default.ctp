@@ -43,12 +43,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div id="content">
 			<div style="text-align: left;">
 				<h2>
-				<?php if ($logged_in){
-					echo $this->Html->link('Usuario',array('controller'=>'users','action'=>'index'));
-					echo '°';
-					echo $this->Html->link('Reportes',array('controller'=>'reportes','action'=>'index'));
-				}
-				?>
+				<?php echo $this->element('menu'); ?>
 				</h2>
 			</div>
 
